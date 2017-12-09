@@ -98,7 +98,7 @@
 </li>
 <li><p>全局日志配置 log4j.rootLogger<br> 这个是用来定义日志全局的输出级别以及输出的目的地，这里我定义的是log4j.rootLogger=info, console, infofile, errorfile,这里定义了全局输出的日志为INFO级别，也就是说能输出的日志级别一定不低于INFO级别，即DEBUG级别的日志将不会输出，输出到哪呢?输出到紧接其后定义的目的地 console, infofile, errorfile，这个3个目的地可以随意命名，在每个目的地中可以具体细化日志的配置，即他们可以再次对日志的级别进行过滤，对日志输出格式进行细化，对日志输出端类型进行指定。</p>
 </li>
-<li><p>指定日志输出目的地中输出端 log4j.appender.目的地名称<br> 就是配置输出到这个目的地的日志，他是在控制台中输出，还是以文件的形式输出，如果以文件的形式输出，那么其文件产生时机是什么时候</p>
+<li><p>指定日志输出目的地中输出端 log4j.appender.目的地名称<br> 就是配置输出到这个目的地的日志，他是在控制台中输出，还是以文件的形式输出，如果以文件的形式输出，那么其文件产生时机是什么时候，目的地有如下几种配置:</p>
 <blockquote>
 <p>org.apache.log4j.ConsoleAppender（控制台）<br> org.apache.log4j.FileAppender（文件）<br> org.apache.log4j.DailyRollingFileAppender（每天产生一个日志文件）<br> org.apache.log4j.RollingFileAppender（文件大小到达指定尺寸的时候产生一个新的文件）<br> org.apache.log4j.WriterAppender（将日志信息以流格式发送到任意指定的地方）  </p>
 </blockquote>
@@ -190,7 +190,7 @@
       <a data-url="http://yoursite.com/2017/10/20/Activemq的安装及启动/" data-id="cjazghix40001m0az7ehbse5c" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/中间件-ActiveMQ/">-中间件 -ActiveMQ</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ActiveMQ/">ActiveMQ</a></li></ul>
 
     </footer>
   </div>
@@ -256,7 +256,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/中间件-ActiveMQ/">-中间件 -ActiveMQ</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/日志/">-日志</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/日志/">-日志</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ActiveMQ/">ActiveMQ</a></li></ul>
     </div>
   </div>
 
@@ -266,7 +266,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/中间件-ActiveMQ/" style="font-size: 10px;">-中间件 -ActiveMQ</a> <a href="/tags/日志/" style="font-size: 10px;">-日志</a>
+      <a href="/tags/日志/" style="font-size: 10px;">-日志</a> <a href="/tags/ActiveMQ/" style="font-size: 10px;">ActiveMQ</a>
     </div>
   </div>
 
