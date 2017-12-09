@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="1. 配置效果下面的log4j日志配置最终能达到的效果是对于全局日志可以根据级别输入到对应级别的日志文件中，注意低级别的日志文件会同时包含高级别的日志信息，例如info级别的日志文件会包含info，warn，error信息，对于一些重要的模块，可以单独输出到独立的文件夹文件中，同时对单独模块也可以像全局日志那样根据日志级别输入到对应文件中 也可以配置该模块日志信息是否同时输入到全局日志中 2. 样">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2017-12-09T15:14:16.467Z">
+<meta property="og:updated_time" content="2017-12-09T15:18:43.302Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="log4jj使用">
 <meta name="twitter:description" content="1. 配置效果下面的log4j日志配置最终能达到的效果是对于全局日志可以根据级别输入到对应级别的日志文件中，注意低级别的日志文件会同时包含高级别的日志信息，例如info级别的日志文件会包含info，warn，error信息，对于一些重要的模块，可以单独输出到独立的文件夹文件中，同时对单独模块也可以像全局日志那样根据日志级别输入到对应文件中 也可以配置该模块日志信息是否同时输入到全局日志中 2. 样">
@@ -100,7 +100,7 @@
 </li>
 <li><p>指定日志输出目的地中输出端 log4j.appender.目的地名称<br> 就是配置输出到这个目的地的日志，他是在控制台中输出，还是以文件的形式输出，如果以文件的形式输出，那么其文件产生时机是什么时候，目的地有如下几种配置:</p>
 <blockquote>
-<p>org.apache.log4j.ConsoleAppender（控制台）<br> org.apache.log4j.FileAppender（文件）<br> org.apache.log4j.DailyRollingFileAppender（每天产生一个日志文件）<br> org.apache.log4j.RollingFileAppender（文件大小到达指定尺寸的时候产生一个新的文件）<br> org.apache.log4j.WriterAppender（将日志信息以流格式发送到任意指定的地方）  </p>
+<p>org.apache.log4j.ConsoleAppender（控制台）<br>org.apache.log4j.FileAppender（文件）<br>org.apache.log4j.DailyRollingFileAppender（每天产生一个日志文件）<br>org.apache.log4j.RollingFileAppender（文件大小到达指定尺寸的时候产生一个新的文件）<br>org.apache.log4j.WriterAppender（将日志信息以流格式发送到任意指定的地方）  </p>
 </blockquote>
 </li>
 <li><p>指定日志输出目的地中日志输出级别 log4j.appender.interceptor.Threshold<br>通过该属性可以指定目的地中日志输出的级别，相当于对全局配置的日志级别再次做一次过滤</p>
