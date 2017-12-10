@@ -84,14 +84,14 @@
 <meta name="description" content="1. 配置效果下面的log4j日志配置最终能达到的效果是对于全局日志可以根据级别输入到对应级别的日志文件中，注意低级别的日志文件会同时包含高级别的日志信息，例如info级别的日志文件会包含info，warn，error信息，对于一些重要的模块，可以单独输出到独立的文件夹文件中，同时对单独模块也可以像全局日志那样根据日志级别输入到对应文件中 也可以配置该模块日志信息是否同时输入到全局日志中">
 <meta name="keywords" content="日志,log4j">
 <meta property="og:type" content="article">
-<meta property="og:title" content="log4jj使用">
+<meta property="og:title" content="log4j使用">
 <meta property="og:url" content="https://yangshaoxiang.github.io/2017/12/09/log4jj使用/index.html">
 <meta property="og:site_name" content="shaoxiang博客">
 <meta property="og:description" content="1. 配置效果下面的log4j日志配置最终能达到的效果是对于全局日志可以根据级别输入到对应级别的日志文件中，注意低级别的日志文件会同时包含高级别的日志信息，例如info级别的日志文件会包含info，warn，error信息，对于一些重要的模块，可以单独输出到独立的文件夹文件中，同时对单独模块也可以像全局日志那样根据日志级别输入到对应文件中 也可以配置该模块日志信息是否同时输入到全局日志中">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-12-10T07:23:15.484Z">
+<meta property="og:updated_time" content="2017-12-10T14:46:11.191Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="log4jj使用">
+<meta name="twitter:title" content="log4j使用">
 <meta name="twitter:description" content="1. 配置效果下面的log4j日志配置最终能达到的效果是对于全局日志可以根据级别输入到对应级别的日志文件中，注意低级别的日志文件会同时包含高级别的日志信息，例如info级别的日志文件会包含info，warn，error信息，对于一些重要的模块，可以单独输出到独立的文件夹文件中，同时对单独模块也可以像全局日志那样根据日志级别输入到对应文件中 也可以配置该模块日志信息是否同时输入到全局日志中">
 
 
@@ -128,7 +128,7 @@
 
 
 
-  <title>log4jj使用 | shaoxiang博客</title>
+  <title>log4j使用 | shaoxiang博客</title>
   
 
 
@@ -316,7 +316,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">log4jj使用</h1>
+          <h1 class="post-title" itemprop="name headline">log4j使用</h1>
         
 
         <div class="post-meta">
@@ -481,7 +481,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://yangshaoxiang.github.io/2017/12/09/log4jj使用/" title="log4jj使用">https://yangshaoxiang.github.io/2017/12/09/log4jj使用/</a>
+    <a href="https://yangshaoxiang.github.io/2017/12/09/log4jj使用/" title="log4j使用">https://yangshaoxiang.github.io/2017/12/09/log4jj使用/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -551,8 +551,7 @@
   
     <div class="comments" id="comments">
       
-        <div onclick="showGitment()" id="gitment-display-button">显示 Gitment 评论</div>
-        <div id="gitment-container" style="display:none"></div>
+        <div id="gitment-container"></div>
       
     </div>
 
@@ -898,7 +897,7 @@
         var gitment = new Gitmint({
             id: window.location.pathname, 
             owner: '32723840',
-            repo: 'bolgIssues',
+            repo: 'yangshaoxiang/bolgIssues',
             
             lang: "zh-Hans" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
             
@@ -913,11 +912,7 @@
       }
 
       
-      function showGitment(){
-        document.getElementById("gitment-display-button").style.display = "none";
-        document.getElementById("gitment-container").style.display = "block";
-        renderGitment();
-      }
+      renderGitment();
       
       </script>
     
