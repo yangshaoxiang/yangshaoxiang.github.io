@@ -5,9 +5,9 @@
   <subtitle>我的博客</subtitle>
   <link href="/atom.xml" rel="self"/>
   
-  <link href="http://yoursite.com/"/>
+  <link href="https://yangshaoxiang.github.io/"/>
   <updated>2017-12-10T07:23:15.484Z</updated>
-  <id>http://yoursite.com/</id>
+  <id>https://yangshaoxiang.github.io/</id>
   
   <author>
     <name>yangshaoxiang</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>log4jj使用</title>
-    <link href="http://yoursite.com/2017/12/09/log4jj%E4%BD%BF%E7%94%A8/"/>
-    <id>http://yoursite.com/2017/12/09/log4jj使用/</id>
+    <link href="https://yangshaoxiang.github.io/2017/12/09/log4jj%E4%BD%BF%E7%94%A8/"/>
+    <id>https://yangshaoxiang.github.io/2017/12/09/log4jj使用/</id>
     <published>2017-12-09T14:44:21.000Z</published>
     <updated>2017-12-10T07:23:15.484Z</updated>
     
@@ -31,19 +31,19 @@
     
     </summary>
     
-      <category term="java" scheme="http://yoursite.com/categories/java/"/>
+      <category term="java" scheme="https://yangshaoxiang.github.io/categories/java/"/>
     
     
-      <category term="日志" scheme="http://yoursite.com/tags/%E6%97%A5%E5%BF%97/"/>
+      <category term="日志" scheme="https://yangshaoxiang.github.io/tags/%E6%97%A5%E5%BF%97/"/>
     
-      <category term="log4j" scheme="http://yoursite.com/tags/log4j/"/>
+      <category term="log4j" scheme="https://yangshaoxiang.github.io/tags/log4j/"/>
     
   </entry>
   
   <entry>
     <title>Activemq的安装及启动</title>
-    <link href="http://yoursite.com/2017/10/20/Activemq%E7%9A%84%E5%AE%89%E8%A3%85%E5%8F%8A%E5%90%AF%E5%8A%A8/"/>
-    <id>http://yoursite.com/2017/10/20/Activemq的安装及启动/</id>
+    <link href="https://yangshaoxiang.github.io/2017/10/20/Activemq%E7%9A%84%E5%AE%89%E8%A3%85%E5%8F%8A%E5%90%AF%E5%8A%A8/"/>
+    <id>https://yangshaoxiang.github.io/2017/10/20/Activemq的安装及启动/</id>
     <published>2017-10-19T17:05:08.000Z</published>
     <updated>2017-12-10T07:23:30.776Z</updated>
     
@@ -55,12 +55,12 @@
     
     </summary>
     
-      <category term="java" scheme="http://yoursite.com/categories/java/"/>
+      <category term="java" scheme="https://yangshaoxiang.github.io/categories/java/"/>
     
     
-      <category term="ActiveMQ" scheme="http://yoursite.com/tags/ActiveMQ/"/>
+      <category term="中间件" scheme="https://yangshaoxiang.github.io/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/"/>
     
-      <category term="中间件" scheme="http://yoursite.com/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/"/>
+      <category term="ActiveMQ" scheme="https://yangshaoxiang.github.io/tags/ActiveMQ/"/>
     
   </entry>
   

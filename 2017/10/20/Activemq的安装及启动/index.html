@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="ActiveMQ,中间件," />
+  <meta name="keywords" content="中间件,ActiveMQ," />
 
 
 
@@ -82,10 +82,10 @@
 
 
 <meta name="description" content="1. 基本了解&amp;emsp;&amp;emsp;这一部分内容主要来源网络，这里整理归纳到博客中，阅读之后对ActiveMq有一个基本的认知和了解。 &amp;emsp; 1. ActiveMQ概念&amp;emsp;&amp;emsp;ActiveMQ是Apache推出的，一款开源的，完全支持JMS1.1和J2EE 1.4规范的JMSProvider实现的消息中间件（Message Oriented Middleware，MOM）">
-<meta name="keywords" content="ActiveMQ,中间件">
+<meta name="keywords" content="中间件,ActiveMQ">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Activemq的安装及启动">
-<meta property="og:url" content="http://yoursite.com/2017/10/20/Activemq的安装及启动/index.html">
+<meta property="og:url" content="https://yangshaoxiang.github.io/2017/10/20/Activemq的安装及启动/index.html">
 <meta property="og:site_name" content="shaoxiang博客">
 <meta property="og:description" content="1. 基本了解&amp;emsp;&amp;emsp;这一部分内容主要来源网络，这里整理归纳到博客中，阅读之后对ActiveMq有一个基本的认知和了解。 &amp;emsp; 1. ActiveMQ概念&amp;emsp;&amp;emsp;ActiveMQ是Apache推出的，一款开源的，完全支持JMS1.1和J2EE 1.4规范的JMSProvider实现的消息中间件（Message Oriented Middleware，MOM）">
 <meta property="og:locale" content="zh-Hans">
@@ -122,7 +122,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/10/20/Activemq的安装及启动/"/>
+  <link rel="canonical" href="https://yangshaoxiang.github.io/2017/10/20/Activemq的安装及启动/"/>
 
 
 
@@ -299,7 +299,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/20/Activemq的安装及启动/">
+    <link itemprop="mainEntityOfPage" href="https://yangshaoxiang.github.io/2017/10/20/Activemq的安装及启动/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="yangshaoxiang">
@@ -480,7 +480,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://yoursite.com/2017/10/20/Activemq的安装及启动/" title="Activemq的安装及启动">http://yoursite.com/2017/10/20/Activemq的安装及启动/</a>
+    <a href="https://yangshaoxiang.github.io/2017/10/20/Activemq的安装及启动/" title="Activemq的安装及启动">https://yangshaoxiang.github.io/2017/10/20/Activemq的安装及启动/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -495,9 +495,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/ActiveMQ/" rel="tag"><i class="fa fa-tag"></i> ActiveMQ</a>
-          
             <a href="/tags/中间件/" rel="tag"><i class="fa fa-tag"></i> 中间件</a>
+          
+            <a href="/tags/ActiveMQ/" rel="tag"><i class="fa fa-tag"></i> ActiveMQ</a>
           
         </div>
       
@@ -690,7 +690,15 @@
 </div>
 
 
+  <span id="busuanzi_container_site_pv">
+    本站总访问量<span id="busuanzi_value_site_pv"></span>次
+</span>
+
+ <!-- <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
 -->
+
+  <span class="post-meta-divider">|</span>
 
  <!--
 
@@ -1190,6 +1198,35 @@
   
 
   
+
+  
+<div id="hexo-helper-live2d">
+  <canvas id="live2dcanvas" width="150" height="300"></canvas>
+</div>
+<style>
+  #live2dcanvas{
+    position: fixed;
+    width: 150px;
+    height: 300px;
+    opacity:0.7;
+    right: 0px;
+    z-index: 999;
+    pointer-events: none;
+    bottom: -20px;
+  }
+</style>
+<script type="text/javascript" src="/live2d/device.min.js"></script>
+<script type="text/javascript">
+const loadScript = function loadScript(c,b){var a=document.createElement("script");a.type="text/javascript";"undefined"!=typeof b&&(a.readyState?a.onreadystatechange=function(){if("loaded"==a.readyState||"complete"==a.readyState)a.onreadystatechange=null,b()}:a.onload=function(){b()});a.src=c;document.body.appendChild(a)};
+(function(){
+  if((typeof(device) != 'undefined') && (device.mobile())){
+    document.getElementById("live2dcanvas").style.width = '75px';
+    document.getElementById("live2dcanvas").style.height = '150px';
+  }else
+    if (typeof(device) === 'undefined') console.error('Cannot find current-device script.');
+  loadScript("/live2d/script.js", function(){loadlive2d("live2dcanvas", "/live2d/assets/wanko.model.json", 0.5);});
+})();
+</script>
 
 </body>
 </html>
