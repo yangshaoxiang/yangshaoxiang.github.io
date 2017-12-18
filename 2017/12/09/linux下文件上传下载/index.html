@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="linux," />
 
 
 
@@ -81,16 +81,18 @@
 
 
 
-<meta name="description" content="欢迎来到我的博客">
-<meta property="og:type" content="website">
-<meta property="og:title" content="shaoxiang博客">
-<meta property="og:url" content="https://yangshaoxiang.github.io/index.html">
+<meta name="description" content="基本操作本篇博客主要介绍如何去链接远程的linux主机及如何实现本地与远程主机之间文件的上传下载操作，下面的linux系统是CentOS6.6">
+<meta name="keywords" content="linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="linux下文件上传下载">
+<meta property="og:url" content="https://yangshaoxiang.github.io/2017/12/09/linux下文件上传下载/index.html">
 <meta property="og:site_name" content="shaoxiang博客">
-<meta property="og:description" content="欢迎来到我的博客">
+<meta property="og:description" content="基本操作本篇博客主要介绍如何去链接远程的linux主机及如何实现本地与远程主机之间文件的上传下载操作，下面的linux系统是CentOS6.6">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-12-18T14:00:22.859Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="shaoxiang博客">
-<meta name="twitter:description" content="欢迎来到我的博客">
+<meta name="twitter:title" content="linux下文件上传下载">
+<meta name="twitter:description" content="基本操作本篇博客主要介绍如何去链接远程的linux主机及如何实现本地与远程主机之间文件的上传下载操作，下面的linux系统是CentOS6.6">
 
 
 
@@ -120,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="https://yangshaoxiang.github.io/"/>
+  <link rel="canonical" href="https://yangshaoxiang.github.io/2017/12/09/linux下文件上传下载/"/>
 
 
 
 
 
-  <title>shaoxiang博客</title>
+  <title>linux下文件上传下载 | shaoxiang博客</title>
   
 
 
@@ -145,8 +147,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -283,190 +284,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yangshaoxiang.github.io/2017/12/09/log4jj使用/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="yangshaoxiang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://s1.wailian.download/2017/12/10/xun.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="shaoxiang博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/12/09/log4jj使用/" itemprop="url">log4j使用</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-09T22:44:21+08:00">
-                2017-12-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index">
-                    <span itemprop="name">java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1,650  字
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  7 分钟
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h3 id="1-配置效果"><a href="#1-配置效果" class="headerlink" title="1. 配置效果"></a>1. 配置效果</h3><p>下面的log4j日志配置最终能达到的效果是对于全局日志可以根据级别输入到对应级别的日志文件中，注意低级别的日志文件会同时包含高级别的日志信息，例如info级别的日志文件会包含info，warn，error信息，对于一些重要的模块，可以单独输出到独立的文件夹文件中，同时对单独模块也可以像全局日志那样根据日志级别输入到对应文件中 也可以配置该模块日志信息是否同时输入到全局日志中<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/12/09/log4jj使用/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-	<div>
-    
-   </div>
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
 
   
 
@@ -496,9 +316,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/12/09/linux下文件上传下载/" itemprop="url">linux下文件上传下载</a></h1>
+          <h1 class="post-title" itemprop="name headline">linux下文件上传下载</h1>
         
 
         <div class="post-meta">
@@ -545,6 +363,16 @@
           
 
           
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/12/09/linux下文件上传下载/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2017/12/09/linux下文件上传下载/" itemprop="commentsCount"></span>
+                </a>
+              </span>
             
           
 
@@ -601,16 +429,56 @@
       
 
       
-        
-          <h3 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h3><p>本篇博客主要介绍如何去链接远程的linux主机及如何实现本地与远程主机之间文件的上传下载操作，下面的linux系统是CentOS6.6<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/12/09/linux下文件上传下载/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
+        <h3 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h3><p>本篇博客主要介绍如何去链接远程的linux主机及如何实现本地与远程主机之间文件的上传下载操作，下面的linux系统是CentOS6.6<br><a id="more"></a></p>
+<h4 id="链接远程linux主机"><a href="#链接远程linux主机" class="headerlink" title="链接远程linux主机"></a>链接远程linux主机</h4><p>  一般链接远程linux主机，如果电脑上没有安装类似SecureCRTPortable这种终端仿真程序，我们会用git的命令窗口使用命令去链接，但是这种方式不能保存链接的用户名和密码，下次还要重新输入链接信息，很麻烦，适合暂时的连一下，用一下，通常都会使用终端仿真程序，并保存相关链接信息。</p>
+<h5 id="未安装终端仿真程序链接方式-命令"><a href="#未安装终端仿真程序链接方式-命令" class="headerlink" title="未安装终端仿真程序链接方式-命令"></a>未安装终端仿真程序链接方式-命令</h5><p>  在任意位置打开git命令窗口，输入如下命令即可<br>  <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh username@ip_or_domain</div></pre></td></tr></table></figure></p>
+<p>  该命令中username代表linux登录用户的用户名，ip_or_domain代表linux主机的ip地址或ip所映射的域名，例如:<br>  <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh root@116.196.115.151</div></pre></td></tr></table></figure></p>
+<p>  代表的含义是使用root用户链接116.196.115.151的远程主机<br>  之后，一般如果该账户设有密码，会在下一步提示输入链接密码，输入正确密码即可链接成功</p>
+<h5 id="安装SecureCRTPortable链接"><a href="#安装SecureCRTPortable链接" class="headerlink" title="安装SecureCRTPortable链接"></a>安装SecureCRTPortable链接</h5><p>  本地电脑上有SecureCRTPortable这种终端仿真程序（直接浏览器搜索，一堆，本文使用版本为8.3），打开SecureCRTPortable，选择 文件(File)-&gt;快速连接(Quick Connect)，输入主机名和用户名，主机名就是远程linux主机的ip地址，用户名就是登陆的用户名，之后会弹出密码框，要求输入密码，成功后即可链接主机</p>
+<h4 id="文件上传和下载"><a href="#文件上传和下载" class="headerlink" title="文件上传和下载"></a>文件上传和下载</h4><p> 大部分情况下，我们要在linux下安装的软件，或将要部署在linux环境服务器上的本地开发的应用，他们大部分情况下是在本地windows环境下的，这就涉及到如何将本地文件上传到linux系统中，还有就是在linux下修改一些配置文件非常的繁琐，一般对于比较大的配置文件可能会下载到本地修改，然后在上传覆盖，这就涉及到如何将linux上的文件下载到本地，这里介绍3种方式，个人推荐第三种rz/sz方式</p>
+<h5 id="未安装任何的终端仿真程序-命令"><a href="#未安装任何的终端仿真程序-命令" class="headerlink" title="未安装任何的终端仿真程序-命令"></a>未安装任何的终端仿真程序-命令</h5><h6 id="命令上传"><a href="#命令上传" class="headerlink" title="命令上传:"></a>命令上传:</h6><p>  在本地打开要上传文件所在文件夹，打开该级文件夹下打开git命令窗口，输入如下命令：<br>  <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">scp filename username@ip_or_domain:/target_directory/</div></pre></td></tr></table></figure></p>
+<p>   该命令中filename代表要上传的文件名称，username代表linux登录用户的用户名，ip_or_domain代表linux主机的ip地址或ip所映射的域名，target_directory代表linux下要上传到的文件目录,例如:<br>   <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">scp test.sql root@116.196.115.151:/root/</div></pre></td></tr></table></figure></p>
+<p>  代表的含义是将当前目录下的test.sql文件复制上传到116.196.115.151主机的root目录下,如果有密码之后输入密码。</p>
+<h6 id="命令下载"><a href="#命令下载" class="headerlink" title="命令下载:"></a>命令下载:</h6><p>   基本和命令上传相同，在本地先切换到盛放下载文件的目录，在该目录下打开git窗口，输入如下命令<br>  <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">scp username@ip_or_domain:/target_directory/filename ~/</div></pre></td></tr></table></figure></p>
+<p>   该命令中username代表linux登录用户的用户名，ip_or_domain代表linux主机的ip地址或ip所映射的域名，target_directory代表linux下要下载的文件目录，filename代表要下载的文件名称，例如：<br>   <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">scp root@116.196.115.151:/root/test.sql  ~/Desktop/</div></pre></td></tr></table></figure></p>
+<p>   代表的含义是将主机root目录下的test.sql文件下载到本地windows的桌面上</p>
+<h6 id="对于目录的上传下载"><a href="#对于目录的上传下载" class="headerlink" title="对于目录的上传下载"></a>对于目录的上传下载</h6><p>   scp命令后面紧接着加上 -r 即可，后面的路径到目录一级即可</p>
+<h6 id="对于两台linux主机之间文件互相拷贝"><a href="#对于两台linux主机之间文件互相拷贝" class="headerlink" title="对于两台linux主机之间文件互相拷贝"></a>对于两台linux主机之间文件互相拷贝</h6><p>   将上述上传或下载命令文件路径部分，在路径前面加上username@ip_or_domain:的前缀即可</p>
+<h5 id="SecureCRTPortable的sftp"><a href="#SecureCRTPortable的sftp" class="headerlink" title="SecureCRTPortable的sftp"></a>SecureCRTPortable的sftp</h5><h6 id="SecureCRTPortable的sftp上传下载公共操作步骤"><a href="#SecureCRTPortable的sftp上传下载公共操作步骤" class="headerlink" title="SecureCRTPortable的sftp上传下载公共操作步骤:"></a>SecureCRTPortable的sftp上传下载公共操作步骤:</h6><ol>
+<li><a href="#安装SecureCRTPortable链接">使用SecureCRTPortable链接到主机</a></li>
+<li>使用快捷键alt+p,进入sftp界面</li>
+<li><p>切换到存放上传文件(要下载的文件)的目录(cd命令)</p>
+<h6 id="SecureCRTPortable的sftp上传"><a href="#SecureCRTPortable的sftp上传" class="headerlink" title="SecureCRTPortable的sftp上传:"></a>SecureCRTPortable的sftp上传:</h6></li>
+<li>直接将本地文件拖拽到sftp界面窗口中即可(像qq发送文件那样，注意尽量使用较高版本   的SecureCRT，否则可能不支持拖拽，例如7.0的版本在win7下可拖拽，win10下不行，8.3的版本都可以)</li>
+<li><p>传输完成后使用ls命令查看当前目录是否有上传的文件(ll命令不可用)</p>
+<h6 id="SecureCRTPortable的sftp下载"><a href="#SecureCRTPortable的sftp下载" class="headerlink" title="SecureCRTPortable的sftp下载:"></a>SecureCRTPortable的sftp下载:</h6><ol>
+<li>使用如下命令将文件下载到本地<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 指定本地下载目录 这里指定为d盘</span></div><div class="line">lcd d:\</div><div class="line"><span class="comment"># 使用get命令下载，后面跟要下载的文件名称(要先切换到文件所在目录)</span></div><div class="line">get test.sql</div></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+</ol>
+<h5 id="SecureCRTPortable的Zmodem"><a href="#SecureCRTPortable的Zmodem" class="headerlink" title="SecureCRTPortable的Zmodem"></a>SecureCRTPortable的Zmodem</h5><p>在linux任意目录下输入rz，如果出现 -bash: rz: command not found 说明未安装Zmodem，如果弹出一个文件选择框则已经安装，查看如何使用即可</p>
+<h6 id="安装Zmodem"><a href="#安装Zmodem" class="headerlink" title="安装Zmodem:"></a>安装Zmodem:</h6><p>方式一(简单):执行如下命令，完毕即可使用<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum install lrzsz</div></pre></td></tr></table></figure></p>
+<p>方式二(麻烦):执行如下一系列操作:</p>
+<ol>
+<li><p>下载</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 切换到下载目录</span></div><div class="line"><span class="built_in">cd</span> /tmp</div><div class="line"><span class="comment"># 下载</span></div><div class="line">wget http://www.ohse.de/uwe/releases/lrzsz-0.12.20.tar.gz</div></pre></td></tr></table></figure>
+<p>如果出现 wget: command not found，执行下面命令安装wget</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum -y install wget</div></pre></td></tr></table></figure>
+<p>如果出现wget颁发证书过期用</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">wget --no-check-certificate  http://www.ohse.de/uwe/releases/lrzsz-0.12.20.tar.gz</div></pre></td></tr></table></figure>
+</li>
+<li><p>解压安装及创建软连接</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">tar zxvf lrzsz-0.12.20.tar.gz &amp;&amp; <span class="built_in">cd</span> lrzsz-0.12.20</div><div class="line">./configure &amp;&amp; make &amp;&amp; make install</div></pre></td></tr></table></figure>
+<p>如果报错:no acceptable cc found in $PATH<br>执行下面命令:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum install gcc gcc-c++ gcc-g77</div></pre></td></tr></table></figure>
+<p>上面安装过程默认把lsz和lrz安装到了/usr/local/bin/目录下，现在我们并不能直接使用，下面创建软链接，并命名为rz/sz：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">cd</span> /usr/bin</div><div class="line">ln -s /usr/<span class="built_in">local</span>/bin/lrz rz</div><div class="line">ln -s /usr/<span class="built_in">local</span>/bin/lsz sz</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h6 id="使用Zmodem"><a href="#使用Zmodem" class="headerlink" title="使用Zmodem:"></a>使用Zmodem:</h6><p> 指定上传目录与下载目录<br> 上传目录：使用rz指令，进行上传操作时，弹出的对话框，会默认定位到该目录下。<br> 下载目录：使用sz指令，进行下载操作后，所下载的文件，默认下载到该目录中。<br> 打开SecureCRT软件 -&gt; Options -&gt; session options -&gt; X/Y/Zmodem 下可以设置上传和下载的目录<br> sz filename:发送文件到客户端,zmodem接收可以自行启动，例如：<br> <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">cd</span> /root</div><div class="line">sz test.sql</div></pre></td></tr></table></figure></p>
+<p> root下的test.sql文件会被发送到本地下载目录<br> rz :从客户端上传文件到linux服务端,输入该命令后会打开文件选择对话框(默认定位到上传目录)</p>
+
       
     </div>
     
@@ -619,6 +487,12 @@
 
 	<div>
     
+    ﻿<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+    
    </div>
 
     
@@ -626,198 +500,61 @@
     
 
     
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    yangshaoxiang
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://yangshaoxiang.github.io/2017/12/09/linux下文件上传下载/" title="linux下文件上传下载">https://yangshaoxiang.github.io/2017/12/09/linux下文件上传下载/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
 
     <footer class="post-footer">
       
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yangshaoxiang.github.io/2017/10/20/Activemq的安装及启动/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="yangshaoxiang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://s1.wailian.download/2017/12/10/xun.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="shaoxiang博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/10/20/Activemq的安装及启动/" itemprop="url">Activemq的安装及启动</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-20T01:05:08+08:00">
-                2017-10-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
+        <div class="post-tags">
           
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index">
-                    <span itemprop="name">java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
+            <a href="/tags/linux/" rel="tag"><i class="fa fa-tag"></i> linux</a>
           
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1,632  字
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  7 分钟
-                </span>
-              
-            </div>
-          
-
-          
-
         </div>
-      </header>
-    
+      
 
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
+      
       
       
 
       
-        
-          <h3 id="1-基本了解"><a href="#1-基本了解" class="headerlink" title="1. 基本了解"></a>1. 基本了解</h3><p>&emsp;&emsp;这一部分内容主要来源网络，这里整理归纳到博客中，阅读之后对ActiveMq有一个基本的认知和了解。<br> &emsp; <strong>1. ActiveMQ概念</strong><br>&emsp;&emsp;ActiveMQ是Apache推出的，一款开源的，完全支持JMS1.1和J2EE 1.4规范的JMSProvider实现的消息中间件（Message Oriented Middleware，MOM）。<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/10/20/Activemq的安装及启动/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/10/20/Activemq的安装及启动/" rel="next" title="Activemq的安装及启动">
+                <i class="fa fa-chevron-left"></i> Activemq的安装及启动
+              </a>
+            
           </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
 
-	<div>
-    
-   </div>
+          <span class="post-nav-divider"></span>
 
-    
-
-    
-
-    
-
-    <footer class="post-footer">
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/12/09/log4jj使用/" rel="prev" title="log4j使用">
+                log4j使用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
       
 
       
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -827,10 +564,11 @@
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -838,6 +576,17 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
 
         </div>
         
@@ -858,8 +607,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -932,6 +690,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本操作"><span class="nav-number">1.</span> <span class="nav-text">基本操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#链接远程linux主机"><span class="nav-number">1.1.</span> <span class="nav-text">链接远程linux主机</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#未安装终端仿真程序链接方式-命令"><span class="nav-number">1.1.1.</span> <span class="nav-text">未安装终端仿真程序链接方式-命令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#安装SecureCRTPortable链接"><span class="nav-number">1.1.2.</span> <span class="nav-text">安装SecureCRTPortable链接</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#文件上传和下载"><span class="nav-number">1.2.</span> <span class="nav-text">文件上传和下载</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#未安装任何的终端仿真程序-命令"><span class="nav-number">1.2.1.</span> <span class="nav-text">未安装任何的终端仿真程序-命令</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#命令上传"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">命令上传:</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#命令下载"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">命令下载:</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#对于目录的上传下载"><span class="nav-number">1.2.1.3.</span> <span class="nav-text">对于目录的上传下载</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#对于两台linux主机之间文件互相拷贝"><span class="nav-number">1.2.1.4.</span> <span class="nav-text">对于两台linux主机之间文件互相拷贝</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SecureCRTPortable的sftp"><span class="nav-number">1.2.2.</span> <span class="nav-text">SecureCRTPortable的sftp</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#SecureCRTPortable的sftp上传下载公共操作步骤"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">SecureCRTPortable的sftp上传下载公共操作步骤:</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#SecureCRTPortable的sftp上传"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">SecureCRTPortable的sftp上传:</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#SecureCRTPortable的sftp下载"><span class="nav-number">1.2.2.3.</span> <span class="nav-text">SecureCRTPortable的sftp下载:</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SecureCRTPortable的Zmodem"><span class="nav-number">1.2.3.</span> <span class="nav-text">SecureCRTPortable的Zmodem</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#安装Zmodem"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">安装Zmodem:</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#使用Zmodem"><span class="nav-number">1.2.3.2.</span> <span class="nav-text">使用Zmodem:</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -1096,6 +870,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
 
   
 
@@ -1142,6 +920,30 @@
 
     
 
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname, 
+            owner: 'yangshaoxiang',
+            repo: 'bolgIssues',
+            
+            lang: "zh-Hans" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: '4c22edbe03d5d36279e24db40a3e04c7376cba72',
+            
+                client_id: '5d18dd5dd5c7420967d9'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
     
 
 
