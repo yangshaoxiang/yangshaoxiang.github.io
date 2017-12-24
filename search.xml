@@ -5,7 +5,7 @@
     <entry>
       <title><![CDATA[linux下JavaWeb开发环境搭建]]></title>
       <url>/2017/12/24/linux%E4%B8%8BJavaWeb%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</url>
-      <content type="html"><![CDATA[<h3 id="web开发基本环境安装配置"><a href="#web开发基本环境安装配置" class="headerlink" title="web开发基本环境安装配置"></a>web开发基本环境安装配置</h3><p>  JavaWeb开发中生产环境一般都为linux，因此我们要具有在linux环境下搭建基本的JavaWeb开发常用环境的能力，本篇博客介绍的是linux环境下jdk的安装，tomcat的安装，及mysql数据库的安装</p>
+      <content type="html"><![CDATA[<h3 id="web开发基本环境安装配置"><a href="#web开发基本环境安装配置" class="headerlink" title="web开发基本环境安装配置"></a>web开发基本环境安装配置</h3><p>  JavaWeb开发中生产环境一般都为linux，因此我们要具有在linux环境下搭建基本的JavaWeb开发常用环境的能力，本篇博客介绍的是linux环境下jdk的安装，tomcat的安装，及mysql数据库的安装<br><a id="more"></a></p>
 <h4 id="jdk的安装"><a href="#jdk的安装" class="headerlink" title="jdk的安装"></a>jdk的安装</h4><ol>
 <li>到<a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html" target="_blank" rel="external">oracle官网下载</a>linux版本jdk安装包上传到/root目录下</li>
 <li><p>解压，指定存放位置</p>
