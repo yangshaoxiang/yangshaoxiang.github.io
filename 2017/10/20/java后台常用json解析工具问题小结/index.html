@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="java,json," />
 
 
 
@@ -81,17 +81,18 @@
 
 
 
-<meta name="description" content="欢迎来到我的博客">
-<meta property="og:type" content="website">
-<meta property="og:title" content="tags">
-<meta property="og:url" content="https://yangshaoxiang.github.io/tags/index.html">
+<meta name="description" content="问题概述  问题基本是关于java对象转json时，非规范的java成员变量名引起的问题，这里不细究造成这些问题的底层原因，只是单纯的描述我碰到的问题及对应的解决方法">
+<meta name="keywords" content="java,json">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java后台常用json解析工具问题小结">
+<meta property="og:url" content="https://yangshaoxiang.github.io/2017/10/20/java后台常用json解析工具问题小结/index.html">
 <meta property="og:site_name" content="shaoxiang博客">
-<meta property="og:description" content="欢迎来到我的博客">
+<meta property="og:description" content="问题概述  问题基本是关于java对象转json时，非规范的java成员变量名引起的问题，这里不细究造成这些问题的底层原因，只是单纯的描述我碰到的问题及对应的解决方法">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-12-10T03:59:58.778Z">
+<meta property="og:updated_time" content="2018-01-25T15:00:30.202Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="tags">
-<meta name="twitter:description" content="欢迎来到我的博客">
+<meta name="twitter:title" content="java后台常用json解析工具问题小结">
+<meta name="twitter:description" content="问题概述  问题基本是关于java对象转json时，非规范的java成员变量名引起的问题，这里不细究造成这些问题的底层原因，只是单纯的描述我碰到的问题及对应的解决方法">
 
 
 
@@ -121,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="https://yangshaoxiang.github.io/tags/"/>
+  <link rel="canonical" href="https://yangshaoxiang.github.io/2017/10/20/java后台常用json解析工具问题小结/"/>
 
 
 
 
 
-  <title>tags | shaoxiang博客</title>
+  <title>java后台常用json解析工具问题小结 | shaoxiang博客</title>
   
 
 
@@ -286,40 +287,258 @@
 
   <div id="posts" class="posts-expand">
     
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yangshaoxiang.github.io/2017/10/20/java后台常用json解析工具问题小结/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yangshaoxiang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://s1.wailian.download/2017/12/10/xun.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="shaoxiang博客">
+    </span>
+
     
-    
-    <div class="post-block page">
       <header class="post-header">
 
-	<h1 class="post-title" itemprop="name headline">tags</h1>
-
-
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
         
         
-          <div class="tag-cloud">
-            <div class="tag-cloud-title">
-                目前共计 7 个标签
+          <h1 class="post-title" itemprop="name headline">java后台常用json解析工具问题小结</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-20T01:05:08+08:00">
+                2017-10-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/10/20/java后台常用json解析工具问题小结/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2017/10/20/java后台常用json解析工具问题小结/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  929  字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  4 分钟
+                </span>
+              
             </div>
-            <div class="tag-cloud-tags">
-              <a href="/tags/ActiveMQ/" style="font-size: 12px; color: #ccc">ActiveMQ</a> <a href="/tags/java/" style="font-size: 12px; color: #ccc">java</a> <a href="/tags/json/" style="font-size: 12px; color: #ccc">json</a> <a href="/tags/linux/" style="font-size: 30px; color: #111">linux</a> <a href="/tags/log4j/" style="font-size: 12px; color: #ccc">log4j</a> <a href="/tags/中间件/" style="font-size: 12px; color: #ccc">中间件</a> <a href="/tags/日志/" style="font-size: 12px; color: #ccc">日志</a>
-            </div>
-          </div>
-        
-      </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
       
+
+      
+        <h3 id="问题概述"><a href="#问题概述" class="headerlink" title="问题概述"></a>问题概述</h3><p>  问题基本是关于java对象转json时，非规范的java成员变量名引起的问题，这里不细究造成这些问题的底层原因，只是单纯的描述我碰到的问题及对应的解决方法<br>  <a id="more"></a></p>
+<h3 id="jackson将java对象转json字符串字段字母小写问题"><a href="#jackson将java对象转json字符串字段字母小写问题" class="headerlink" title="jackson将java对象转json字符串字段字母小写问题"></a>jackson将java对象转json字符串字段字母小写问题</h3><p>  在使用springmvc框架作为后台控制层层的框架时，我们都知道当前台发送ajax请求后台要返回一个json字符串时，我们要做3件事</p>
+<ol>
+<li>引入jackson相关jar包</li>
+<li>springmvc配置文件配置相关json转换配置</li>
+<li>Controller层的方法上加上@Response注解，方法返回值为对象  </li>
+</ol>
+<p>这样当我们完成第三步，返回java对象之后，springmvc使用jackson将我们的对象转为json返回给前台，一般情况下是任何问题都不会发生的，但是当我们返回的java对象，他的成员变量不符合java驼峰命名规范时，会出现问题，例如当成员变量名全部大写，转化的json对应字段却是小写</p>
+<p>java类<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">  <span class="comment">//不符合变量命名规范的java类</span></div><div class="line">  <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SellPoint</span> </span>&#123;</div><div class="line">	    <span class="keyword">private</span> String WT;</div><div class="line">	    <span class="keyword">private</span> String ZT;</div><div class="line">      <span class="comment">//get/set ......略</span></div><div class="line"> &#125;</div><div class="line"></div><div class="line"> <span class="comment">//加注解之后的java类</span></div><div class="line"> <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SellPoint</span> </span>&#123;</div><div class="line">    <span class="meta">@JsonProperty</span>(<span class="string">"WT"</span>)</div><div class="line">    <span class="keyword">private</span> String WT;</div><div class="line">    <span class="meta">@JsonProperty</span>(<span class="string">"ZT"</span>)</div><div class="line">    <span class="keyword">private</span> String ZT;</div><div class="line">     <span class="comment">//get/set 方法加@JsonIgnore</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>转化为json后<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">//不符合变量命名规范的java类转化的json</div><div class="line">"sellPoint": &#123;</div><div class="line">  "wt": "送20M宽带加电信电视（省内流量不限量，路由器、2部机顶盒免费送，预存400元）",</div><div class="line">  "zt": "送2T云存储空间；机顶盒免费用"</div><div class="line">&#125;</div><div class="line"></div><div class="line">//加完注解后正常的json</div><div class="line">"sellPoint": &#123;</div><div class="line">  "WT": "送20M宽带加电信电视（省内流量不限量，路由器、2部机顶盒免费送，预存400元）",</div><div class="line">  "ZT": "送2T云存储空间；机顶盒免费用"</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>解决方案:  </p>
+<ol>
+<li>在不规范的成员变量字段上加JsonProperty(“期望的变量名称”)注解</li>
+<li>在对应的get/set方法上添加@JsonIgnore注解，忽略正常的转化</li>
+</ol>
+<p>注意：如果不在get/set方法加@JsonIgnore注解，会生成两份json属性，如下：<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">"sellPoint": &#123;</div><div class="line">  "wt": "送20M宽带加电信电视（省内流量不限量，路由器、2部机顶盒免费送，预存400元）",</div><div class="line">  "zt": "送2T云存储空间；机顶盒免费用",</div><div class="line">  "WT": "送20M宽带加电信电视（省内流量不限量，路由器、2部机顶盒免费送，预存400元）",</div><div class="line">  "ZT": "送2T云存储空间；机顶盒免费用"</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="fastjson将对象转化为json字符串首字母小写问题-未实践"><a href="#fastjson将对象转化为json字符串首字母小写问题-未实践" class="headerlink" title="fastjson将对象转化为json字符串首字母小写问题(未实践)"></a>fastjson将对象转化为json字符串首字母小写问题(未实践)</h3><p>解决方案一:<br>在Controller或service中初始化fastjson的一个参数（高版本(2.X)fastjson已经不适用）<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">static</span>&#123;</div><div class="line">   TypeUtils.compatibleWithJavaBean = <span class="keyword">true</span>;</div><div class="line"> &#125;</div></pre></td></tr></table></figure></p>
+<p>解决方案二:<br>新建fastjson.properties，添加如下配置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">fastjson.compatibleWithJavaBean=true</div></pre></td></tr></table></figure></p>
+<p>解决方案三：<br>在对应字段上加@JSONField注解<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//加注解之后的java类</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SellPoint</span> </span>&#123;</div><div class="line">  <span class="meta">@JSONField</span>(<span class="string">"WT"</span>)</div><div class="line">  <span class="keyword">private</span> String WT;</div><div class="line">  <span class="meta">@JSONField</span>(<span class="string">"ZT"</span>)</div><div class="line">  <span class="keyword">private</span> String ZT;</div><div class="line">   <span class="comment">//get/set 忽略</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>ps:net.sf.json将对象转化为json不会出现属性名称问题</p>
+<h3 id="net-sf-json的NoSuchMethodException-Unknown-property-XXXX"><a href="#net-sf-json的NoSuchMethodException-Unknown-property-XXXX" class="headerlink" title="net.sf.json的NoSuchMethodException: Unknown property XXXX"></a>net.sf.json的NoSuchMethodException: Unknown property XXXX</h3><p>这个错是使用net.sf.json将json字符串转化为java对象时出现，出现的原因是Json字符串属性过多，没有对应上javaBean的属性，所以程序会抛异常没有对应的属性。<br>解决方案是写一个属性过滤器<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">  JsonConfig config = <span class="keyword">new</span> JsonConfig();</div><div class="line">config.setJavaPropertyFilter(<span class="keyword">new</span> PropertyFilter()&#123;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">apply</span><span class="params">(Object paramObject1, String paramString,</span></span></div><div class="line"><span class="function"><span class="params">			Object paramObject2)</span> </span>&#123;</div><div class="line">      <span class="comment">//这里设置要过滤的属性</span></div><div class="line">		<span class="keyword">if</span>(paramString.equals(<span class="string">"xxx"</span>)||paramString.equals(<span class="string">"xxxx"</span>))&#123;</div><div class="line">			<span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">	&#125;&#125;);</div></pre></td></tr></table></figure></p>
+<p>这种方式可以参考<a href="https://my.oschina.net/heweipo/blog/368116" target="_blank" rel="external">这篇博客</a><br>我的json属性过多最终没有采用net.sf.json，使用了fastjson，他在json转java中，对于json中一些java没有的属性自动进行忽略</p>
+
       
     </div>
     
     
     
+
+	<div>
+    
+    ﻿<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+    
+   </div>
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    yangshaoxiang
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://yangshaoxiang.github.io/2017/10/20/java后台常用json解析工具问题小结/" title="java后台常用json解析工具问题小结">https://yangshaoxiang.github.io/2017/10/20/java后台常用json解析工具问题小结/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/java/" rel="tag"><i class="fa fa-tag"></i> java</a>
+          
+            <a href="/tags/json/" rel="tag"><i class="fa fa-tag"></i> json</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/10/20/Activemq的安装及启动/" rel="prev" title="Activemq的安装及启动">
+                Activemq的安装及启动 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
   </div>
 
 
@@ -359,8 +578,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -433,6 +661,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#问题概述"><span class="nav-number">1.</span> <span class="nav-text">问题概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#jackson将java对象转json字符串字段字母小写问题"><span class="nav-number">2.</span> <span class="nav-text">jackson将java对象转json字符串字段字母小写问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#fastjson将对象转化为json字符串首字母小写问题-未实践"><span class="nav-number">3.</span> <span class="nav-text">fastjson将对象转化为json字符串首字母小写问题(未实践)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#net-sf-json的NoSuchMethodException-Unknown-property-XXXX"><span class="nav-number">4.</span> <span class="nav-text">net.sf.json的NoSuchMethodException: Unknown property XXXX</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
