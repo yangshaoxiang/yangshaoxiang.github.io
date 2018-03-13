@@ -81,19 +81,19 @@
 
 
 
-<meta name="description" content="通过 上一篇博客 可以指定静态javaagent的使用必须在启动项目时加上javagent的相关启动参数，并且premain()方法也总是在main()方法之前执行，因此有一一定的局限性，在java6之后则做出了改变，有另一种方式可以在main方法启动之后执行，而且不需要添加jvm的启动参数">
+<meta name="description" content="通过 上一篇博客 可以知道静态javaagent的使用必须在启动项目时加上javagent的相关启动参数，并且premain()方法也总是在main()方法之前执行，因此有一一定的局限性，在java6之后则做出了改变，有另一种方式可以在main方法启动之后执行，而且不需要添加jvm的启动参数">
 <meta name="keywords" content="APM,javaagent">
 <meta property="og:type" content="article">
 <meta property="og:title" content="APM(2)动态javaagent使用">
 <meta property="og:url" content="https://yangshaoxiang.github.io/2018/03/09/APM(2)动态javaagent使用/index.html">
 <meta property="og:site_name" content="shaoxiang博客">
-<meta property="og:description" content="通过 上一篇博客 可以指定静态javaagent的使用必须在启动项目时加上javagent的相关启动参数，并且premain()方法也总是在main()方法之前执行，因此有一一定的局限性，在java6之后则做出了改变，有另一种方式可以在main方法启动之后执行，而且不需要添加jvm的启动参数">
+<meta property="og:description" content="通过 上一篇博客 可以知道静态javaagent的使用必须在启动项目时加上javagent的相关启动参数，并且premain()方法也总是在main()方法之前执行，因此有一一定的局限性，在java6之后则做出了改变，有另一种方式可以在main方法启动之后执行，而且不需要添加jvm的启动参数">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://p0zwh057c.bkt.clouddn.com/blog/180312/GIC7J7DLaj.png?imageslim">
-<meta property="og:updated_time" content="2018-03-13T13:13:41.477Z">
+<meta property="og:updated_time" content="2018-03-13T13:28:01.838Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="APM(2)动态javaagent使用">
-<meta name="twitter:description" content="通过 上一篇博客 可以指定静态javaagent的使用必须在启动项目时加上javagent的相关启动参数，并且premain()方法也总是在main()方法之前执行，因此有一一定的局限性，在java6之后则做出了改变，有另一种方式可以在main方法启动之后执行，而且不需要添加jvm的启动参数">
+<meta name="twitter:description" content="通过 上一篇博客 可以知道静态javaagent的使用必须在启动项目时加上javagent的相关启动参数，并且premain()方法也总是在main()方法之前执行，因此有一一定的局限性，在java6之后则做出了改变，有另一种方式可以在main方法启动之后执行，而且不需要添加jvm的启动参数">
 <meta name="twitter:image" content="http://p0zwh057c.bkt.clouddn.com/blog/180312/GIC7J7DLaj.png?imageslim">
 
 
@@ -431,7 +431,7 @@
       
 
       
-        <p>通过 <a href="https://yangshaoxiang.github.io/2018/03/07/APM(1)%E9%9D%99%E6%80%81javaagent%E4%BD%BF%E7%94%A8/#more">上一篇博客</a> 可以指定静态javaagent的使用必须在启动项目时加上javagent的相关启动参数，并且premain()方法也总是在main()方法之前执行，因此有一一定的局限性，在java6之后则做出了改变，有另一种方式可以在main方法启动之后执行，而且不需要添加jvm的启动参数<br><a id="more"></a></p>
+        <p>通过 <a href="https://yangshaoxiang.github.io/2018/03/07/APM(1)%E9%9D%99%E6%80%81javaagent%E4%BD%BF%E7%94%A8/#more">上一篇博客</a> 可以知道静态javaagent的使用必须在启动项目时加上javagent的相关启动参数，并且premain()方法也总是在main()方法之前执行，因此有一一定的局限性，在java6之后则做出了改变，有另一种方式可以在main方法启动之后执行，而且不需要添加jvm的启动参数<br><a id="more"></a></p>
 <h4 id="动态javaagent使用步骤"><a href="#动态javaagent使用步骤" class="headerlink" title="动态javaagent使用步骤"></a>动态javaagent使用步骤</h4><ol>
 <li><p>任意编写一个类，类中有如下两个方法之一即可(若两个都有，多参的优先级高)</p>
  <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">agentmain</span><span class="params">(String arg, Instrumentation instrumentation)</span></span>&#123;&#125;</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">agentmain</span><span class="params">(String arg)</span></span>&#123;&#125;</div></pre></td></tr></table></figure>
