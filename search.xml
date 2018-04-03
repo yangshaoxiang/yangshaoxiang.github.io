@@ -3,6 +3,46 @@
   
     
     <entry>
+      <title><![CDATA[eclipse非maven_web项目导入myeclipse]]></title>
+      <url>/2018/04/03/eclipse%E9%9D%9Emaven%E7%9A%84web%E9%A1%B9%E7%9B%AE%E5%AF%BC%E5%85%A5myeclipse%E5%B9%B6%E6%B7%BB%E5%8A%A0%E9%A1%B9%E7%9B%AE%E4%BE%9D%E8%B5%96/</url>
+      <content type="html"><![CDATA[<h4 id="eclipse非maven-web项目导入myeclipse"><a href="#eclipse非maven-web项目导入myeclipse" class="headerlink" title="eclipse非maven_web项目导入myeclipse"></a>eclipse非maven_web项目导入myeclipse</h4><p>结论:在myeclipse新建同名web工程将WebRoot工程重命名为WenContent，将eclipse工程中的src，resources，webContent，3个目录下的东西直接拷贝过来，如果原工程没有问题的话就可以直接运行<br><a id="more"></a><br>过程:开始以为直接就可以将eclipse的web工程导入到myeclipse中运行，结果导入后各种错误，与其去解决这种工具间兼容上的错误，还不如重新创建一个工程复制原工程内容来的快，基本5分钟搞定，对于maven工程，myeclipse或者idea可以直接将eclipse的工程导入，并且一般不会出错</p>
+<p>注意:以下操作依赖于IDE，我使用的是IDE是myeclipse2017 CI7</p>
+<h4 id="myeclipse-eclipse非maven工程间建立依赖"><a href="#myeclipse-eclipse非maven工程间建立依赖" class="headerlink" title="myeclipse/eclipse非maven工程间建立依赖"></a>myeclipse/eclipse非maven工程间建立依赖</h4><p>我本次导入的web工程需要依赖另一个普通的java工程，并且这两个工程本身并不是maven工程，这就需要ide(eclipse/myeclipse)设置去实现，例如webA工程需要依赖javaB</p>
+<ol>
+<li><p>建立两个工程间编译上的依赖  </p>
+<p> 右击webA项目-&gt;Build Path-&gt;Configure Build Path-&gt;Projects选项卡-&gt;Add</p>
+<p> <img src="http://p0zwh057c.bkt.clouddn.com/blog/180315/alkg3E39bb.png?imageslim" alt="mark"></p>
+<p> 添加当前项目需要依赖的工程即可</p>
+</li>
+<li><p>建立工程间运行上的依赖<br>上面的步骤完成后，发现webA工程编译上不会报错了，但是当实际将webA在tomcat上运行时发现webA并没有实际上依赖javaB，因此会报一些类没找到，或者spring注入失败之类的错误，这就类似于maven依赖将scop设置为test一样，这时要配置运行时依赖，简单来说就是运行时将javaB的jar包拷贝到lib目录下，或者将编译后的javaB工程复制到webA工程对应的同级目录下(这里采用的是后者)，其实这两种实现和maven打包的两种插件类似，前者类似maven-jar-plugin插件，后者类似maven-assembly-plugin插件，具体步骤如下:</p>
+<p>右击webA项目-&gt;Deployment-&gt;delpolyment assembly-&gt;Add-&gt;Project</p>
+<p><img src="http://p0zwh057c.bkt.clouddn.com/blog/180315/BmljEAB3Kc.png?imageslim" alt="mark"></p>
+</li>
+</ol>
+<h4 id="import-sun-misc-BASE64Decoder-报错"><a href="#import-sun-misc-BASE64Decoder-报错" class="headerlink" title="import sun.misc.BASE64Decoder 报错"></a>import sun.misc.BASE64Decoder 报错</h4><p>这是java默认不推荐使用该类，未来可能会移除，解决步骤如下:<br>java bulid path–&gt;Libraries–&gt;jre System Library-&gt;Access Rules–&gt;Edit</p>
+<p><img src="http://p0zwh057c.bkt.clouddn.com/blog/180315/5CFg2dfeaH.png?imageslim" alt="mark"></p>
+<p>打开编辑页面后执行如下步骤:<br>Add-&gt;resolution选择accessible,下面填上** 点击确定</p>
+<p><img src="http://p0zwh057c.bkt.clouddn.com/blog/180315/Ek04DFLKD4.png?imageslim" alt="mark"></p>
+]]></content>
+      
+        <categories>
+            
+            <category> 工具 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> eclipse </tag>
+            
+            <tag> myeclipse </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[APM(4)javassist结合javaagent使用]]></title>
       <url>/2018/03/15/APM(4)javassist%E7%BB%93%E5%90%88javaagent%E4%BD%BF%E7%94%A8/</url>
       <content type="html"><![CDATA[<p>javaagnet为插桩提供入口，javassist实现字节码修改，这部分将记录3个demo，分别是静态agent结合javassist修改方法体，动态agent结合javassist修改方法体，最后一个demo综合使用javaagent和javassist监听c3p0数据源<br><a id="more"></a></p>
@@ -324,30 +364,40 @@
     </entry>
     
     <entry>
-      <title><![CDATA[log4j使用]]></title>
-      <url>/2017/12/09/log4jj%E4%BD%BF%E7%94%A8/</url>
-      <content type="html"><![CDATA[<h3 id="1-配置效果"><a href="#1-配置效果" class="headerlink" title="1. 配置效果"></a>1. 配置效果</h3><p>下面的log4j日志配置最终能达到的效果是对于全局日志可以根据级别输入到对应级别的日志文件中，注意低级别的日志文件会同时包含高级别的日志信息，例如info级别的日志文件会包含info，warn，error信息，对于一些重要的模块，可以单独输出到独立的文件夹文件中，同时对单独模块也可以像全局日志那样根据日志级别输入到对应文件中 也可以配置该模块日志信息是否同时输入到全局日志中<br><a id="more"></a></p>
-<h3 id="2-样板Log4j配置示例"><a href="#2-样板Log4j配置示例" class="headerlink" title="2. 样板Log4j配置示例"></a>2. 样板Log4j配置示例</h3><p>这段配置的效果是配置3个全局的输出目的地，分别输出到控制台，和两个文件中，控制台的输出级别是info，两个文件的输出级别分别是info和error，配置一个login(登录)模块的日志输出到文件中，并且配置该模块日志信息不输出到全局日志中，在该模块中日志同样按照级别输出到不同文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div></pre></td><td class="code"><pre><div class="line">log4j.rootLogger=DEBUG,console, infofile, errorfile</div><div class="line"></div><div class="line">#日志文件输出目录</div><div class="line">basedir=$&#123;catalina.home&#125;/logs/basemvc</div><div class="line">#登录模块日志输出目录</div><div class="line">logindir=$&#123;basedir&#125;/login</div><div class="line"></div><div class="line">#控制台日志-输出info以上</div><div class="line">log4j.appender.console=org.apache.log4j.ConsoleAppender</div><div class="line">log4j.appender.console.Threshold=info</div><div class="line">log4j.appender.console.layout=org.apache.log4j.PatternLayout</div><div class="line">log4j.appender.console.layout.ConversionPattern=%d&#123;yyyy-MM-ddHH\:mm\:ss&#125;[%-5p]%m%n%n</div><div class="line"></div><div class="line">#文件中info级别以上日志</div><div class="line">log4j.appender.infofile=org.apache.log4j.DailyRollingFileAppender</div><div class="line">log4j.appender.infofile.Append=true</div><div class="line">log4j.appender.infofile.DatePattern=&apos;.&apos;yyyy-MM-dd</div><div class="line">log4j.appender.infofile.File=$&#123;basedir&#125;/info.log</div><div class="line">log4j.appender.infofile.Threshold=info</div><div class="line">log4j.appender.infofile.layout=org.apache.log4j.PatternLayout</div><div class="line">log4j.appender.infofile.layout.ConversionPattern=%d&#123;yyyy-MM-ddHH\:mm\:ss&#125;[%-5p]%m%n%n</div><div class="line"></div><div class="line">#文件中error级别以上日志</div><div class="line">log4j.appender.errorfile=org.apache.log4j.DailyRollingFileAppender</div><div class="line">log4j.appender.errorfile.Append=true</div><div class="line">log4j.appender.errorfile.DatePattern=&apos;.&apos;yyyy-MM-dd</div><div class="line">log4j.appender.errorfile.File=$&#123;basedir&#125;/error.log</div><div class="line">log4j.appender.errorfile.Threshold=ERROR</div><div class="line">log4j.appender.errorfile.layout=org.apache.log4j.PatternLayout</div><div class="line">log4j.appender.errorfile.layout.ConversionPattern=%d&#123;yyyy-MM-dd HH\:mm\:ss&#125; [%-5p] %m%n%n</div><div class="line"></div><div class="line">#--------------------以下login模块相关日志--------------------</div><div class="line">#login模块输出</div><div class="line">#INFO及以上级别的log进行输出</div><div class="line">log4j.logger.login=INFO,logininfofile,loginerrorfile</div><div class="line"></div><div class="line">#login模块文件中存储info级别以上日志        </div><div class="line">log4j.appender.logininfofile.Threshold=INFO</div><div class="line">#以文件类型输出</div><div class="line">log4j.appender.logininfofile=org.apache.log4j.DailyRollingFileAppender</div><div class="line">#输出路径</div><div class="line">log4j.appender.logininfofile.File=$&#123;logindir&#125;/info_login.log</div><div class="line">#配置文件输出的文件命名，这种格式文件会在凌晨生成一个文件，想在其他时间生成新文件可以查看DatePattern的相关配置</div><div class="line">log4j.appender.logininfofile.DatePattern=&apos;_&apos;yyyy-MM-dd&apos;.log&apos;</div><div class="line">#输出格式</div><div class="line">log4j.appender.logininfofile.layout=org.apache.log4j.PatternLayout</div><div class="line">log4j.appender.logininfofile.layout.ConversionPattern=%d %p [%c] - %m%n</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">#login模块文件中存储error级别以上日志</div><div class="line">log4j.appender.loginerrorfile.Threshold=ERROR</div><div class="line">#以文件类型输出</div><div class="line">log4j.appender.loginerrorfile=org.apache.log4j.DailyRollingFileAppender</div><div class="line">#输出路径</div><div class="line">log4j.appender.loginerrorfile.File=$&#123;logindir&#125;/error_login.log</div><div class="line">#配置文件输出的文件命名，这种格式文件会在凌晨生成一个文件，想在其他时间生成新文件可以查看DatePattern的相关配置</div><div class="line">log4j.appender.loginerrorfile.DatePattern=&apos;_&apos;yyyy-MM-dd&apos;.log&apos;</div><div class="line">#输出格式</div><div class="line">log4j.appender.loginerrorfile.layout=org.apache.log4j.PatternLayout</div><div class="line">log4j.appender.loginerrorfile.layout.ConversionPattern=%d %p [%c] - %m%n</div><div class="line"></div><div class="line">#设置这个子Logger输出日志不在父级别logger里面输出</div><div class="line">log4j.additivity.login=false</div><div class="line"></div><div class="line">#--------------------以上login模块相关日志--------------------</div></pre></td></tr></table></figure></p>
-<h3 id="3-配置简要解释"><a href="#3-配置简要解释" class="headerlink" title="3. 配置简要解释"></a>3. 配置简要解释</h3><h4 id="3-1-关于全局日志的配置"><a href="#3-1-关于全局日志的配置" class="headerlink" title="3.1 关于全局日志的配置"></a>3.1 关于全局日志的配置</h4><ol>
-<li><p>关于日志的输出级别<br> log4j日志级别分为OFF、FATAL、ERROR、WARN、INFO、DEBUG、ALL或者自定义的级别。Log4j建议只使用四个级别，优先级从高到低分别是 ERROR、WARN、INFO、DEBUG。通过在配置文件中配置，可以控制到应用程序中相应级别的日志信息的开关。比如在配置文件中定义了log4j.rootLogger为INFO级别，则应用程序中所有DEBUG级别的日志信息将不被打印出来，也是说大于等于的级别的日志才输出。</p>
-</li>
-<li><p>全局日志配置 log4j.rootLogger<br> 这个是用来定义日志全局的输出级别以及输出的目的地，这里我定义的是log4j.rootLogger=info, console, infofile, errorfile,这里定义了全局输出的日志为INFO级别，也就是说能输出的日志级别一定不低于INFO级别，即DEBUG级别的日志将不会输出，输出到哪呢?输出到紧接其后定义的目的地 console, infofile, errorfile，这个3个目的地可以随意命名，在每个目的地中可以具体细化日志的配置，即他们可以再次对日志的级别进行过滤，对日志输出格式进行细化，对日志输出端类型进行指定。</p>
-</li>
-<li><p>指定日志输出目的地中输出端 log4j.appender.目的地名称<br> 就是配置输出到这个目的地的日志，他是在控制台中输出，还是以文件的形式输出，如果以文件的形式输出，那么其文件产生时机是什么时候，目的地有如下几种配置:</p>
-<blockquote>
-<p>org.apache.log4j.ConsoleAppender（控制台）<br>org.apache.log4j.FileAppender（文件）<br>org.apache.log4j.DailyRollingFileAppender（每天产生一个日志文件）<br>org.apache.log4j.RollingFileAppender（文件大小到达指定尺寸的时候产生一个新的文件）<br>org.apache.log4j.WriterAppender（将日志信息以流格式发送到任意指定的地方）  </p>
-</blockquote>
-</li>
-<li><p>指定日志输出目的地中日志输出级别 log4j.appender.interceptor.Threshold<br>通过该属性可以指定目的地中日志输出的级别，相当于对全局配置的日志级别再次做一次过滤</p>
-</li>
+      <title><![CDATA[ThreadLocal解析]]></title>
+      <url>/2017/12/09/ThreadLocal%E8%A7%A3%E6%9E%90/</url>
+      <content type="html"><![CDATA[<h3 id="ThreadLocal含义"><a href="#ThreadLocal含义" class="headerlink" title="ThreadLocal含义"></a>ThreadLocal含义</h3><p>首先明确ThreadLocal并不是解决多线程下共享对象的并发访问而产生的，他也做不到这一点，因为他内部保存的仍然是对象的引用，而不是真的存储的是对象本身，通常使用ThreadLocal保存的对象，是当前线程单独创建(new)的对象，然后通过ThreadLocal.set()放入到当前当前线程中，这样对该对象的操作肯定不会影响到其他线程，其他线程也不需要对该对象进行操作(其他线程想要应该要自己去创建属于该线程自己的对象)<br>下面代码证明：ThreadLocal存储的是对象引用，无法保证共享对象的线程安全<br><a id="more"></a><br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ThreadLocalTest</span> </span>&#123;</div><div class="line">    	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">          <span class="keyword">final</span> Student aa = <span class="keyword">new</span> Student();</div><div class="line">    	    aa.setName(<span class="string">"初始名称"</span>);</div><div class="line">    	    <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;</div><div class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">                    ThreadLocal&lt;Student&gt; threadLocal1 = <span class="keyword">new</span> ThreadLocal&lt;Student&gt;();</div><div class="line">                    threadLocal1.set(aa);</div><div class="line">                    System.out.println(<span class="string">"线程一:"</span>+threadLocal1.get().getName());</div><div class="line">                    threadLocal1.get().setName(<span class="string">"被线程一修改后的名称"</span>);</div><div class="line">                &#125;</div><div class="line">            &#125;).start();</div><div class="line"></div><div class="line">    	    <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;</div><div class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">                    ThreadLocal&lt;Student&gt; threadLocal2 = <span class="keyword">new</span> ThreadLocal&lt;Student&gt;();</div><div class="line">                    threadLocal2.set(aa);</div><div class="line">                    <span class="keyword">try</span> &#123;</div><div class="line">                        Thread.sleep(<span class="number">2000L</span>);</div><div class="line">                    &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</div><div class="line">                        e.printStackTrace();</div><div class="line">                    &#125;</div><div class="line">                    System.out.println(<span class="string">"线程二:"</span>+threadLocal2.get().getName());</div><div class="line">                &#125;</div><div class="line">            &#125;).start();</div><div class="line"></div><div class="line">        &#125;</div><div class="line">&#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span></span>&#123;</div><div class="line">    <span class="keyword">private</span> String name;</div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> name;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.name = name;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>运行上面程序获取的结果是:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">线程一:初始名称</div><div class="line">线程二:被线程一修改后的名称</div></pre></td></tr></table></figure></p>
+<p>上面的程序含义是创建一个共享的Student对象，创建两个线程分别在线程内部使用ThreadLocal保存该对象，线程一保存完毕后修改该对象的属性，根据程序运行结果可以看出线程二中保存的Student对象名称也被修改，因此ThreadLocal不能保存或者说不应保存共享对象，他应该只保存当前线程私有(本地)变量</p>
+<h3 id="ThreadLocal的实现-参考的JDK1-7的源码"><a href="#ThreadLocal的实现-参考的JDK1-7的源码" class="headerlink" title="ThreadLocal的实现(参考的JDK1.7的源码)"></a>ThreadLocal的实现(参考的JDK1.7的源码)</h3><h4 id="set-方法"><a href="#set-方法" class="headerlink" title="set()方法"></a>set()方法</h4><p>ThreadLocal保证在当前线程中创建的对象，通过ThreadLocal.set()放入到当前当前线程中，通过ThreadLocal.get()获取存入的值，其他线程无法通过ThreadLocal.get()获取当前线程存入的值，这里的实现可以通过查看ThreadLocal的set/get方法源码查看<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">set</span><span class="params">(T value)</span> </span>&#123;</div><div class="line">     Thread t = Thread.currentThread();</div><div class="line">     <span class="comment">//获取当前线程的ThreadLocalMap</span></div><div class="line">     ThreadLocalMap map = getMap(t);</div><div class="line">     <span class="keyword">if</span> (map != <span class="keyword">null</span>)</div><div class="line">        <span class="comment">//存在就直接往里面塞值</span></div><div class="line">         map.set(<span class="keyword">this</span>, value);</div><div class="line">     <span class="keyword">else</span></div><div class="line">        <span class="comment">//不存在，就创建一个，然后设值</span></div><div class="line">         createMap(t, value);</div><div class="line"> &#125;</div></pre></td></tr></table></figure></p>
+<ol>
+<li>每一个线程都有一个ThreadLocal.ThreadLocalMap类型的成员变量，这里获取当前线程对应的ThreadLocalMap，他存储的也是key-value类型的数据结构，这里如果不理解ThreadLocalMap的结构可以先将ThreadLocalMap简单看成HashMap，后面具体分析ThreadLocalMap的结构</li>
+<li>如果当前线程有ThreadLocalMap，将ThreadLocal对象本身作为键，要存的值作为值存放到ThreadLocalMap中，没有就创建一个ThreadLocalMap然后存放键及值</li>
 </ol>
-<h4 id="3-2-关于单独模块日志配置"><a href="#3-2-关于单独模块日志配置" class="headerlink" title="3.2 关于单独模块日志配置"></a>3.2 关于单独模块日志配置</h4><ol>
-<li><p>log4j.logger.login.模块名<br>这一句配置相当于新添了一个日志模块，他的值与rootLogger代表意义相同，即指定相对该模块下全局日志级别及对应的输出目的地，其余对应目的地的配置和全局日志相同</p>
-</li>
-<li><p>log4j.additivity.模块名<br>设置这个子Logger输出日志是否在父级别logger里面输出，true表示同时在父级的日志输出，这里的模块名可以换为模块下的目的地名称，效果是一样的</p>
-</li>
+<h4 id="ThreadLocalMap结构及深入set-get-方法"><a href="#ThreadLocalMap结构及深入set-get-方法" class="headerlink" title="ThreadLocalMap结构及深入set()/get()方法"></a>ThreadLocalMap结构及深入set()/get()方法</h4><p>ThreadLocalMap的结构和HashMap类似，如下图所示:  </p>
+<p><img src="http://p0zwh057c.bkt.clouddn.com/blog/180129/51HJb2Klkf.png?imageslim" alt="mark"></p>
+<p>ThreadLocalMap内部同样有一个初始大小为16的Entry数组，他和HashMap中的Entry区别是</p>
+<ol>
+<li>Entry类继承WeakReference<threadlocal>，他对键的引用是弱引用</threadlocal></li>
+<li>他的数据结构里面没有链表，发生哈希冲突后会根据key判断更新当前位置值还是寻找下一个位置  </li>
 </ol>
-<h3 id="4-java中使用日志"><a href="#4-java中使用日志" class="headerlink" title="4. java中使用日志"></a>4. java中使用日志</h3><p>   对于在java中使用，单独日志模块要想独立输出获取日志对象时在方法参数中要传入模块名称，对于全局日志对象只需传入当前类的class对象即可，代码示例如下:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserAction</span> </span>&#123;</div><div class="line">    <span class="comment">//登录模块使用的日志对象</span></div><div class="line">    <span class="keyword">private</span> Logger loginLogger = Logger.getLogger(<span class="string">"login"</span>);</div><div class="line">    <span class="comment">//全局日志对象</span></div><div class="line">    <span class="keyword">private</span> Logger logger = Logger.getLogger(UserAction.class);</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">detail</span><span class="params">()</span></span>&#123;</div><div class="line">        logger.debug(<span class="string">"user_product----"</span>+<span class="string">"debug"</span>);</div><div class="line">        logger.info(<span class="string">"user_product----"</span>+<span class="string">"info"</span>);</div><div class="line">        logger.warn(<span class="string">"user_product----"</span>+<span class="string">"warn"</span>);</div><div class="line">        logger.error(<span class="string">"user_product----"</span>+<span class="string">"error"</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">login</span><span class="params">()</span></span>&#123;</div><div class="line">        loginLogger.debug(<span class="string">"user_product----"</span>+<span class="string">"debug"</span>);</div><div class="line">        loginLogger.info(<span class="string">"user_product----"</span>+<span class="string">"info"</span>);</div><div class="line">        loginLogger.warn(<span class="string">"user_product----"</span>+<span class="string">"warn"</span>);</div><div class="line">        loginLogger.error(<span class="string">"user_product----"</span>+<span class="string">"error"</span>);</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<p>关于第一点区别可以参考Entry类的源码<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Entry</span> <span class="keyword">extends</span> <span class="title">WeakReference</span>&lt;<span class="title">ThreadLocal</span>&gt; </span>&#123;</div><div class="line">       Object value;</div><div class="line">       Entry(ThreadLocal k, Object v) &#123;</div><div class="line">           <span class="keyword">super</span>(k);</div><div class="line">           value = v;</div><div class="line">       &#125;</div><div class="line">   &#125;</div></pre></td></tr></table></figure></p>
+<p>从源码上可以看出Entry本质上是WeakReference<threadlocal>，具体来说是Entry实例对ThreadLocal的某个实例是弱引用，同时还持有value的强引用</threadlocal></p>
+<p>关于第二点区别可以参考源码详细分析<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">set</span><span class="params">(ThreadLocal key, Object value)</span> </span>&#123;</div><div class="line"></div><div class="line">      Entry[] tab = table;</div><div class="line">      <span class="keyword">int</span> len = tab.length;</div><div class="line">      <span class="comment">//确定本次存储在Entry数组的索引位置</span></div><div class="line">      <span class="keyword">int</span> i = key.threadLocalHashCode &amp; (len-<span class="number">1</span>);</div><div class="line"></div><div class="line">     <span class="comment">/*</span></div><div class="line"><span class="comment">      *对于本次要存储的键值对应位置已有值，则说明发生了hash冲突</span></div><div class="line"><span class="comment">      *发生hash冲突的解决方法是：遍历整个数组，直到找到key或者是找到空位</span></div><div class="line"><span class="comment">      */</span></div><div class="line">      <span class="keyword">for</span> (Entry e = tab[i];</div><div class="line">           e != <span class="keyword">null</span>;</div><div class="line">           e = tab[i = nextIndex(i, len)]) &#123;</div><div class="line">          ThreadLocal k = e.get();</div><div class="line">          <span class="comment">//找到了该Entry并且键值相等，新值换旧值</span></div><div class="line">          <span class="keyword">if</span> (k == key) &#123;</div><div class="line">              e.value = value;</div><div class="line">              <span class="keyword">return</span>;</div><div class="line">          &#125;</div><div class="line">          <span class="comment">//该位置key已经被gc回收，</span></div><div class="line">          <span class="keyword">if</span> (k == <span class="keyword">null</span>) &#123;</div><div class="line">              replaceStaleEntry(key, value, i);</div><div class="line">              <span class="keyword">return</span>;</div><div class="line">          &#125;</div><div class="line">      &#125;</div><div class="line">      <span class="comment">//未发生hash碰撞直接赋值即可</span></div><div class="line">      tab[i] = <span class="keyword">new</span> Entry(key, value);</div><div class="line">      <span class="keyword">int</span> sz = ++size;</div><div class="line">      <span class="comment">/*</span></div><div class="line"><span class="comment">       *添加数据后做一下是否扩容的判断</span></div><div class="line"><span class="comment">       *1.没有要清理的被gc回收key的Entry</span></div><div class="line"><span class="comment">       *2.满足容量扩容条件</span></div><div class="line"><span class="comment">       */</span></div><div class="line">      <span class="keyword">if</span> (!cleanSomeSlots(i, sz) &amp;&amp; sz &gt;= threshold)</div><div class="line">          rehash();</div><div class="line">  &#125;</div></pre></td></tr></table></figure></p>
+<p>从源码上set()步骤就是</p>
+<ol>
+<li>确定本次存储的键值在Entry数组中的位置</li>
+<li>看是否发生Hash冲突，如果冲突了(该位置已经有Entry对象了)，看该位置的Entry的的key是否为null，为null说明该键已被gc回收，将现有的键值插入即可，不为null查看已经存在的key和本次要插入的key是否相同，如果相同，更新值即可</li>
+<li>未发生冲突直接构造新的键值Entry存到数组中即可</li>
+<li>判断是否需要扩容</li>
+</ol>
+<h3 id="ThreadLocal的应用场景"><a href="#ThreadLocal的应用场景" class="headerlink" title="ThreadLocal的应用场景"></a>ThreadLocal的应用场景</h3><ol>
+<li>hibernate数据库链接池，spring的事务实现</li>
+<li>多层间的参数传递</li>
+<li>某些情况提升安全和性能(DateFormat工具类)</li>
+</ol>
+<h3 id="ThreadLocal的问题-内存泄漏"><a href="#ThreadLocal的问题-内存泄漏" class="headerlink" title="ThreadLocal的问题-内存泄漏"></a>ThreadLocal的问题-内存泄漏</h3><p>所谓ThreadLocal的内存泄漏主要体现在线程池的环境下，Entry中的value无法被垃圾回收器回收，因为有一条强引用链<code>Thread-&gt;ThreadLocalMap-&gt;Entry-&gt;某个Entry中的value</code>,正常情况下当线程执行完销毁后这条引用链就不会存在了，但线程池环境下线程不会被销毁，因此也就造成所谓的内存泄漏，ThreadLocal的源码中也做了一定的措施防范内存泄漏，就是对应线程之后调用ThreadLocal的get和set方法都有很高的概率会顺便清理掉无效对象，断开value强引用，从而大对象被收集器回收。但是这是有概率的，因此线程池环境下，我们编码要注意用完调用remove()方法</p>
+<h3 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h3><p><a href="https://www.cnblogs.com/micrari/p/6790229.html" target="_blank" rel="external">ThreadLocal源码解读</a><br><a href="http://blog.csdn.net/u012834750/article/details/71646700" target="_blank" rel="external">ThreadLocal 内部实现、应用场景和内存泄漏</a><br><a href="http://blog.xiaohansong.com/2016/08/09/ThreadLocal-leak-analyze/" target="_blank" rel="external">ThreadLocal 内存泄露的实例分析</a><br><a href="http://www.importnew.com/16112.html" target="_blank" rel="external">清理ThreadLocal</a></p>
 ]]></content>
       
         <categories>
@@ -359,9 +409,7 @@
         
         <tags>
             
-            <tag> 日志 </tag>
-            
-            <tag> log4j </tag>
+            <tag> 源码解析 </tag>
             
         </tags>
         
@@ -431,6 +479,50 @@
         <tags>
             
             <tag> linux </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[log4j使用]]></title>
+      <url>/2017/12/09/log4jj%E4%BD%BF%E7%94%A8/</url>
+      <content type="html"><![CDATA[<h3 id="1-配置效果"><a href="#1-配置效果" class="headerlink" title="1. 配置效果"></a>1. 配置效果</h3><p>下面的log4j日志配置最终能达到的效果是对于全局日志可以根据级别输入到对应级别的日志文件中，注意低级别的日志文件会同时包含高级别的日志信息，例如info级别的日志文件会包含info，warn，error信息，对于一些重要的模块，可以单独输出到独立的文件夹文件中，同时对单独模块也可以像全局日志那样根据日志级别输入到对应文件中 也可以配置该模块日志信息是否同时输入到全局日志中<br><a id="more"></a></p>
+<h3 id="2-样板Log4j配置示例"><a href="#2-样板Log4j配置示例" class="headerlink" title="2. 样板Log4j配置示例"></a>2. 样板Log4j配置示例</h3><p>这段配置的效果是配置3个全局的输出目的地，分别输出到控制台，和两个文件中，控制台的输出级别是info，两个文件的输出级别分别是info和error，配置一个login(登录)模块的日志输出到文件中，并且配置该模块日志信息不输出到全局日志中，在该模块中日志同样按照级别输出到不同文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div></pre></td><td class="code"><pre><div class="line">log4j.rootLogger=DEBUG,console, infofile, errorfile</div><div class="line"></div><div class="line">#日志文件输出目录</div><div class="line">basedir=$&#123;catalina.home&#125;/logs/basemvc</div><div class="line">#登录模块日志输出目录</div><div class="line">logindir=$&#123;basedir&#125;/login</div><div class="line"></div><div class="line">#控制台日志-输出info以上</div><div class="line">log4j.appender.console=org.apache.log4j.ConsoleAppender</div><div class="line">log4j.appender.console.Threshold=info</div><div class="line">log4j.appender.console.layout=org.apache.log4j.PatternLayout</div><div class="line">log4j.appender.console.layout.ConversionPattern=%d&#123;yyyy-MM-ddHH\:mm\:ss&#125;[%-5p]%m%n%n</div><div class="line"></div><div class="line">#文件中info级别以上日志</div><div class="line">log4j.appender.infofile=org.apache.log4j.DailyRollingFileAppender</div><div class="line">log4j.appender.infofile.Append=true</div><div class="line">log4j.appender.infofile.DatePattern=&apos;.&apos;yyyy-MM-dd</div><div class="line">log4j.appender.infofile.File=$&#123;basedir&#125;/info.log</div><div class="line">log4j.appender.infofile.Threshold=info</div><div class="line">log4j.appender.infofile.layout=org.apache.log4j.PatternLayout</div><div class="line">log4j.appender.infofile.layout.ConversionPattern=%d&#123;yyyy-MM-ddHH\:mm\:ss&#125;[%-5p]%m%n%n</div><div class="line"></div><div class="line">#文件中error级别以上日志</div><div class="line">log4j.appender.errorfile=org.apache.log4j.DailyRollingFileAppender</div><div class="line">log4j.appender.errorfile.Append=true</div><div class="line">log4j.appender.errorfile.DatePattern=&apos;.&apos;yyyy-MM-dd</div><div class="line">log4j.appender.errorfile.File=$&#123;basedir&#125;/error.log</div><div class="line">log4j.appender.errorfile.Threshold=ERROR</div><div class="line">log4j.appender.errorfile.layout=org.apache.log4j.PatternLayout</div><div class="line">log4j.appender.errorfile.layout.ConversionPattern=%d&#123;yyyy-MM-dd HH\:mm\:ss&#125; [%-5p] %m%n%n</div><div class="line"></div><div class="line">#--------------------以下login模块相关日志--------------------</div><div class="line">#login模块输出</div><div class="line">#INFO及以上级别的log进行输出</div><div class="line">log4j.logger.login=INFO,logininfofile,loginerrorfile</div><div class="line"></div><div class="line">#login模块文件中存储info级别以上日志        </div><div class="line">log4j.appender.logininfofile.Threshold=INFO</div><div class="line">#以文件类型输出</div><div class="line">log4j.appender.logininfofile=org.apache.log4j.DailyRollingFileAppender</div><div class="line">#输出路径</div><div class="line">log4j.appender.logininfofile.File=$&#123;logindir&#125;/info_login.log</div><div class="line">#配置文件输出的文件命名，这种格式文件会在凌晨生成一个文件，想在其他时间生成新文件可以查看DatePattern的相关配置</div><div class="line">log4j.appender.logininfofile.DatePattern=&apos;_&apos;yyyy-MM-dd&apos;.log&apos;</div><div class="line">#输出格式</div><div class="line">log4j.appender.logininfofile.layout=org.apache.log4j.PatternLayout</div><div class="line">log4j.appender.logininfofile.layout.ConversionPattern=%d %p [%c] - %m%n</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">#login模块文件中存储error级别以上日志</div><div class="line">log4j.appender.loginerrorfile.Threshold=ERROR</div><div class="line">#以文件类型输出</div><div class="line">log4j.appender.loginerrorfile=org.apache.log4j.DailyRollingFileAppender</div><div class="line">#输出路径</div><div class="line">log4j.appender.loginerrorfile.File=$&#123;logindir&#125;/error_login.log</div><div class="line">#配置文件输出的文件命名，这种格式文件会在凌晨生成一个文件，想在其他时间生成新文件可以查看DatePattern的相关配置</div><div class="line">log4j.appender.loginerrorfile.DatePattern=&apos;_&apos;yyyy-MM-dd&apos;.log&apos;</div><div class="line">#输出格式</div><div class="line">log4j.appender.loginerrorfile.layout=org.apache.log4j.PatternLayout</div><div class="line">log4j.appender.loginerrorfile.layout.ConversionPattern=%d %p [%c] - %m%n</div><div class="line"></div><div class="line">#设置这个子Logger输出日志不在父级别logger里面输出</div><div class="line">log4j.additivity.login=false</div><div class="line"></div><div class="line">#--------------------以上login模块相关日志--------------------</div></pre></td></tr></table></figure></p>
+<h3 id="3-配置简要解释"><a href="#3-配置简要解释" class="headerlink" title="3. 配置简要解释"></a>3. 配置简要解释</h3><h4 id="3-1-关于全局日志的配置"><a href="#3-1-关于全局日志的配置" class="headerlink" title="3.1 关于全局日志的配置"></a>3.1 关于全局日志的配置</h4><ol>
+<li><p>关于日志的输出级别<br> log4j日志级别分为OFF、FATAL、ERROR、WARN、INFO、DEBUG、ALL或者自定义的级别。Log4j建议只使用四个级别，优先级从高到低分别是 ERROR、WARN、INFO、DEBUG。通过在配置文件中配置，可以控制到应用程序中相应级别的日志信息的开关。比如在配置文件中定义了log4j.rootLogger为INFO级别，则应用程序中所有DEBUG级别的日志信息将不被打印出来，也是说大于等于的级别的日志才输出。</p>
+</li>
+<li><p>全局日志配置 log4j.rootLogger<br> 这个是用来定义日志全局的输出级别以及输出的目的地，这里我定义的是log4j.rootLogger=info, console, infofile, errorfile,这里定义了全局输出的日志为INFO级别，也就是说能输出的日志级别一定不低于INFO级别，即DEBUG级别的日志将不会输出，输出到哪呢?输出到紧接其后定义的目的地 console, infofile, errorfile，这个3个目的地可以随意命名，在每个目的地中可以具体细化日志的配置，即他们可以再次对日志的级别进行过滤，对日志输出格式进行细化，对日志输出端类型进行指定。</p>
+</li>
+<li><p>指定日志输出目的地中输出端 log4j.appender.目的地名称<br> 就是配置输出到这个目的地的日志，他是在控制台中输出，还是以文件的形式输出，如果以文件的形式输出，那么其文件产生时机是什么时候，目的地有如下几种配置:</p>
+<blockquote>
+<p>org.apache.log4j.ConsoleAppender（控制台）<br>org.apache.log4j.FileAppender（文件）<br>org.apache.log4j.DailyRollingFileAppender（每天产生一个日志文件）<br>org.apache.log4j.RollingFileAppender（文件大小到达指定尺寸的时候产生一个新的文件）<br>org.apache.log4j.WriterAppender（将日志信息以流格式发送到任意指定的地方）  </p>
+</blockquote>
+</li>
+<li><p>指定日志输出目的地中日志输出级别 log4j.appender.interceptor.Threshold<br>通过该属性可以指定目的地中日志输出的级别，相当于对全局配置的日志级别再次做一次过滤</p>
+</li>
+</ol>
+<h4 id="3-2-关于单独模块日志配置"><a href="#3-2-关于单独模块日志配置" class="headerlink" title="3.2 关于单独模块日志配置"></a>3.2 关于单独模块日志配置</h4><ol>
+<li><p>log4j.logger.login.模块名<br>这一句配置相当于新添了一个日志模块，他的值与rootLogger代表意义相同，即指定相对该模块下全局日志级别及对应的输出目的地，其余对应目的地的配置和全局日志相同</p>
+</li>
+<li><p>log4j.additivity.模块名<br>设置这个子Logger输出日志是否在父级别logger里面输出，true表示同时在父级的日志输出，这里的模块名可以换为模块下的目的地名称，效果是一样的</p>
+</li>
+</ol>
+<h3 id="4-java中使用日志"><a href="#4-java中使用日志" class="headerlink" title="4. java中使用日志"></a>4. java中使用日志</h3><p>   对于在java中使用，单独日志模块要想独立输出获取日志对象时在方法参数中要传入模块名称，对于全局日志对象只需传入当前类的class对象即可，代码示例如下:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserAction</span> </span>&#123;</div><div class="line">    <span class="comment">//登录模块使用的日志对象</span></div><div class="line">    <span class="keyword">private</span> Logger loginLogger = Logger.getLogger(<span class="string">"login"</span>);</div><div class="line">    <span class="comment">//全局日志对象</span></div><div class="line">    <span class="keyword">private</span> Logger logger = Logger.getLogger(UserAction.class);</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">detail</span><span class="params">()</span></span>&#123;</div><div class="line">        logger.debug(<span class="string">"user_product----"</span>+<span class="string">"debug"</span>);</div><div class="line">        logger.info(<span class="string">"user_product----"</span>+<span class="string">"info"</span>);</div><div class="line">        logger.warn(<span class="string">"user_product----"</span>+<span class="string">"warn"</span>);</div><div class="line">        logger.error(<span class="string">"user_product----"</span>+<span class="string">"error"</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">login</span><span class="params">()</span></span>&#123;</div><div class="line">        loginLogger.debug(<span class="string">"user_product----"</span>+<span class="string">"debug"</span>);</div><div class="line">        loginLogger.info(<span class="string">"user_product----"</span>+<span class="string">"info"</span>);</div><div class="line">        loginLogger.warn(<span class="string">"user_product----"</span>+<span class="string">"warn"</span>);</div><div class="line">        loginLogger.error(<span class="string">"user_product----"</span>+<span class="string">"error"</span>);</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+]]></content>
+      
+        <categories>
+            
+            <category> java </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 日志 </tag>
+            
+            <tag> log4j </tag>
             
         </tags>
         
@@ -528,6 +620,170 @@
             <tag> java </tag>
             
             <tag> json </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[mysql复制]]></title>
+      <url>/2017/04/03/mysql%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/</url>
+      <content type="html"><![CDATA[<h2 id="mysql主从复制"><a href="#mysql主从复制" class="headerlink" title="mysql主从复制"></a>mysql主从复制</h2><p>一般网站的业务都是读多写少，而一般并发系统的瓶颈在数据库，因此这种情况下一般会采用读写分离的方式降低主库的读压力，从而提升系统的并发量，现在先不说读写分离相关技术，就说要实现读写分离对数据库有一个基本要求，即主库和从库数据一致性的问题，即使不能绝对的强一致性，至少也要达到相对的一致性，这里依赖于mysql数据库自带的一些功能和配置<br><a id="more"></a></p>
+<h3 id="原理图"><a href="#原理图" class="headerlink" title="原理图"></a>原理图</h3><p>图片是从网上找的一个较为形象的图片:</p>
+<p><img src="http://p0zwh057c.bkt.clouddn.com/blog/180402/iKLah5G0ak.png?imageslim" alt="mark"></p>
+<h3 id="原理解释"><a href="#原理解释" class="headerlink" title="原理解释"></a>原理解释</h3><p>原理是使用binlog进行同步，binlog会记录数据库的写操作，将改变记录到binlog中，从库基本实时读取主库的binlog，然后在自身的数据库中执行这种改变。  </p>
+<p>详细过程:  </p>
+<ol>
+<li><p>master将改变写到binlog文件中</p>
+</li>
+<li><p>启动salve，salve有一个IO(工作)线程链接master去获取改变</p>
+</li>
+<li><p>master启动一个Binglog Dump线程用来”接待”从库的IO线程，该线程是一个守护线程，他会读取binlog中的事件发送给IO线程，<code>注意这里如果是异步复制，那么主库并不会在这里等待而会直接给调用的client返回sql执行结果</code></p>
+</li>
+<li><p>IO线程将改变写到salve的relayBinlog中</p>
+</li>
+<li><p>salve有一个SQLThread线程读取relayBinlog文件，将写操作在salve数据库中执行，以达到数据同步的目的</p>
+</li>
+<li><p>(可选)savve也会操作写入salve的binlog文件，用途是供给salve的salve使用，当然也可以关闭</p>
+</li>
+</ol>
+<p>补充:  </p>
+<ol>
+<li><p>binlog记录改变的方式有3种:  </p>
+<p> 基于语句就是当数据库执行DML(insert/update/delete)语句时将语句记录到binlog中,效率较高  </p>
+<p> 基于行就是当某行数据改变时将该行数据记录到binlog中，较为精确  </p>
+<p> 混合就是两者混着用，优先使用基于语句，无法保证精确复制时使用基于行  </p>
+<p> 优劣分析可参考<a href="(https://blog.csdn.net/thundermeng/article/details/50401150">binlog分析</a>)</p>
+</li>
+<li><p>详细过程3中后续的过程  </p>
+<p> 之后若主库无改变，dmup线程则进入休眠，直到主库改变binlog发送广播时会唤醒该线程，因此有几个salve链接master，那么master上就会启动几个dump线程，当该线程负责接待的salve断掉连接时，理论上该线程会退出</p>
+</li>
+<li><p>还需要了解的binlog知识  </p>
+<p> binlog的position:解决从哪开始同步，该属性代表同步位置，不可能每次全量同步，肯定是增量同步</p>
+<p> 可以在my.cnf配置哪些库需要同步，哪些库不需要</p>
+<p> binlog不会让他无限去膨胀记录的，可以设置有效期和大小</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">  #my.cnf中有两个参数设置</div><div class="line">expire_logs_days = 7      #binlog保留时间7天</div><div class="line">max_binlog_size = 1G      #binlog大小</div></pre></td></tr></table></figure>
+</li>
+<li><p>两个命令</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#查看当前正在写入的binlog文件</div><div class="line">show master  status;</div><div class="line"></div><div class="line">#查看binlog中的事件</div><div class="line">show binlog events in &quot;mysql-bin.000007&quot;;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="常见复制架构分析"><a href="#常见复制架构分析" class="headerlink" title="常见复制架构分析"></a>常见复制架构分析</h3><p>一主一从：一般网站是用来做热备，但是程序员手抖，删除主库，从库还是会在几秒内删除，不靠谱，建议定时任务  </p>
+<p>一主三从：其中一个从库是太子(半同步)，盖架构一般用来做读写分离，解决主库读压力  </p>
+<p>双主：不推荐使用，只有大量写去使用(135写1库，246写2库)</p>
+<p>级联同步:减轻master的压力，同时达到主从同步目的,缺点是复制master的那个salve挂了，架构就崩了，即存在单点问题</p>
+<p>环形多主：极不推荐，除非是实在解决不了写并发</p>
+<h3 id="一主多从搭建"><a href="#一主多从搭建" class="headerlink" title="一主多从搭建"></a>一主多从搭建</h3><p>配置主从复制很简单，我这里linux环境是CentOS6.6,mysql5.6,按照如下步骤操作即可，代理节点先不管他，在使用atlas做读写分离时会配置使用</p>
+<h4 id="环境安排"><a href="#环境安排" class="headerlink" title="环境安排"></a>环境安排</h4><p>首先要保证网络环境能相互ping通，对应的防火墙端口(3306)开放</p>
+<p><img src="http://p0zwh057c.bkt.clouddn.com/blog/180403/5GGbffAmdh.png?imageslim" alt="mark"></p>
+<h4 id="安装mysql数据库"><a href="#安装mysql数据库" class="headerlink" title="安装mysql数据库"></a>安装mysql数据库</h4><p>首先要在两台服务器上安装好mysql数据库，我这里分别在192.168.16.10(主)，和192,168.16.20(从)上安装的mysql5.6的数据库，安装步骤可以参考我之前关于基本环境搭建的博客<a href="(https://yangshaoxiang.github.io/2017/12/24/linux%E4%B8%8BJavaWeb%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/#more">web常用环境搭建</a>)</p>
+<h4 id="配置主库"><a href="#配置主库" class="headerlink" title="配置主库"></a>配置主库</h4><p>编辑要设置为主库的数据库配置文件，添加如下内容即可，对应配置含义有注释<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vi /etc/my.cnf</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">#mysql主从复制-master配置</div><div class="line">#需要同步的二进制数据库名；</div><div class="line">binlog-do-db=syndb</div><div class="line">#不同步的二进制数据库名,如果不设置可以将其注释掉;</div><div class="line">binlog-ignore-db=information_schema</div><div class="line">binlog-ignore-db=mysql</div><div class="line">binlog-ignore-db=personalsite</div><div class="line">binlog-ignore-db=test</div><div class="line">#以下参数可选----------</div><div class="line">#binlog 格式</div><div class="line">binlog-format=ROW</div><div class="line">log-bin=mysql-master-bin</div><div class="line">#slave更新时是否记录到日志中；</div><div class="line">log-slave-updates=true</div></pre></td></tr></table></figure>
+<p>从原理上来看，从库是需要连接主库的，因此主库要给从库分配一个用于访问的数据库的账号和密码，登入mysql使用以下命令是创建一个账号<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#创建一个用户名为slave1密码为123456的账户，且只允许该账户在ip地址192.168.16.20上使用</div><div class="line">grant replication slave,super,reload on *.* to slave1@192.168.16.20 identified by &apos;123456&apos;;</div></pre></td></tr></table></figure></p>
+<h4 id="配置从库"><a href="#配置从库" class="headerlink" title="配置从库"></a>配置从库</h4><p>编辑要设置为从库的数据库配置文件，添加如下内容即可，对应配置含义有注释<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vi /etc/my.cnf</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">#mysql主从复制-slave配置</div><div class="line">server-id = 2 #原有的配置文件为1，修改为2</div><div class="line">#需要同步的二进制数据库名；</div><div class="line">replicate-do-db=syndb</div><div class="line">#忽略同步的数据库名称</div><div class="line">replicate-ignore-db=information_schema</div><div class="line">replicate-ignore-db=mysql</div><div class="line">replicate-ignore-db=personalsite</div><div class="line">replicate-ignore-db=test</div><div class="line">#日志名</div><div class="line">log-bin=mysql-slave-bin</div></pre></td></tr></table></figure>
+<p>配置主库时主库为从库的链接提供了一个账号，配置从库使用该账户链接主库<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">change master to master_host=&apos;192.168.16.10&apos;, master_user=&apos;slave1&apos;, master_password=&apos;123456&apos;;</div></pre></td></tr></table></figure></p>
+<h4 id="开启主从复制及注意点"><a href="#开启主从复制及注意点" class="headerlink" title="开启主从复制及注意点"></a>开启主从复制及注意点</h4><ol>
+<li><p>开始时从库不需要主动创建要同步的主库的库，否则从库SqlRunning无法启动，主从开启后从库会自动创建要同步的库</p>
+</li>
+<li><p>重启主库及从库 (也有别的方式，重启最直接和简单)</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#前面文件目录可能略有不同，找到自己的，重启</div><div class="line">/etc/rc.d/init.d/mysqld restart</div></pre></td></tr></table></figure>
+</li>
+<li><p>开启从库，查看从库状态(此步完成，主从复制配置完成)</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#启动slave</div><div class="line">mysql&gt;start slave;</div><div class="line"></div><div class="line">#查看从库状态，只有 Slave_IO_Running和Slave_SQL_Running都为Yes才可以</div><div class="line">mysql&gt;show slave status\G;</div></pre></td></tr></table></figure>
+</li>
+<li><p>主从复制常用命令</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">#一些主库命令</div><div class="line">#查看当前正在写入的binlog文件</div><div class="line">mysql&gt; show master status</div><div class="line"></div><div class="line">#在主库上查看已连接的slave主机</div><div class="line">mysql&gt; show slave hosts;</div><div class="line"></div><div class="line">#查看所有binlog日志</div><div class="line">mysql&gt; show binary logs;</div><div class="line"></div><div class="line">#查看所有binlog 事件</div><div class="line">mysql&gt; show binlog events in &apos;mysql-bin.000003&apos; from 145 \G;</div><div class="line"></div><div class="line"></div><div class="line">#一些从库命令</div><div class="line">#跳过指定数量错误</div><div class="line">SET GLOBAL SQL_SLAVE_SKIP_COUNTER = 1;</div><div class="line"></div><div class="line">#查看 relaylog 事件</div><div class="line">show relaylog events in &apos;localhost-relay-bin.000019&apos;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="一主多从问题"><a href="#一主多从问题" class="headerlink" title="一主多从问题"></a>一主多从问题</h3><p>中间数据中断，数据不同步问题，或延时不同步(写完立刻要查)  </p>
+<p><code>解决方案一</code>:<a href="#半同步">半同步</a>(下面有详细介绍半同步)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">                                 这里异步</div><div class="line">异步:   插入-&gt;master binlog（数据库）---&gt;salve  relayBinlog --&gt;binlog（数据库）</div><div class="line"></div><div class="line">                                 这里同步               这里异步</div><div class="line">半同步  插入-&gt;master binlog（数据库）---&gt;salve  relayBinlog --&gt;binlog（数据库）</div></pre></td></tr></table></figure></p>
+<p>这种方案意思是至少保证一台salve接收到了数据（保证到达relayBinlog），之后才返回,<br>实际上这种方式很耗时，所以一主多从，如果采用半同步方式保证数据一致，只会有一台从库会做半同步,半同步的salve可以切换为master</p>
+<p>缺点:salve挂掉，master会一直等待，可以设置超时时间1-10s之间，过了超时时间变为异步复制，看业务配置时间，配置上要安装一个插件并且5.1之后才支持</p>
+<p><code>解决方案二</code>:并行复制（mysql5.7）<br>该方案我并未使用和配置过，只做过简单了解，可参考如下链接<br><a href="http://www.ttlsa.com/mysql/mysql-5-7-enhanced-multi-thread-salve/" target="_blank" rel="external">http://www.ttlsa.com/mysql/mysql-5-7-enhanced-multi-thread-salve/</a></p>
+<p><code>解决方案2.5</code>:代理读主库<br>之所以是2.5是这并不是解决复制延时问题，而是向上一层考虑，为什么不能容忍延迟？一般是因为插入后要立刻读，有延迟从从库读取不到master新插入的数据，可以强制读主库，例如360atlas中查询sql语句加/<em>master</em>/前缀</p>
+<h3 id="半同步"><a href="#半同步" class="headerlink" title="半同步"></a>半同步</h3><h4 id="半同步原理"><a href="#半同步原理" class="headerlink" title="半同步原理"></a>半同步原理</h4><p>在master的dump线程向slave的IO线程发送binlog时，会阻塞master的结果提交，直到slave将改变写入relayBinlog  (5.7之后可配置成阻塞事务提交)<br><a href="https://blog.csdn.net/thundermeng/article/details/50401150" target="_blank" rel="external">详细过程如下:</a></p>
+<ol>
+<li><p>当Slave主机连接到Master时，能够查看其是否处于半同步复制的机制。</p>
+</li>
+<li><p>当Master上开启半同步复制的功能时，至少应该有一个Slave开启其功能。此时，一个线程在Master上提交事务将受到阻塞，直到得知一个已开启半同步复制功能的Slave已收到此事务的所有事件，或等待超时。</p>
+</li>
+<li><p>当一个事务的事件都已写入其relay-log中且已刷新到磁盘上，Slave才会告知已收到。</p>
+</li>
+<li><p>如果等待超时，也就是Master没被告知已收到，此时Master会自动转换为异步复制的机制。当至少一个半同步的Slave赶上了，Master与其Slave自动转换为半同步复制的机制。</p>
+</li>
+<li><p>半同步复制的功能要在Master，Slave都开启，半同步复制才会起作用；否则，只开启一边，它依然为异步复制。</p>
+</li>
+</ol>
+<h4 id="半同步配置"><a href="#半同步配置" class="headerlink" title="半同步配置"></a>半同步配置</h4><p>半同步需要满足一下几个条件<br>要想使用半同步复制，必须满足以下几个条件：</p>
+<ol>
+<li><p>MySQL 5.5及以上版本</p>
+</li>
+<li><p>变量have_dynamic_loading为YES</p>
+</li>
+<li><p>异步复制已经存在</p>
+</li>
+</ol>
+<p>确认满足后按照如下步骤进行配置(最终无需重启mysql)</p>
+<h5 id="主库配置"><a href="#主库配置" class="headerlink" title="主库配置"></a>主库配置</h5><ol>
+<li><p>安装插件</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#安装插件</div><div class="line">mysql&gt; INSTALL PLUGIN rpl_semi_sync_master SONAME&apos;semisync_master.so&apos;;</div><div class="line"></div><div class="line">#查看是否安装成功</div><div class="line">mysql&gt; select * from mysql.plugin;</div></pre></td></tr></table></figure>
+</li>
+<li><p>设置环境</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">#开启半同步复制</div><div class="line">SET GLOBAL rpl_semi_sync_master_enabled = 1;</div><div class="line"></div><div class="line">#主节点等待备节点返回确认信息的超时时间单位毫秒，超过这个时间后半同步复制变为异步复制</div><div class="line">SET GLOBAL rpl_semi_sync_master_timeout = 5000;</div><div class="line"></div><div class="line">#查看是否启动(有一个on即可)</div><div class="line">show status like &apos;%semi_sync%&apos;;</div></pre></td></tr></table></figure>
+</li>
+<li><p>配置文件<br> 编辑mysql配置问价</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vi /etc/my.cnf</div></pre></td></tr></table></figure>
+<p> 在该文件中追加如下内容:</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">#半同步复制-master配置</div><div class="line"></div><div class="line">#开启半同步复制</div><div class="line">rpl_semi_sync_master_enabled=1</div><div class="line"></div><div class="line">#主节点等待备节点返回确认信息的超时时间单位毫秒，超过这个时间后半同步复制转变成异步复制</div><div class="line">rpl_semi_sync_master_timeout=5000</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h5 id="从库配置"><a href="#从库配置" class="headerlink" title="从库配置"></a>从库配置</h5><ol>
+<li><p>安装插件</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#安装插件</div><div class="line">mysql&gt; INSTALL PLUGIN rpl_semi_sync_slave SONAME&apos;semisync_slave.so&apos;;</div><div class="line"></div><div class="line">#查看是否安装成功</div><div class="line">mysql&gt; select * from mysql.plugin;</div></pre></td></tr></table></figure>
+</li>
+<li><p>设置环境</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">#开启半同步复制</div><div class="line">mysql&gt; SET GLOBAL rpl_semi_sync_slave_enabled = 1;</div><div class="line"></div><div class="line">#重启slave上的IO线程，重启后slave会在master上注册为半同步复制的slave角色</div><div class="line">mysql&gt; STOP SLAVE IO_THREAD; START SLAVE IO_THREAD;</div><div class="line"></div><div class="line">##查看是否启动(有一个on即可)</div><div class="line">mysql&gt;  show status like &apos;%semi_sync%&apos;;</div></pre></td></tr></table></figure>
+</li>
+<li><p>配置文件 (到此半同步配置完成，无需重启mysql)<br> 编辑mysql配置文价</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vi /etc/my.cnf</div></pre></td></tr></table></figure>
+<p> 在该文件中追加如下内容:</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#半同步复制-slave配置</div><div class="line">#开启半同步复制</div><div class="line">rpl_semi_sync_master_enabled=1</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h5 id="半同步测试"><a href="#半同步测试" class="headerlink" title="半同步测试"></a>半同步测试</h5><p>完成以上配置后在主库同步的数据库中删除一条数据，可以看到执行时间很短，只有0.009s，执行完毕后从库该条数据也已删除，说明主从复制模式没有问题</p>
+<p><img src="http://p0zwh057c.bkt.clouddn.com/blog/180403/aL9bJ1D0k2.png?imageslim" alt="mark"></p>
+<p>关闭从库，在从库上执行  <code>stop slave;</code> ,然后再在主库删除一条数据，会发现执行时间为5.002s，这是主库在等待从库响应写入relay-log，等待了5s(我们配置的)，转为异步复制执行</p>
+<p><img src="http://p0zwh057c.bkt.clouddn.com/blog/180403/ge65jagK6e.png?imageslim" alt="mark"></p>
+<p>由此实验基本证明半同步开启成功</p>
+<h4 id="半同步问题"><a href="#半同步问题" class="headerlink" title="半同步问题"></a>半同步问题</h4><p>客户端事务在存储引擎层提交后，在得到从库确认的过程中，主库宕机了，此时，可能的情况有两种</p>
+<p>1.事务还没发送到从库上</p>
+<p>此时，客户端会收到事务提交失败的信息，客户端会重新提交该事务到新的主上，当宕机的主库重新启动后，以从库的身份重新加入到该主从结构中，会发现，该事务在从库中被提交了两次，一次是之前作为主的时候，一次是被新主同步过来的。</p>
+<p>2.事务已经发送到从库上</p>
+<p>此时，从库已经收到并应用了该事务，但是客户端仍然会收到事务提交失败的信息，重新提交该事务到新的主上。   </p>
+<p><code>解决方案</code>：升级到mysql5.7<br>mysql5.7提供了新的半同步机制，即在主库提交事务到存储引擎层之前，阻塞，直到从库返回响应信息或超时</p>
+<p><code>补充</code>: mysql5.7对复制的优化</p>
+<ol>
+<li><p>如上问题，mysql5.7对半同步提供了AFTER_SYNC模式解决after_commit导致的master crash主从间数据不一致问题</p>
+</li>
+<li><p>支持发送binlog和接受ack的异步化<br>5.6版本的半同步复制，dump thread 承担了两份不同且又十分频繁的任务：传送binlog 给slave ，还需要等待slave反馈信息，而且这两个任务是串行的，dump thread 必须等待 slave 返回之后才会传送下一个 events 事务。<br>5.7版本的半同步复制中，独立出一个 ack collector thread ，专门用于接收slave 的反馈信息。这样master 上有两个线程独立工作，可以同时发送binlog 到slave ，和接收slave的反馈。</p>
+</li>
+<li><p>Binlog 互斥锁改进<br>旧版本半同步复制在主提交binlog的写会话和dump thread读binlog的操作都会对binlog添加互斥锁，导致binlog文件的读写是串行化的，存在并发度的问题。<br>MySQL 5.7 对binlog lock进行了以下两方面优化: 1. 移除了dump thread对binlog的互斥锁 2. 加入了安全边际保证binlog的读安全</p>
+</li>
+</ol>
+<h3 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h3><p><a href="https://blog.csdn.net/thundermeng/article/details/50401150" target="_blank" rel="external"> MySQL传统复制与GTID复制原理及操作详解</a><br><a href="http://www.cnblogs.com/ivictor/p/5735580.html" target="_blank" rel="external">MySQL半同步复制</a><br><a href="https://blog.csdn.net/stevendbaguo/article/details/74330782" target="_blank" rel="external">MySQL5.6半同步复制配置及实验</a><br><a href="http://www.actionsky.com/mysql-57-semi-sync-intro/" target="_blank" rel="external">MySQL 5.7 深度解析: 半同步复制技术</a>  </p>
+]]></content>
+      
+        <categories>
+            
+            <category> mysql </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 环境搭建 </tag>
             
         </tags>
         
