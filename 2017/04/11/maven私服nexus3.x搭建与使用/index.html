@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="linux," />
+  <meta name="keywords" content="环境搭建,maven," />
 
 
 
@@ -81,18 +81,25 @@
 
 
 
-<meta name="description" content="基本操作本篇博客主要介绍如何去链接远程的linux主机及如何实现本地与远程主机之间文件的上传下载操作，下面的linux系统是CentOS6.6">
-<meta name="keywords" content="linux">
+<meta name="description" content="搭建maven私服主要是为了方便在一个团队中使用maven中央仓库没有的jar包，这些非中央仓库的jar包可能是自己团队开发的公共依赖jar包，可能是第三方私有的认证相关jar包，特殊的还有oracle的驱动jar包，下面是使用Nexus搭建maven私服及私服使用">
+<meta name="keywords" content="环境搭建,maven">
 <meta property="og:type" content="article">
-<meta property="og:title" content="linux下文件上传下载">
-<meta property="og:url" content="https://yangshaoxiang.github.io/2017/12/09/linux下文件上传下载/index.html">
+<meta property="og:title" content="maven私服nexus3.x搭建与使用">
+<meta property="og:url" content="https://yangshaoxiang.github.io/2017/04/11/maven私服nexus3.x搭建与使用/index.html">
 <meta property="og:site_name" content="shaoxiang博客">
-<meta property="og:description" content="基本操作本篇博客主要介绍如何去链接远程的linux主机及如何实现本地与远程主机之间文件的上传下载操作，下面的linux系统是CentOS6.6">
+<meta property="og:description" content="搭建maven私服主要是为了方便在一个团队中使用maven中央仓库没有的jar包，这些非中央仓库的jar包可能是自己团队开发的公共依赖jar包，可能是第三方私有的认证相关jar包，特殊的还有oracle的驱动jar包，下面是使用Nexus搭建maven私服及私服使用">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-12-18T14:00:22.859Z">
+<meta property="og:image" content="http://p0zwh057c.bkt.clouddn.com/blog/180409/JchA2DjJ8k.png?imageslim">
+<meta property="og:image" content="http://p0zwh057c.bkt.clouddn.com/blog/180409/9c9JLIjDEA.png?imageslim">
+<meta property="og:image" content="http://p0zwh057c.bkt.clouddn.com/blog/180409/227fm3K96F.png?imageslim">
+<meta property="og:image" content="http://p0zwh057c.bkt.clouddn.com/blog/180409/75G941HeaG.png?imageslim">
+<meta property="og:image" content="http://p0zwh057c.bkt.clouddn.com/blog/180409/Ha9Ka34ima.png?imageslim">
+<meta property="og:image" content="http://p0zwh057c.bkt.clouddn.com/blog/180409/07kGHci8JG.png?imageslim">
+<meta property="og:updated_time" content="2018-04-11T13:15:04.112Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="linux下文件上传下载">
-<meta name="twitter:description" content="基本操作本篇博客主要介绍如何去链接远程的linux主机及如何实现本地与远程主机之间文件的上传下载操作，下面的linux系统是CentOS6.6">
+<meta name="twitter:title" content="maven私服nexus3.x搭建与使用">
+<meta name="twitter:description" content="搭建maven私服主要是为了方便在一个团队中使用maven中央仓库没有的jar包，这些非中央仓库的jar包可能是自己团队开发的公共依赖jar包，可能是第三方私有的认证相关jar包，特殊的还有oracle的驱动jar包，下面是使用Nexus搭建maven私服及私服使用">
+<meta name="twitter:image" content="http://p0zwh057c.bkt.clouddn.com/blog/180409/JchA2DjJ8k.png?imageslim">
 
 
 
@@ -122,13 +129,13 @@
 
 
 
-  <link rel="canonical" href="https://yangshaoxiang.github.io/2017/12/09/linux下文件上传下载/"/>
+  <link rel="canonical" href="https://yangshaoxiang.github.io/2017/04/11/maven私服nexus3.x搭建与使用/"/>
 
 
 
 
 
-  <title>linux下文件上传下载 | shaoxiang博客</title>
+  <title>maven私服nexus3.x搭建与使用 | shaoxiang博客</title>
   
 
 
@@ -299,7 +306,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yangshaoxiang.github.io/2017/12/09/linux下文件上传下载/">
+    <link itemprop="mainEntityOfPage" href="https://yangshaoxiang.github.io/2017/04/11/maven私服nexus3.x搭建与使用/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="yangshaoxiang">
@@ -316,7 +323,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">linux下文件上传下载</h1>
+          <h1 class="post-title" itemprop="name headline">maven私服nexus3.x搭建与使用</h1>
         
 
         <div class="post-meta">
@@ -328,8 +335,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-09T22:44:21+08:00">
-                2017-12-09
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-11T01:05:08+08:00">
+                2017-04-11
               </time>
             
 
@@ -351,8 +358,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index">
-                    <span itemprop="name">linux</span>
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
                   </a>
                 </span>
 
@@ -369,8 +376,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/12/09/linux下文件上传下载/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count gitment-comments-count" data-xid="/2017/12/09/linux下文件上传下载/" itemprop="commentsCount"></span>
+                <a href="/2017/04/11/maven私服nexus3.x搭建与使用/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2017/04/11/maven私服nexus3.x搭建与使用/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -392,7 +399,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1,672  字
+                  1,915  字
                 </span>
               
 
@@ -408,7 +415,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  6 分钟
+                  8 分钟
                 </span>
               
             </div>
@@ -429,55 +436,71 @@
       
 
       
-        <h3 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h3><p>本篇博客主要介绍如何去链接远程的linux主机及如何实现本地与远程主机之间文件的上传下载操作，下面的linux系统是CentOS6.6<br><a id="more"></a></p>
-<h4 id="链接远程linux主机"><a href="#链接远程linux主机" class="headerlink" title="链接远程linux主机"></a>链接远程linux主机</h4><p>  一般链接远程linux主机，如果电脑上没有安装类似SecureCRTPortable这种终端仿真程序，我们会用git的命令窗口使用命令去链接，但是这种方式不能保存链接的用户名和密码，下次还要重新输入链接信息，很麻烦，适合暂时的连一下，用一下，通常都会使用终端仿真程序，并保存相关链接信息。</p>
-<h5 id="未安装终端仿真程序链接方式-命令"><a href="#未安装终端仿真程序链接方式-命令" class="headerlink" title="未安装终端仿真程序链接方式-命令"></a>未安装终端仿真程序链接方式-命令</h5><p>  在任意位置打开git命令窗口，输入如下命令即可<br>  <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh username@ip_or_domain</div></pre></td></tr></table></figure></p>
-<p>  该命令中username代表linux登录用户的用户名，ip_or_domain代表linux主机的ip地址或ip所映射的域名，例如:<br>  <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh root@116.196.115.151</div></pre></td></tr></table></figure></p>
-<p>  代表的含义是使用root用户链接116.196.115.151的远程主机<br>  之后，一般如果该账户设有密码，会在下一步提示输入链接密码，输入正确密码即可链接成功</p>
-<h5 id="安装SecureCRTPortable链接"><a href="#安装SecureCRTPortable链接" class="headerlink" title="安装SecureCRTPortable链接"></a>安装SecureCRTPortable链接</h5><p>  本地电脑上有SecureCRTPortable这种终端仿真程序（直接浏览器搜索，一堆，本文使用版本为8.3），打开SecureCRTPortable，选择 文件(File)-&gt;快速连接(Quick Connect)，输入主机名和用户名，主机名就是远程linux主机的ip地址，用户名就是登陆的用户名，之后会弹出密码框，要求输入密码，成功后即可链接主机</p>
-<h4 id="文件上传和下载"><a href="#文件上传和下载" class="headerlink" title="文件上传和下载"></a>文件上传和下载</h4><p> 大部分情况下，我们要在linux下安装的软件，或将要部署在linux环境服务器上的本地开发的应用，他们大部分情况下是在本地windows环境下的，这就涉及到如何将本地文件上传到linux系统中，还有就是在linux下修改一些配置文件非常的繁琐，一般对于比较大的配置文件可能会下载到本地修改，然后在上传覆盖，这就涉及到如何将linux上的文件下载到本地，这里介绍3种方式，个人推荐第三种rz/sz方式</p>
-<h5 id="未安装任何的终端仿真程序-命令"><a href="#未安装任何的终端仿真程序-命令" class="headerlink" title="未安装任何的终端仿真程序-命令"></a>未安装任何的终端仿真程序-命令</h5><h6 id="命令上传"><a href="#命令上传" class="headerlink" title="命令上传:"></a>命令上传:</h6><p>  在本地打开要上传文件所在文件夹，打开该级文件夹下打开git命令窗口，输入如下命令：<br>  <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">scp filename username@ip_or_domain:/target_directory/</div></pre></td></tr></table></figure></p>
-<p>   该命令中filename代表要上传的文件名称，username代表linux登录用户的用户名，ip_or_domain代表linux主机的ip地址或ip所映射的域名，target_directory代表linux下要上传到的文件目录,例如:<br>   <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">scp test.sql root@116.196.115.151:/root/</div></pre></td></tr></table></figure></p>
-<p>  代表的含义是将当前目录下的test.sql文件复制上传到116.196.115.151主机的root目录下,如果有密码之后输入密码。</p>
-<h6 id="命令下载"><a href="#命令下载" class="headerlink" title="命令下载:"></a>命令下载:</h6><p>   基本和命令上传相同，在本地先切换到盛放下载文件的目录，在该目录下打开git窗口，输入如下命令<br>  <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">scp username@ip_or_domain:/target_directory/filename ~/</div></pre></td></tr></table></figure></p>
-<p>   该命令中username代表linux登录用户的用户名，ip_or_domain代表linux主机的ip地址或ip所映射的域名，target_directory代表linux下要下载的文件目录，filename代表要下载的文件名称，例如：<br>   <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">scp root@116.196.115.151:/root/test.sql  ~/Desktop/</div></pre></td></tr></table></figure></p>
-<p>   代表的含义是将主机root目录下的test.sql文件下载到本地windows的桌面上</p>
-<h6 id="对于目录的上传下载"><a href="#对于目录的上传下载" class="headerlink" title="对于目录的上传下载"></a>对于目录的上传下载</h6><p>   scp命令后面紧接着加上 -r 即可，后面的路径到目录一级即可</p>
-<h6 id="对于两台linux主机之间文件互相拷贝"><a href="#对于两台linux主机之间文件互相拷贝" class="headerlink" title="对于两台linux主机之间文件互相拷贝"></a>对于两台linux主机之间文件互相拷贝</h6><p>   将上述上传或下载命令文件路径部分，在路径前面加上username@ip_or_domain:的前缀即可</p>
-<h5 id="SecureCRTPortable的sftp"><a href="#SecureCRTPortable的sftp" class="headerlink" title="SecureCRTPortable的sftp"></a>SecureCRTPortable的sftp</h5><h6 id="SecureCRTPortable的sftp上传下载公共操作步骤"><a href="#SecureCRTPortable的sftp上传下载公共操作步骤" class="headerlink" title="SecureCRTPortable的sftp上传下载公共操作步骤:"></a>SecureCRTPortable的sftp上传下载公共操作步骤:</h6><ol>
-<li><a href="#安装SecureCRTPortable链接">使用SecureCRTPortable链接到主机</a></li>
-<li>使用快捷键alt+p,进入sftp界面</li>
-<li><p>切换到存放上传文件(要下载的文件)的目录(cd命令)</p>
-<h6 id="SecureCRTPortable的sftp上传"><a href="#SecureCRTPortable的sftp上传" class="headerlink" title="SecureCRTPortable的sftp上传:"></a>SecureCRTPortable的sftp上传:</h6></li>
-<li>直接将本地文件拖拽到sftp界面窗口中即可(像qq发送文件那样，注意尽量使用较高版本   的SecureCRT，否则可能不支持拖拽，例如7.0的版本在win7下可拖拽，win10下不行，8.3的版本都可以)</li>
-<li><p>传输完成后使用ls命令查看当前目录是否有上传的文件(ll命令不可用)</p>
-<h6 id="SecureCRTPortable的sftp下载"><a href="#SecureCRTPortable的sftp下载" class="headerlink" title="SecureCRTPortable的sftp下载:"></a>SecureCRTPortable的sftp下载:</h6><ol>
-<li>使用如下命令将文件下载到本地<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 指定本地下载目录 这里指定为d盘</span></div><div class="line">lcd d:\</div><div class="line"><span class="comment"># 使用get命令下载，后面跟要下载的文件名称(要先切换到文件所在目录)</span></div><div class="line">get test.sql</div></pre></td></tr></table></figure>
-</li>
-</ol>
-</li>
-</ol>
-<h5 id="SecureCRTPortable的Zmodem"><a href="#SecureCRTPortable的Zmodem" class="headerlink" title="SecureCRTPortable的Zmodem"></a>SecureCRTPortable的Zmodem</h5><p>在linux任意目录下输入rz，如果出现 -bash: rz: command not found 说明未安装Zmodem，如果弹出一个文件选择框则已经安装，查看如何使用即可</p>
-<h6 id="安装Zmodem"><a href="#安装Zmodem" class="headerlink" title="安装Zmodem:"></a>安装Zmodem:</h6><p>方式一(简单):执行如下命令，完毕即可使用<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum install lrzsz</div></pre></td></tr></table></figure></p>
-<p>方式二(麻烦):执行如下一系列操作:</p>
+        <p>搭建maven私服主要是为了方便在一个团队中使用maven中央仓库没有的jar包，这些非中央仓库的jar包可能是自己团队开发的公共依赖jar包，可能是第三方私有的认证相关jar包，特殊的还有oracle的驱动jar包，下面是使用Nexus搭建maven私服及私服使用<br><a id="more"></a></p>
+<h3 id="Nexus3-x安装及配置"><a href="#Nexus3-x安装及配置" class="headerlink" title="Nexus3.x安装及配置"></a>Nexus3.x安装及配置</h3><p>前置条件要求存在jdk1.8的环境</p>
+<h4 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h4><p>这里之所以要特地提下下载是因为这个东西是真难下，我的电脑本身一直没有安装过专门的下载工具(度盘不算)，一般下载都是走网盘或者浏览器直接下载，这次无论度盘的离线下载还是浏览器下载都非常慢甚至下载失败(100M光纤)，在服务器上使用wget同样很慢，最后安装了迅雷使用迅雷下载后速度快很多，看来下载确实需要专业的下载工具，下载完成后上传到服务器上即可，当然也可以直接在服务器上使用wget下载，如果不嫌弃下载的慢的话:  </p>
+<p>官方下载页：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">https://www.sonatype.com/download-oss-sonatype</div></pre></td></tr></table></figure></p>
+<p>实际资源地址<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">wget https://sonatype-download.global.ssl.fastly.net/repository/repositoryManager/3/nexus-3.10.0-04-unix.tar.gz</div></pre></td></tr></table></figure></p>
+<h4 id="安装及配置"><a href="#安装及配置" class="headerlink" title="安装及配置"></a>安装及配置</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">#解压</div><div class="line"> tar -zvxf nexus-3.10.0-04-unix.tar.gz</div><div class="line">#解压的文件夹移到nexus(自动创建)</div><div class="line">mv nexus-3.10.0-04/ /usr/local/nexus</div><div class="line">mv sonatype-work/ nexus/</div><div class="line"></div><div class="line"></div><div class="line">#防火墙开启8081端口，该端口是nexus的默认端口(在/usr/local/nexus/etc/nexus-default.properties文件中)</div><div class="line">vi  /etc/sysconfig/iptables</div><div class="line"># 在打开的文件中加入如下内容</div><div class="line">-A INPUT -p tcp -m state --state NEW -m tcp --dport 8081 -j ACCEPT</div><div class="line"></div><div class="line">#启动 ps 我安装时第一次启动使用./nexus start 访问不到web页面，使用run命令可以，之后使用start也可以了</div><div class="line">./nexus run &amp;</div><div class="line"></div><div class="line">#启动成功会有如下信息</div><div class="line">WARNING: ************************************************************</div><div class="line">WARNING: Detected execution as &quot;root&quot; user.  This is NOT recommended!</div><div class="line">WARNING: ************************************************************</div><div class="line">Starting nexus</div></pre></td></tr></table></figure>
+<p>上面启动成功后会警告不要使用root用户启动，这里可以新建一个用户，也可以指定root用户启动，使他不出现警告，下面配置指定root用户启动<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#该文件在bin目录下和启动程序nexus同级</div><div class="line">vi nexus.rc</div><div class="line">run_as_user=root</div></pre></td></tr></table></figure></p>
+<h4 id="手动更新索引-可选"><a href="#手动更新索引-可选" class="headerlink" title="手动更新索引(可选)"></a>手动更新索引(可选)</h4><p>我这里没有下载索引，以前配置过nenus2.x时下载过全部索引，很大很慢，下载了一晚上，不下载索引并不影响使用，这里会同步当前项目使用的依赖到私服的索引中，有新的依赖从私服中获取也会更新对应的索引，下面介绍一种离线安装的方式  </p>
 <ol>
-<li><p>下载</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 切换到下载目录</span></div><div class="line"><span class="built_in">cd</span> /tmp</div><div class="line"><span class="comment"># 下载</span></div><div class="line">wget http://www.ohse.de/uwe/releases/lrzsz-0.12.20.tar.gz</div></pre></td></tr></table></figure>
-<p>如果出现 wget: command not found，执行下面命令安装wget</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum -y install wget</div></pre></td></tr></table></figure>
-<p>如果出现wget颁发证书过期用</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">wget --no-check-certificate  http://www.ohse.de/uwe/releases/lrzsz-0.12.20.tar.gz</div></pre></td></tr></table></figure>
+<li><p>前往maven中央仓库下载 <a href="http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22org.apache.maven.indexer%22%20AND%20a%3A%22indexer-cli%22" target="_blank" rel="external">indexer-cli-5.1.1.jar</a> 解压工具包</p>
 </li>
-<li><p>解压安装及创建软连接</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">tar zxvf lrzsz-0.12.20.tar.gz &amp;&amp; <span class="built_in">cd</span> lrzsz-0.12.20</div><div class="line">./configure &amp;&amp; make &amp;&amp; make install</div></pre></td></tr></table></figure>
-<p>如果报错:no acceptable cc found in $PATH<br>执行下面命令:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum install gcc gcc-c++ gcc-g77</div></pre></td></tr></table></figure>
-<p>上面安装过程默认把lsz和lrz安装到了/usr/local/bin/目录下，现在我们并不能直接使用，下面创建软链接，并命名为rz/sz：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">cd</span> /usr/bin</div><div class="line">ln -s /usr/<span class="built_in">local</span>/bin/lrz rz</div><div class="line">ln -s /usr/<span class="built_in">local</span>/bin/lsz sz</div></pre></td></tr></table></figure>
+<li><p>下载离线<a href="http://repo.maven.apache.org/maven2/.index/" target="_blank" rel="external">索引文件</a></p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">nexus-maven-repository-index.gz</div><div class="line">nexus-maven-repository-index.properties</div></pre></td></tr></table></figure>
+</li>
+<li><p>将3个文件放在同一目录下解压</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">java -jar indexer-cli-5.1.1.jar -u nexus-maven-repository-index.gz -d indexer</div></pre></td></tr></table></figure>
+</li>
+<li><p>拷贝索引<br>nexus2.x拷贝到{nexus-home}/sonatype-work/nexus/indexer/central-ctx<br>nexus3.x拷贝到/sonatype-work/nexus3/blobs/default，3.x我没尝试过参考<a href="https://blog.csdn.net/lusyoe/article/details/52821088" target="_blank" rel="external">这篇博客</a></p>
 </li>
 </ol>
-<h6 id="使用Zmodem"><a href="#使用Zmodem" class="headerlink" title="使用Zmodem:"></a>使用Zmodem:</h6><p> 指定上传目录与下载目录<br> 上传目录：使用rz指令，进行上传操作时，弹出的对话框，会默认定位到该目录下。<br> 下载目录：使用sz指令，进行下载操作后，所下载的文件，默认下载到该目录中。<br> 打开SecureCRT软件 -&gt; Options -&gt; session options -&gt; X/Y/Zmodem 下可以设置上传和下载的目录<br> sz filename:发送文件到客户端,zmodem接收可以自行启动，例如：<br> <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">cd</span> /root</div><div class="line">sz test.sql</div></pre></td></tr></table></figure></p>
-<p> root下的test.sql文件会被发送到本地下载目录<br> rz :从客户端上传文件到linux服务端,输入该命令后会打开文件选择对话框(默认定位到上传目录)</p>
+<h4 id="web界面"><a href="#web界面" class="headerlink" title="web界面"></a>web界面</h4><ol>
+<li>访问web界面，使用默认管理账号admin/admin123登录<br><a href="http://192.168.16.30:8081/" target="_blank" rel="external">http://192.168.16.30:8081/</a>  </li>
+<li><p>仓库浏览在左侧菜单栏Browse,这里有多种仓库，相比于nexus2.x精简了很多仓库</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">nexus仓库类型  </div><div class="line">Group：这是一个仓库聚合的概念，用户仓库地址选择Group的地址，即可访问Group中配置的</div><div class="line">所有仓库资源，访问顺序取决于配置顺序3.x默认Releases，Snapshots，Central，可在web页面配置</div><div class="line">在web界面点开  </div><div class="line"></div><div class="line">Hosted:私有仓库，专门用来存储我们自己生成的jar文件  </div><div class="line">   3rd party：未发布到公网的第三方jar (3.x去除了)</div><div class="line">   Snapshots：本地项目的快照仓库  </div><div class="line">   Releases： 本地项目发布的正式版本  </div><div class="line"></div><div class="line">Proxy:公网上发布的jar 例如：spring</div><div class="line">  Central：中央仓库</div><div class="line">  Apache Snapshots：Apache专用快照仓库(3.x去除了)</div></pre></td></tr></table></figure>
+</li>
+<li><p>配置Releases版本可重复上传  </p>
+<p>  点击图片画框部分配置Releases: Deployment pollcy –&gt; Allow redeploy</p>
+<p> <img src="http://p0zwh057c.bkt.clouddn.com/blog/180409/JchA2DjJ8k.png?imageslim" alt="mark"></p>
+</li>
+</ol>
+<h3 id="使用nenus本地maven配置"><a href="#使用nenus本地maven配置" class="headerlink" title="使用nenus本地maven配置"></a>使用nenus本地maven配置</h3><h4 id="全局配置下载依赖-即项目pom无需配置"><a href="#全局配置下载依赖-即项目pom无需配置" class="headerlink" title="全局配置下载依赖(即项目pom无需配置)"></a>全局配置下载依赖(即项目pom无需配置)</h4><p>在maven的setting.xml文件中配置私服配置，这种方式配置后所有本地使用该配置的maven项目的pom文件都无需配置私服下载相关配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">&lt;profiles&gt;</div><div class="line">  &lt;profile&gt;</div><div class="line">     &lt;id&gt;mycof&lt;/id&gt;</div><div class="line">        &lt;repositories&gt;</div><div class="line">        &lt;!-- 私有库地址--&gt;</div><div class="line">          &lt;repository&gt;</div><div class="line">          &lt;id&gt;nexus&lt;/id&gt;</div><div class="line">          &lt;url&gt;http://192.168.16.30:8081/repository/maven-public/&lt;/url&gt;</div><div class="line">          &lt;releases&gt;</div><div class="line">            &lt;enabled&gt;true&lt;/enabled&gt;</div><div class="line">          &lt;/releases&gt;</div><div class="line">          &lt;snapshots&gt;</div><div class="line">            &lt;enabled&gt;true&lt;/enabled&gt;</div><div class="line">          &lt;/snapshots&gt;</div><div class="line">        &lt;/repository&gt;</div><div class="line">      &lt;/repositories&gt;      </div><div class="line">      &lt;pluginRepositories&gt;</div><div class="line">        &lt;!--插件库地址--&gt;</div><div class="line">        &lt;pluginRepository&gt;</div><div class="line">          &lt;id&gt;nexus&lt;/id&gt;</div><div class="line">          &lt;url&gt;http://192.168.16.30:8081/repository/maven-public/&lt;/url&gt;</div><div class="line">          &lt;releases&gt;</div><div class="line">            &lt;enabled&gt;true&lt;/enabled&gt;</div><div class="line">          &lt;/releases&gt;</div><div class="line">          &lt;snapshots&gt;</div><div class="line">            &lt;enabled&gt;true&lt;/enabled&gt;</div><div class="line">           &lt;/snapshots&gt;</div><div class="line">        &lt;/pluginRepository&gt;</div><div class="line">      &lt;/pluginRepositories&gt;</div><div class="line">    &lt;/profile&gt;</div></pre></td></tr></table></figure>
+<p>激活使用上面的配置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;!--激活profile--&gt;</div><div class="line">&lt;activeProfiles&gt;</div><div class="line">  &lt;activeProfile&gt;mycof&lt;/activeProfile&gt;</div><div class="line">&lt;/activeProfiles&gt;</div></pre></td></tr></table></figure></p>
+<p>指定镜像代理为我们的私服<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;mirror&gt;</div><div class="line">  &lt;id&gt;nexus-myself&lt;/id&gt;</div><div class="line">  &lt;!--*指的是访问任何仓库都使用我们的私服--&gt;</div><div class="line">  &lt;mirrorOf&gt;*&lt;/mirrorOf&gt;</div><div class="line">  &lt;name&gt;Nexus myself&lt;/name&gt;</div><div class="line">  &lt;url&gt;http://192.168.16.30:8081/repository/maven-public/&lt;/url&gt;</div><div class="line">&lt;/mirror&gt;</div></pre></td></tr></table></figure></p>
+<h4 id="单独项目下载依赖-即项目pom文件中配置"><a href="#单独项目下载依赖-即项目pom文件中配置" class="headerlink" title="单独项目下载依赖(即项目pom文件中配置)"></a>单独项目下载依赖(即项目pom文件中配置)</h4><p>这种配置是修改单个项目的pom文件，无需修改maven的setting配置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">&lt;repositories&gt;</div><div class="line">  &lt;repository&gt;</div><div class="line">    &lt;id&gt;nexus&lt;/id&gt;</div><div class="line">    &lt;url&gt;http://192.168.16.30:8081/repository/maven-public/&lt;/url&gt;</div><div class="line">    &lt;releases&gt;</div><div class="line">      &lt;enabled&gt;true&lt;/enabled&gt;</div><div class="line">    &lt;/releases&gt;</div><div class="line">    &lt;snapshots&gt;</div><div class="line">    &lt;enabled&gt;true&lt;/enabled&gt;</div><div class="line">    &lt;/snapshots&gt;</div><div class="line">  &lt;/repository&gt;</div><div class="line">&lt;/repositories&gt;</div></pre></td></tr></table></figure></p>
+<p>建议使用全局的setting配置，一个项目组共用一个maven的setting配置，项目中就无需配置下载相关的私服仓库配置</p>
+<h5 id="使用私服后仓库访问顺序"><a href="#使用私服后仓库访问顺序" class="headerlink" title="使用私服后仓库访问顺序"></a>使用私服后仓库访问顺序</h5><p><img src="http://p0zwh057c.bkt.clouddn.com/blog/180409/9c9JLIjDEA.png?imageslim" alt="mark"></p>
+<h4 id="上传jar包配置"><a href="#上传jar包配置" class="headerlink" title="上传jar包配置"></a>上传jar包配置</h4><p>对于中央仓库没有的jar包，需要我们自己将jar包发布到私服中去，其中jar包主要分为两类，一类是本地自己开发供给项目组其余同事使用，这种直接配置项目的pom文件和maven的setting文件，之后deploy发布即可发布到，另一类是第三方jar包，可以直接使用web页面上传并设置对应GAV即可</p>
+<h5 id="本地maaven开发的项目上传配置"><a href="#本地maaven开发的项目上传配置" class="headerlink" title="本地maaven开发的项目上传配置"></a>本地maaven开发的项目上传配置</h5><ol>
+<li><p>maven的setting文件配置<br>这里要配置配置上传用户及仓库信息，我这里直接使用了admin用户，在nenus2.x中还内置了一个deployment/deployment123用户，在3.x该用户被移除了，这里可以自己配置角色和用户，我就直接使用admin用户了</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">&lt;servers&gt;</div><div class="line">  &lt;server&gt;</div><div class="line">    &lt;id&gt;nexus-releases&lt;/id&gt;</div><div class="line">    &lt;username&gt;admin&lt;/username&gt;</div><div class="line">    &lt;password&gt;admin123&lt;/password&gt;</div><div class="line">  &lt;/server&gt;</div><div class="line">  &lt;server&gt;</div><div class="line">    &lt;id&gt;nexus-snapshots&lt;/id&gt;</div><div class="line">    &lt;username&gt;admin&lt;/username&gt;</div><div class="line">    &lt;password&gt;admin123&lt;/password&gt;</div><div class="line">  &lt;/server&gt;</div><div class="line">&lt;/servers&gt;</div></pre></td></tr></table></figure>
+</li>
+<li><p>项目中的pom文件配置</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">&lt;distributionManagement&gt;</div><div class="line">		&lt;repository&gt;</div><div class="line">			&lt;id&gt;nexus-releases&lt;/id&gt;</div><div class="line">			&lt;name&gt;Nexus Release Repository&lt;/name&gt;</div><div class="line">			&lt;url&gt;http://192.168.16.30:8081/repository/maven-releases/&lt;/url&gt;</div><div class="line">		&lt;/repository&gt;</div><div class="line">		&lt;snapshotRepository&gt;</div><div class="line">			&lt;id&gt;nexus-snapshots&lt;/id&gt;</div><div class="line">			&lt;name&gt;Nexus Snapshot Repository&lt;/name&gt;</div><div class="line">			&lt;url&gt;http://192.168.16.30:8081/repository/maven-snapshots/&lt;/url&gt;</div><div class="line">		&lt;/snapshotRepository&gt;</div><div class="line">	&lt;/distributionManagement&gt;</div></pre></td></tr></table></figure>
+</li>
+<li><p>执行maven的deploy命令  </p>
+<p> 这是myeclipse中上传本地项目jar到私服，IDEA中更为简单直接点击maven周期中的deploy即可</p>
+<p> <img src="http://p0zwh057c.bkt.clouddn.com/blog/180409/227fm3K96F.png?imageslim" alt="mark"></p>
+<p> 出现uploading信息并且没报错说明上传成功</p>
+<p> <img src="http://p0zwh057c.bkt.clouddn.com/blog/180409/75G941HeaG.png?imageslim" alt="mark"></p>
+<p> 到对应仓库查看  </p>
+<p> <img src="http://p0zwh057c.bkt.clouddn.com/blog/180409/Ha9Ka34ima.png?imageslim" alt="mark"></p>
+</li>
+</ol>
+<p>注意:</p>
+<ol>
+<li><p>这里只有Snapshot的仓库上传成功，Release仓库并没有上传成功，这是因为版本号名称结尾有SNAPSHOT，默认以这个结尾是不会上传到Release仓库去的，去除就会上传到Release仓库且不会上传到快照仓库</p>
+</li>
+<li><p>Release仓库默认不支持重复发布，<a href="###web界面">可配置</a></p>
+</li>
+<li><p>注意setting中server标签下的id要和pom文件中仓库配置的id相同，即指定上传到哪个仓库</p>
+</li>
+</ol>
+<h5 id="第三方jar包上传"><a href="#第三方jar包上传" class="headerlink" title="第三方jar包上传"></a>第三方jar包上传</h5><p>对于第三方jar包的上传采用nenus提供的web界面上传，上传成功后需要使用该jar包的话，依赖中填写自定义的GAV即可  </p>
+<p><img src="http://p0zwh057c.bkt.clouddn.com/blog/180409/07kGHci8JG.png?imageslim" alt="mark"></p>
 
       
     </div>
@@ -508,7 +531,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://yangshaoxiang.github.io/2017/12/09/linux下文件上传下载/" title="linux下文件上传下载">https://yangshaoxiang.github.io/2017/12/09/linux下文件上传下载/</a>
+    <a href="https://yangshaoxiang.github.io/2017/04/11/maven私服nexus3.x搭建与使用/" title="maven私服nexus3.x搭建与使用">https://yangshaoxiang.github.io/2017/04/11/maven私服nexus3.x搭建与使用/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -523,7 +546,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/linux/" rel="tag"><i class="fa fa-tag"></i> linux</a>
+            <a href="/tags/环境搭建/" rel="tag"><i class="fa fa-tag"></i> 环境搭建</a>
+          
+            <a href="/tags/maven/" rel="tag"><i class="fa fa-tag"></i> maven</a>
           
         </div>
       
@@ -536,8 +561,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/10/20/java后台常用json解析工具问题小结/" rel="next" title="java后台常用json解析工具问题小结">
-                <i class="fa fa-chevron-left"></i> java后台常用json解析工具问题小结
+              <a href="/2017/04/03/mysql主从复制/" rel="next" title="mysql复制">
+                <i class="fa fa-chevron-left"></i> mysql复制
               </a>
             
           </div>
@@ -546,8 +571,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/12/09/log4jj使用/" rel="prev" title="log4j使用">
-                log4j使用 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/04/11/maven的依赖特性/" rel="prev" title="maven的依赖特性">
+                maven的依赖特性 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -700,7 +725,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本操作"><span class="nav-number">1.</span> <span class="nav-text">基本操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#链接远程linux主机"><span class="nav-number">1.1.</span> <span class="nav-text">链接远程linux主机</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#未安装终端仿真程序链接方式-命令"><span class="nav-number">1.1.1.</span> <span class="nav-text">未安装终端仿真程序链接方式-命令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#安装SecureCRTPortable链接"><span class="nav-number">1.1.2.</span> <span class="nav-text">安装SecureCRTPortable链接</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#文件上传和下载"><span class="nav-number">1.2.</span> <span class="nav-text">文件上传和下载</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#未安装任何的终端仿真程序-命令"><span class="nav-number">1.2.1.</span> <span class="nav-text">未安装任何的终端仿真程序-命令</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#命令上传"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">命令上传:</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#命令下载"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">命令下载:</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#对于目录的上传下载"><span class="nav-number">1.2.1.3.</span> <span class="nav-text">对于目录的上传下载</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#对于两台linux主机之间文件互相拷贝"><span class="nav-number">1.2.1.4.</span> <span class="nav-text">对于两台linux主机之间文件互相拷贝</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SecureCRTPortable的sftp"><span class="nav-number">1.2.2.</span> <span class="nav-text">SecureCRTPortable的sftp</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#SecureCRTPortable的sftp上传下载公共操作步骤"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">SecureCRTPortable的sftp上传下载公共操作步骤:</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#SecureCRTPortable的sftp上传"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">SecureCRTPortable的sftp上传:</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#SecureCRTPortable的sftp下载"><span class="nav-number">1.2.2.3.</span> <span class="nav-text">SecureCRTPortable的sftp下载:</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SecureCRTPortable的Zmodem"><span class="nav-number">1.2.3.</span> <span class="nav-text">SecureCRTPortable的Zmodem</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#安装Zmodem"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">安装Zmodem:</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#使用Zmodem"><span class="nav-number">1.2.3.2.</span> <span class="nav-text">使用Zmodem:</span></a></li></ol></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Nexus3-x安装及配置"><span class="nav-number">1.</span> <span class="nav-text">Nexus3.x安装及配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#下载"><span class="nav-number">1.1.</span> <span class="nav-text">下载</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#安装及配置"><span class="nav-number">1.2.</span> <span class="nav-text">安装及配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#手动更新索引-可选"><span class="nav-number">1.3.</span> <span class="nav-text">手动更新索引(可选)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#web界面"><span class="nav-number">1.4.</span> <span class="nav-text">web界面</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用nenus本地maven配置"><span class="nav-number">2.</span> <span class="nav-text">使用nenus本地maven配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#全局配置下载依赖-即项目pom无需配置"><span class="nav-number">2.1.</span> <span class="nav-text">全局配置下载依赖(即项目pom无需配置)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#单独项目下载依赖-即项目pom文件中配置"><span class="nav-number">2.2.</span> <span class="nav-text">单独项目下载依赖(即项目pom文件中配置)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#使用私服后仓库访问顺序"><span class="nav-number">2.2.1.</span> <span class="nav-text">使用私服后仓库访问顺序</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#上传jar包配置"><span class="nav-number">2.3.</span> <span class="nav-text">上传jar包配置</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#本地maaven开发的项目上传配置"><span class="nav-number">2.3.1.</span> <span class="nav-text">本地maaven开发的项目上传配置</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#第三方jar包上传"><span class="nav-number">2.3.2.</span> <span class="nav-text">第三方jar包上传</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

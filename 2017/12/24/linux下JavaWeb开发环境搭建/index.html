@@ -90,7 +90,7 @@
 <meta property="og:description" content="web开发基本环境安装配置  JavaWeb开发中生产环境一般都为linux，因此我们要具有在linux环境下搭建基本的JavaWeb开发常用环境的能力，本篇博客介绍的是linux环境下jdk的安装，tomcat的安装，及mysql数据库的安装">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://p0zwh057c.bkt.clouddn.com/blog/171218/K0ffI1dJ7H.png?imageslim">
-<meta property="og:updated_time" content="2017-12-24T15:56:57.386Z">
+<meta property="og:updated_time" content="2018-04-11T13:11:30.417Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="linux下JavaWeb开发环境搭建">
 <meta name="twitter:description" content="web开发基本环境安装配置  JavaWeb开发中生产环境一般都为linux，因此我们要具有在linux环境下搭建基本的JavaWeb开发常用环境的能力，本篇博客介绍的是linux环境下jdk的安装，tomcat的安装，及mysql数据库的安装">
@@ -394,7 +394,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  2,099  字
+                  2,239  字
                 </span>
               
 
@@ -410,7 +410,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  10 分钟
+                  11 分钟
                 </span>
               
             </div>
@@ -523,6 +523,17 @@
 <figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># mysqldump -u 用户名 -p 数据库名 该数据库下的表名&gt; 导出的文件名   </div><div class="line">mysqldump -u root -p db_name  tablename&gt; tablename.sql</div></pre></td></tr></table></figure>
 </li>
 </ol>
+</li>
+<li><p>创建用户和授权命令</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"># 创建用户    </div><div class="line"><span class="keyword">CREATE</span> <span class="keyword">USER</span> <span class="string">'user1'</span>@<span class="string">'%'</span> <span class="keyword">IDENTIFIED</span> <span class="keyword">BY</span> <span class="string">'123456'</span>;</div><div class="line"></div><div class="line"># 授权</div><div class="line"><span class="keyword">grant</span> all <span class="keyword">privileges</span> <span class="keyword">on</span> 想授权的数据库.* <span class="keyword">to</span> <span class="string">'user1'</span>@<span class="string">'%'</span>;</div><div class="line"></div><div class="line"># 刷新权限</div><div class="line"><span class="keyword">flush</span> privilege;</div></pre></td></tr></table></figure>
+<p> 上面的%表示哪些ip可以访问</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&apos;%&apos; - 所有情况都能访问</div><div class="line">‘localhost’ - 本机才能访问</div><div class="line">’127.0.0.1‘ - 指定 ip 才能访问</div></pre></td></tr></table></figure>
+<p> 上面的all表示所有权限，可以具体指定</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">all 可以替换为 select,delete,update,create,drop</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="linux命令"><a href="#linux命令" class="headerlink" title="linux命令"></a>linux命令</h4><ol>
+<li>tree命令以树形式查看文件 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"># 安装</div><div class="line">yum -y install tree</div><div class="line"></div><div class="line">#一般使用直接tree即可</div><div class="line">tree</div></pre></td></tr></table></figure>
 </li>
 </ol>
 
@@ -683,7 +694,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -705,7 +716,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -747,7 +758,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#web开发基本环境安装配置"><span class="nav-number">1.</span> <span class="nav-text">web开发基本环境安装配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#jdk的安装"><span class="nav-number">1.1.</span> <span class="nav-text">jdk的安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#tomcat的安装"><span class="nav-number">1.2.</span> <span class="nav-text">tomcat的安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mysql的安装"><span class="nav-number">1.3.</span> <span class="nav-text">mysql的安装</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#下载与安装"><span class="nav-number">1.3.1.</span> <span class="nav-text">下载与安装</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#配置外网Navicat可访问"><span class="nav-number">1.3.2.</span> <span class="nav-text">配置外网Navicat可访问</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web开发常用linux命令"><span class="nav-number">2.</span> <span class="nav-text">web开发常用linux命令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#防火墙命令"><span class="nav-number">2.1.</span> <span class="nav-text">防火墙命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#tomcat命令"><span class="nav-number">2.2.</span> <span class="nav-text">tomcat命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mysql相关命令"><span class="nav-number">2.3.</span> <span class="nav-text">mysql相关命令</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#web开发基本环境安装配置"><span class="nav-number">1.</span> <span class="nav-text">web开发基本环境安装配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#jdk的安装"><span class="nav-number">1.1.</span> <span class="nav-text">jdk的安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#tomcat的安装"><span class="nav-number">1.2.</span> <span class="nav-text">tomcat的安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mysql的安装"><span class="nav-number">1.3.</span> <span class="nav-text">mysql的安装</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#下载与安装"><span class="nav-number">1.3.1.</span> <span class="nav-text">下载与安装</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#配置外网Navicat可访问"><span class="nav-number">1.3.2.</span> <span class="nav-text">配置外网Navicat可访问</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web开发常用linux命令"><span class="nav-number">2.</span> <span class="nav-text">web开发常用linux命令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#防火墙命令"><span class="nav-number">2.1.</span> <span class="nav-text">防火墙命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#tomcat命令"><span class="nav-number">2.2.</span> <span class="nav-text">tomcat命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mysql相关命令"><span class="nav-number">2.3.</span> <span class="nav-text">mysql相关命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#linux命令"><span class="nav-number">2.4.</span> <span class="nav-text">linux命令</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -811,7 +822,7 @@
 <div class="theme-info">
   <div class="powered-by"></div>
   <i class="fa fa-pencil"></i>
-  <span class="post-count">博客全站共18.7k字</span>
+  <span class="post-count">博客全站共21.9k字</span>
 </div>
 
         

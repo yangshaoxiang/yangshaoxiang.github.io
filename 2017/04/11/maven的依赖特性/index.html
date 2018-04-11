@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="maven," />
 
 
 
@@ -81,16 +81,25 @@
 
 
 
-<meta name="description" content="欢迎来到我的博客">
-<meta property="og:type" content="website">
-<meta property="og:title" content="shaoxiang博客">
-<meta property="og:url" content="https://yangshaoxiang.github.io/tags/log4j/index.html">
+<meta name="description" content="maven的依赖特性很多很杂，这里大概总结一下，maven的依赖特性主要是依赖范围和传递依赖，前者会影响后者，这篇文章会介绍传递依赖的传递原则，出现冲突传递依赖默认如何处理，我们自己可以怎么处理等内容">
+<meta name="keywords" content="maven">
+<meta property="og:type" content="article">
+<meta property="og:title" content="maven的依赖特性">
+<meta property="og:url" content="https://yangshaoxiang.github.io/2017/04/11/maven的依赖特性/index.html">
 <meta property="og:site_name" content="shaoxiang博客">
-<meta property="og:description" content="欢迎来到我的博客">
+<meta property="og:description" content="maven的依赖特性很多很杂，这里大概总结一下，maven的依赖特性主要是依赖范围和传递依赖，前者会影响后者，这篇文章会介绍传递依赖的传递原则，出现冲突传递依赖默认如何处理，我们自己可以怎么处理等内容">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://p0zwh057c.bkt.clouddn.com/blog/180410/FGA05Li7fk.png?imageslim">
+<meta property="og:image" content="http://p0zwh057c.bkt.clouddn.com/blog/180410/d9Bicab8KG.png?imageslim">
+<meta property="og:image" content="http://p0zwh057c.bkt.clouddn.com/blog/180410/JDKb625jg1.png?imageslim">
+<meta property="og:image" content="http://p0zwh057c.bkt.clouddn.com/blog/180410/LA63FaJHAB.png?imageslim">
+<meta property="og:image" content="http://p0zwh057c.bkt.clouddn.com/blog/180410/B5dKlIKlDj.png?imageslim">
+<meta property="og:image" content="http://p0zwh057c.bkt.clouddn.com/blog/180410/lDl5gF4eAg.png?imageslim">
+<meta property="og:updated_time" content="2018-04-11T13:16:40.853Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="shaoxiang博客">
-<meta name="twitter:description" content="欢迎来到我的博客">
+<meta name="twitter:title" content="maven的依赖特性">
+<meta name="twitter:description" content="maven的依赖特性很多很杂，这里大概总结一下，maven的依赖特性主要是依赖范围和传递依赖，前者会影响后者，这篇文章会介绍传递依赖的传递原则，出现冲突传递依赖默认如何处理，我们自己可以怎么处理等内容">
+<meta name="twitter:image" content="http://p0zwh057c.bkt.clouddn.com/blog/180410/FGA05Li7fk.png?imageslim">
 
 
 
@@ -120,13 +129,13 @@
 
 
 
-  <link rel="canonical" href="https://yangshaoxiang.github.io/tags/log4j/"/>
+  <link rel="canonical" href="https://yangshaoxiang.github.io/2017/04/11/maven的依赖特性/"/>
 
 
 
 
 
-  <title>标签: log4j | shaoxiang博客</title>
+  <title>maven的依赖特性 | shaoxiang博客</title>
   
 
 
@@ -145,7 +154,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -283,54 +292,269 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block tag">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>log4j<small>标签</small>
-        </h1>
-      </div>
+  
 
-      
-        
+  
+  
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yangshaoxiang.github.io/2017/04/11/maven的依赖特性/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yangshaoxiang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://s1.wailian.download/2017/12/10/xun.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="shaoxiang博客">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2017/12/09/log4jj使用/" itemprop="url">
-              
-                <span itemprop="name">log4j使用</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">maven的依赖特性</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-12-09T22:44:21+08:00"
-              content="2017-12-09" >
-          12-09
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-11T01:05:08+08:00">
+                2017-04-11
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/04/11/maven的依赖特性/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2017/04/11/maven的依赖特性/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1,154  字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  4 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>maven的依赖特性很多很杂，这里大概总结一下，maven的依赖特性主要是依赖范围和传递依赖，前者会影响后者，这篇文章会介绍传递依赖的传递原则，出现冲突传递依赖默认如何处理，我们自己可以怎么处理等内容<br><a id="more"></a></p>
+<h3 id="依赖范围"><a href="#依赖范围" class="headerlink" title="依赖范围"></a>依赖范围</h3><p>依赖范围会影响传递性依赖，同时也会影响项目构建任务中使用的classpath。</p>
+<p>Maven有以下6种依赖范围：</p>
+<blockquote>
+<p>compile<br>这是默认范围。如果没有指定，就会使用该依赖范围。编译依赖对项目所有的classpath都可用。此外，编译依赖会传递到依赖的项目。<br>provided<br>和compile范围很类似，但provided范围表明你希望由JDK或者某个容器提供运行时依赖。例如，当使用Java EE构建一个web应用时，你会设置对Servlet API和相关的Java EE APIs的依赖范围为provided，因为web容器提供了运行时的依赖。provided依赖只对编译和测试classpath有效，并且不能传递。<br>runtime<br>runtime范围表明编译时不需要依赖，而只在运行时依赖。此依赖范围对运行和测试classpath有效，对编译classpath无效。<br>test<br>test范围表明使用此依赖范围的依赖，只在编译测试代码和运行测试的时候需要，应用的正常运行不需要此类依赖。<br>system<br>系统范围与provided类似，不过你必须显式指定一个本地系统路径的JAR，此类依赖应该一直有效，Maven也不会去仓库中寻找它。</p>
+</blockquote>
+<p><img src="http://p0zwh057c.bkt.clouddn.com/blog/180410/FGA05Li7fk.png?imageslim" alt="mark"></p>
+<h3 id="传递依赖"><a href="#传递依赖" class="headerlink" title="传递依赖"></a>传递依赖</h3><p>传递依赖基于要传递的依赖scope为compile,runtime，system的依赖范围，scope为test和provided不会传递依赖 ，此外传递性依赖的嵌套深度没有任何限制，只是在出现循环依赖时会报错。下图是传递依赖时的scope变化，第一列表示直接依赖，第一行表示间接依赖的Scope</p>
+<blockquote>
+<p>举例说明:<br>A–&gt;B–&gt;C。当前项目为A，A依赖于B，B依赖于C。知道B在A项目中的scope，那么怎么知道C在A中的scope呢？<br>答案是：<br>当C是test或者provided时，C直接被丢弃，A不依赖C；<br>否则A依赖C，C的scope继承于B的scope。</p>
+</blockquote>
+<p><img src="http://p0zwh057c.bkt.clouddn.com/blog/180410/d9Bicab8KG.png?imageslim" alt="mark"></p>
+<h4 id="基本传递依赖"><a href="#基本传递依赖" class="headerlink" title="基本传递依赖"></a>基本传递依赖</h4><p>传递依赖指的是A依赖B，B依赖C，D，F等，那么A也同时依赖C,D,F</p>
+<p><img src="http://p0zwh057c.bkt.clouddn.com/blog/180410/JDKb625jg1.png?imageslim" alt="mark"></p>
+<h4 id="传递依赖冲突-依赖调解"><a href="#传递依赖冲突-依赖调解" class="headerlink" title="传递依赖冲突-依赖调解"></a>传递依赖冲突-依赖调解</h4><p> 当项目中出现多个版本构件依赖的情形，依赖调解决定最终应该使用哪个版本，主要依赖于两个原则(注意优先第一个原则，两个原则有优先级之分)，这是maven自动进行的</p>
+<ol>
+<li><p>短路径优先原则<br>A依赖B工程，B工程依赖C-1.jar,A工程依赖C-2.jar,那么A工程最终依赖的是C-2.jar，因为这条依赖链最短</p>
+<p><img src="http://p0zwh057c.bkt.clouddn.com/blog/180410/LA63FaJHAB.png?imageslim" alt="mark"></p>
+</li>
+<li><p>第一声明原则<br>A依赖B工程，B工程依赖S-1.jar,A工程依赖C工程，C工程依赖S-2.jar,那么A工程最终依赖的是S-1.jar，因为在依赖链长度相同时，A工程在pom文件中先声明依赖B工程，先声明指的是在A工程pom文件中的dependencies标签下，B工程的dependency写在C工程前面</p>
+<p><img src="http://p0zwh057c.bkt.clouddn.com/blog/180410/B5dKlIKlDj.png?imageslim" alt="mark"></p>
+<p><img src="http://p0zwh057c.bkt.clouddn.com/blog/180410/lDl5gF4eAg.png?imageslim" alt="mark"></p>
+</li>
+</ol>
+<h4 id="exclusions元素排除依赖"><a href="#exclusions元素排除依赖" class="headerlink" title="exclusions元素排除依赖"></a>exclusions元素排除依赖</h4><p>当项目中某个传递依赖我们不需要时可以使用<exclusion>标签进行排除<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">     <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">     <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>dubbo<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">     <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.5.3<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line">     <span class="tag">&lt;<span class="name">exclusions</span>&gt;</span></div><div class="line">         <span class="tag">&lt;<span class="name">exclusion</span>&gt;</span></div><div class="line">             <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">             <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">         <span class="tag">&lt;/<span class="name">exclusion</span>&gt;</span></div><div class="line">     <span class="tag">&lt;/<span class="name">exclusions</span>&gt;</span></div><div class="line"> <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div></pre></td></tr></table></figure></exclusion></p>
+<h4 id="可选依赖-Optional-Dependencies"><a href="#可选依赖-Optional-Dependencies" class="headerlink" title="可选依赖-Optional Dependencies"></a>可选依赖-Optional Dependencies</h4><p>当自己开发一个供别人使用的jar包，项目依赖于多个模块，完成不同功能，各个功能相互独立，那么当第三方使用我的jar包时可以排除他不需要的依赖功能jar包，保留其需要的，这需要”我”在pom中配置依赖的可选性<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">     <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>sample.ProjectB<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">     <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>Project-B<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">     <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line">     <span class="tag">&lt;<span class="name">scope</span>&gt;</span>compile<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></div><div class="line">     <span class="tag">&lt;<span class="name">optional</span>&gt;</span>true<span class="tag">&lt;/<span class="name">optional</span>&gt;</span> <span class="comment">&lt;!-- value will be true or false only --&gt;</span></div><div class="line">   <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div><div class="line"> <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>假设以上配置是项目A的配置，即：Project-A –&gt; Project-B。在编译项目A时，是可以正常通过的。<br>如果有一个新的项目X依赖A，即：Project-X -&gt; Project-A。此时项目X就不会依赖项目B了。如果项目X用到了涉及项目B的功能，那么就需要在pom.xml中重新配置对项目B的依赖。</p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="https://blog.csdn.net/kimylrong/article/details/50353161" target="_blank" rel="external"> Maven依赖中的scope详解</a><br><a href="http://www.cnblogs.com/meet/p/6417496.html#wiz_toc_6" target="_blank" rel="external">Maven入门-4.Maven的依赖</a><br><a href="http://ifeve.com/maven-dependency-mechanism/" target="_blank" rel="external">《Maven官方文档》-Maven依赖机制简介</a><br><a href="https://blog.csdn.net/ado1986/article/details/39547839" target="_blank" rel="external">可选依赖及排除依赖</a></p>
 
       
     </div>
+    
+    
+    
 
+	<div>
+    
+    ﻿<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+    
+   </div>
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    yangshaoxiang
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://yangshaoxiang.github.io/2017/04/11/maven的依赖特性/" title="maven的依赖特性">https://yangshaoxiang.github.io/2017/04/11/maven的依赖特性/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/maven/" rel="tag"><i class="fa fa-tag"></i> maven</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/04/11/maven私服nexus3.x搭建与使用/" rel="next" title="maven私服nexus3.x搭建与使用">
+                <i class="fa fa-chevron-left"></i> maven私服nexus3.x搭建与使用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/10/20/Activemq的安装及启动/" rel="prev" title="Activemq的安装及启动">
+                Activemq的安装及启动 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -338,6 +562,17 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
 
         </div>
         
@@ -358,8 +593,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -432,6 +676,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#依赖范围"><span class="nav-number">1.</span> <span class="nav-text">依赖范围</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#传递依赖"><span class="nav-number">2.</span> <span class="nav-text">传递依赖</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#基本传递依赖"><span class="nav-number">2.1.</span> <span class="nav-text">基本传递依赖</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#传递依赖冲突-依赖调解"><span class="nav-number">2.2.</span> <span class="nav-text">传递依赖冲突-依赖调解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#exclusions元素排除依赖"><span class="nav-number">2.3.</span> <span class="nav-text">exclusions元素排除依赖</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#可选依赖-Optional-Dependencies"><span class="nav-number">2.4.</span> <span class="nav-text">可选依赖-Optional Dependencies</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">3.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -596,6 +856,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
 
   
 
@@ -642,6 +906,30 @@
 
     
 
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname, 
+            owner: 'yangshaoxiang',
+            repo: 'bolgIssues',
+            
+            lang: "zh-Hans" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: '4c22edbe03d5d36279e24db40a3e04c7376cba72',
+            
+                client_id: '5d18dd5dd5c7420967d9'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
     
 
 

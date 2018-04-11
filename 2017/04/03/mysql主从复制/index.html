@@ -93,7 +93,7 @@
 <meta property="og:image" content="http://p0zwh057c.bkt.clouddn.com/blog/180403/5GGbffAmdh.png?imageslim">
 <meta property="og:image" content="http://p0zwh057c.bkt.clouddn.com/blog/180403/aL9bJ1D0k2.png?imageslim">
 <meta property="og:image" content="http://p0zwh057c.bkt.clouddn.com/blog/180403/ge65jagK6e.png?imageslim">
-<meta property="og:updated_time" content="2018-04-03T12:07:18.620Z">
+<meta property="og:updated_time" content="2018-04-11T13:12:39.091Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mysql复制">
 <meta name="twitter:description" content="mysql主从复制一般网站的业务都是读多写少，而一般并发系统的瓶颈在数据库，因此这种情况下一般会采用读写分离的方式降低主库的读压力，从而提升系统的并发量，现在先不说读写分离相关技术，就说要实现读写分离对数据库有一个基本要求，即主库和从库数据一致性的问题，即使不能绝对的强一致性，至少也要达到相对的一致性，这里依赖于mysql数据库自带的一些功能和配置">
@@ -397,7 +397,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  3,650  字
+                  3,657  字
                 </span>
               
 
@@ -485,7 +485,7 @@
 <h4 id="安装mysql数据库"><a href="#安装mysql数据库" class="headerlink" title="安装mysql数据库"></a>安装mysql数据库</h4><p>首先要在两台服务器上安装好mysql数据库，我这里分别在192.168.16.10(主)，和192,168.16.20(从)上安装的mysql5.6的数据库，安装步骤可以参考我之前关于基本环境搭建的博客<a href="(https://yangshaoxiang.github.io/2017/12/24/linux%E4%B8%8BJavaWeb%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/#more">web常用环境搭建</a>)</p>
 <h4 id="配置主库"><a href="#配置主库" class="headerlink" title="配置主库"></a>配置主库</h4><p>编辑要设置为主库的数据库配置文件，添加如下内容即可，对应配置含义有注释<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vi /etc/my.cnf</div></pre></td></tr></table></figure></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">#mysql主从复制-master配置</div><div class="line">#需要同步的二进制数据库名；</div><div class="line">binlog-do-db=syndb</div><div class="line">#不同步的二进制数据库名,如果不设置可以将其注释掉;</div><div class="line">binlog-ignore-db=information_schema</div><div class="line">binlog-ignore-db=mysql</div><div class="line">binlog-ignore-db=personalsite</div><div class="line">binlog-ignore-db=test</div><div class="line">#以下参数可选----------</div><div class="line">#binlog 格式</div><div class="line">binlog-format=ROW</div><div class="line">log-bin=mysql-master-bin</div><div class="line">#slave更新时是否记录到日志中；</div><div class="line">log-slave-updates=true</div></pre></td></tr></table></figure>
-<p>从原理上来看，从库是需要连接主库的，因此主库要给从库分配一个用于访问的数据库的账号和密码，登入mysql使用以下命令是创建一个账号<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#创建一个用户名为slave1密码为123456的账户，且只允许该账户在ip地址192.168.16.20上使用</div><div class="line">grant replication slave,super,reload on *.* to slave1@192.168.16.20 identified by &apos;123456&apos;;</div></pre></td></tr></table></figure></p>
+<p>从原理上来看，从库是需要连接主库的，因此主库要给从库分配一个用于访问的数据库的账号和密码，登入mysql使用以下命令是创建一个账号<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#创建一个用户名为slave1密码为123456的账户，授予replication(复制)权限，且只允许该账户在ip地址192.168.16.20上使用</div><div class="line">grant replication slave,super,reload on *.* to slave1@192.168.16.20 identified by &apos;123456&apos;;</div></pre></td></tr></table></figure></p>
 <h4 id="配置从库"><a href="#配置从库" class="headerlink" title="配置从库"></a>配置从库</h4><p>编辑要设置为从库的数据库配置文件，添加如下内容即可，对应配置含义有注释<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vi /etc/my.cnf</div></pre></td></tr></table></figure></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">#mysql主从复制-slave配置</div><div class="line">server-id = 2 #原有的配置文件为1，修改为2</div><div class="line">#需要同步的二进制数据库名；</div><div class="line">replicate-do-db=syndb</div><div class="line">#忽略同步的数据库名称</div><div class="line">replicate-ignore-db=information_schema</div><div class="line">replicate-ignore-db=mysql</div><div class="line">replicate-ignore-db=personalsite</div><div class="line">replicate-ignore-db=test</div><div class="line">#日志名</div><div class="line">log-bin=mysql-slave-bin</div></pre></td></tr></table></figure>
 <p>配置主库时主库为从库的链接提供了一个账号，配置从库使用该账户链接主库<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">change master to master_host=&apos;192.168.16.10&apos;, master_user=&apos;slave1&apos;, master_password=&apos;123456&apos;;</div></pre></td></tr></table></figure></p>
@@ -642,8 +642,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/10/20/java后台常用json解析工具问题小结/" rel="prev" title="java后台常用json解析工具问题小结">
-                java后台常用json解析工具问题小结 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/04/11/maven私服nexus3.x搭建与使用/" rel="prev" title="maven私服nexus3.x搭建与使用">
+                maven私服nexus3.x搭建与使用 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -732,7 +732,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -754,7 +754,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -860,7 +860,7 @@
 <div class="theme-info">
   <div class="powered-by"></div>
   <i class="fa fa-pencil"></i>
-  <span class="post-count">博客全站共18.7k字</span>
+  <span class="post-count">博客全站共21.9k字</span>
 </div>
 
         
