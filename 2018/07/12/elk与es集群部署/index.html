@@ -1,0 +1,1383 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="ELK,Elasticsearch," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="shaoxiang博客" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="elk简述传统日志管理问题在项目初期的时候，大家都是赶着上线，一般来说对日志没有过多的考虑，当然日志量也不大，所以用log4j就够了，随着应用的越来越多，日志散落在各个服务器的logs文件夹下，确实有点不大方便   当我们需要日志分析的时候你大概会这么做：直接在日志文件中 grep、awk 就可以获得自己想要的信息">
+<meta name="keywords" content="ELK,Elasticsearch">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ELK与Elasticsearch集群部署">
+<meta property="og:url" content="https://yangshaoxiang.github.io/2018/07/12/elk与es集群部署/index.html">
+<meta property="og:site_name" content="shaoxiang博客">
+<meta property="og:description" content="elk简述传统日志管理问题在项目初期的时候，大家都是赶着上线，一般来说对日志没有过多的考虑，当然日志量也不大，所以用log4j就够了，随着应用的越来越多，日志散落在各个服务器的logs文件夹下，确实有点不大方便   当我们需要日志分析的时候你大概会这么做：直接在日志文件中 grep、awk 就可以获得自己想要的信息">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://p0zwh057c.bkt.clouddn.com/blog/180710/d0C30G7jLc.png?imageslim">
+<meta property="og:image" content="http://p0zwh057c.bkt.clouddn.com/blog/180710/CCh0E7kmKH.png?imageslim">
+<meta property="og:image" content="http://p0zwh057c.bkt.clouddn.com/blog/180711/IEG14bC7k9.png?imageslim">
+<meta property="og:image" content="http://p0zwh057c.bkt.clouddn.com/blog/180711/20Jh52JmjJ.png?imageslim">
+<meta property="og:updated_time" content="2018-07-11T16:31:20.515Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ELK与Elasticsearch集群部署">
+<meta name="twitter:description" content="elk简述传统日志管理问题在项目初期的时候，大家都是赶着上线，一般来说对日志没有过多的考虑，当然日志量也不大，所以用log4j就够了，随着应用的越来越多，日志散落在各个服务器的logs文件夹下，确实有点不大方便   当我们需要日志分析的时候你大概会这么做：直接在日志文件中 grep、awk 就可以获得自己想要的信息">
+<meta name="twitter:image" content="http://p0zwh057c.bkt.clouddn.com/blog/180710/d0C30G7jLc.png?imageslim">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://yangshaoxiang.github.io/2018/07/12/elk与es集群部署/"/>
+
+
+
+
+
+  <title>ELK与Elasticsearch集群部署 | shaoxiang博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">shaoxiang博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">我的博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yangshaoxiang.github.io/2018/07/12/elk与es集群部署/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yangshaoxiang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://s1.wailian.download/2017/12/10/xun.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="shaoxiang博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">ELK与Elasticsearch集群部署</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-12T00:05:08+08:00">
+                2018-07-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/07/12/elk与es集群部署/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2018/07/12/elk与es集群部署/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3,148  字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  13 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="elk简述"><a href="#elk简述" class="headerlink" title="elk简述"></a>elk简述</h3><h4 id="传统日志管理问题"><a href="#传统日志管理问题" class="headerlink" title="传统日志管理问题"></a>传统日志管理问题</h4><p>在项目初期的时候，大家都是赶着上线，一般来说对日志没有过多的考虑，当然日志量也不大，所以用log4j就够了，随着应用的越来越多，日志散落在各个服务器的logs文件夹下，确实有点不大方便  </p>
+<p>当我们需要日志分析的时候你大概会这么做：直接在日志文件中 grep、awk 就可以获得自己想要的信息<br><a id="more"></a><br>但是这样的方式有很多问题:  </p>
+<ol>
+<li><p>日志量太大如何归档、文本搜索太慢怎么办、如何多维度查询  </p>
+</li>
+<li><p>应用太多，面临数十上百台应用时你该怎么办  </p>
+</li>
+<li><p>随意登录服务器查询log对系统的稳定性及安全性肯定有影响  </p>
+</li>
+<li><p>如果使用人员对Linux不太熟练那面对庞大的日志无从下手  </p>
+</li>
+</ol>
+<h4 id="elk简介"><a href="#elk简介" class="headerlink" title="elk简介"></a>elk简介</h4><p>ELK是三个开源软件的缩写，分别表示：Elasticsearch , Logstash, Kibana , 它们都是开源软件  </p>
+<ol>
+<li><p>ElasticSearch<br>这是一个基于Lucene的分布式全文搜索框架，可以对logs进行分布式存储，有点像hdfs。此为ELK的核心组件，日志的分析以及存储全部由es完成  </p>
+</li>
+<li><p>LogStash<br>  它可以流放到各自的服务器上收集Log日志，通过内置的ElasticSearch插件解析后输出到ES中  </p>
+</li>
+<li><p>Kibana<br>它可以多维度的展示es中的数据。这也解决了用mysql存储带来了难以可视化的问题。他提供了丰富的UI组件，简化了使用难度  </p>
+</li>
+</ol>
+<h4 id="elk作用"><a href="#elk作用" class="headerlink" title="elk作用"></a>elk作用</h4><ol>
+<li><p>日志统一收集，管理，访问。查找问题方便安全  </p>
+</li>
+<li><p>使用简单，可以大大提高定位问题的效率  </p>
+</li>
+<li><p>可以对收集起来的log进行分析  </p>
+</li>
+<li><p>能够提供错误报告，监控机制  </p>
+</li>
+</ol>
+<h4 id="elk架构选择"><a href="#elk架构选择" class="headerlink" title="elk架构选择"></a>elk架构选择</h4><p>一般使用普通架构即可  </p>
+<h5 id="普通架构"><a href="#普通架构" class="headerlink" title="普通架构"></a>普通架构</h5><ol>
+<li><p>ElasticSearch：核心 提供查询，全文检索</p>
+</li>
+<li><p>Kibana：页面展示，及方便查询</p>
+</li>
+<li><p>Logstash：收集日志 主要有过滤功能，格式化，和其他个性化需求  </p>
+</li>
+</ol>
+<p>使用场景:<br>能解决50G以下的log，这个50g指的是es里面的总量–此时一般es所在的机器配置是8G，es比较吃cpu内存</p>
+<h5 id="高级架构"><a href="#高级架构" class="headerlink" title="高级架构"></a>高级架构</h5><ol>
+<li><p>ElasticSearch：核心 提供查询，全文检索</p>
+</li>
+<li><p>Kibana：页面展示，及方便查询</p>
+</li>
+<li><p>FileBeat ：轻量级收集日志系统，速度快，稳定不占资源</p>
+</li>
+<li><p>Redis：缓冲，防止把es搞垮了，和kafka二者取其一</p>
+</li>
+<li><p>Kafka：消息中间件，可缓存大数据量，日志一般存半个月</p>
+</li>
+</ol>
+<p>使用场景:<br>适用于一天产生几十g日志<br>推荐算法模型–》元数据来源于log，redis和kafka还有优势是做推荐的时候，可以即分发给es也分发给推荐算法</p>
+<h3 id="elk部署"><a href="#elk部署" class="headerlink" title="elk部署"></a>elk部署</h3><p>下载地址:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">https://www.elastic.co/cn/products</div></pre></td></tr></table></figure></p>
+<p>本次安装的版本信息:<br>JDK1.8<br>elasticsearch-5.6.4<br>logstash-5.6.3<br>kibana-5.2.0</p>
+<h4 id="elasticSearch部署"><a href="#elasticSearch部署" class="headerlink" title="elasticSearch部署"></a>elasticSearch部署</h4><p>下载的包传到服务器上解压后</p>
+<h5 id="修改es的配置"><a href="#修改es的配置" class="headerlink" title="修改es的配置"></a>修改es的配置</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd elasticsearch-5.6.4/config/</div><div class="line">vi elasticsearch.yml</div></pre></td></tr></table></figure>
+<p>要修改的内容如下<br><figure class="highlight yml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 集群名称 配置集群使用-非集群不配</span></div><div class="line"><span class="comment">#cluster.name: my-application</span></div><div class="line"><span class="comment"># 这个节点的名称</span></div><div class="line"><span class="string">node.name:</span> <span class="string">node-1</span></div><div class="line"><span class="comment"># 数据存放目录-注意启动elasticsearch的用户必须有该目录的读写权限</span></div><div class="line"><span class="string">path.data:</span> <span class="string">/tmp/elasticsearch/data</span></div><div class="line"><span class="comment"># 日志存放目录-注意启动elasticsearch的用户必须有该目录的读写权限</span></div><div class="line"><span class="string">path.logs:</span> <span class="string">/tmp/elasticsearch/logs</span></div><div class="line"><span class="comment"># Lock the memory on startup:</span></div><div class="line"><span class="string">bootstrap.memory_lock:</span> <span class="literal">false</span></div><div class="line"><span class="comment"># 解决启动异常：ERROR: bootstrap checks failed</span></div><div class="line"><span class="string">bootstrap.system_call_filter:</span> <span class="literal">false</span></div><div class="line"><span class="comment"># 允许访问的ip 0.0.0.0表示允许所有</span></div><div class="line"><span class="string">network.host:</span> <span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span></div><div class="line"><span class="comment"># 允许外部访问的http端口</span></div><div class="line"><span class="string">http.port:</span> <span class="number">9200</span></div><div class="line"><span class="comment"># 安装elastic-head插件需要-作用是跨域</span></div><div class="line"><span class="string">http.cors.enabled:</span> <span class="literal">true</span></div><div class="line"><span class="string">http.cors.allow-origin:</span> <span class="string">"*"</span></div></pre></td></tr></table></figure></p>
+<h5 id="修改linux配置"><a href="#修改linux配置" class="headerlink" title="修改linux配置"></a>修改linux配置</h5><p>elasticSearch不允许root用户启动，新建用户用于启动elasticSearch<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"># 创建elasticsearch用户</div><div class="line">groupadd elasticsearch</div><div class="line">useradd elasticsearch -g elasticsearch -p 123456</div><div class="line"># 赋权限</div><div class="line">chown elasticsearch:elasticsearch -R /app/elasticsearch-5.6.4</div></pre></td></tr></table></figure></p>
+<p>es5.0后修改limit限制,不修改启动会报错<br>max file descriptors [4096] for elasticsearch process is too low, increase to at least [65536]<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">vi /etc/security/limits.conf</div><div class="line"># 下面的elasticsearch是上面创建的elasticsearch用户名称</div><div class="line"># 格式: username hard nofile 65536</div><div class="line">elasticsearch hard nofile 65536</div><div class="line">elasticsearch soft nofile 65536</div></pre></td></tr></table></figure></p>
+<p>解决max number of threads [1024] for user [apps] is too low, increase to at least [2048] 报错<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">vi /etc/security/limits.d/90-nproc.conf</div><div class="line">修改  </div><div class="line">* soft nproc 1024</div><div class="line">为  </div><div class="line">* soft nproc 2048</div></pre></td></tr></table></figure></p>
+<p>解决max virtual memory areas vm.max_map_count [65530] likely too low, increase to at least [262144]报错<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">echo &apos;vm.max_map_count=262144&apos;&gt;&gt; /etc/sysctl.conf</div><div class="line">sysctl -p</div></pre></td></tr></table></figure></p>
+<h5 id="启动测试"><a href="#启动测试" class="headerlink" title="启动测试"></a>启动测试</h5><p>启动<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#切换到elasticsearch用户</div><div class="line">su elasticsearch</div><div class="line">./elasticsearch-5.6.4/bin/elasticsearch</div></pre></td></tr></table></figure></p>
+<p>开放端口<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">vi  /etc/sysconfig/iptables</div><div class="line"># 在打开的文件中加入如下内容</div><div class="line">-A INPUT -p tcp -m state --state NEW -m tcp --dport 9200 -j ACCEPT</div><div class="line"># 重启防火墙</div><div class="line">service iptables restart</div></pre></td></tr></table></figure></p>
+<p>浏览器访问测试:  </p>
+<p><a href="http://es所在机器ip:9200/" target="_blank" rel="external">http://es所在机器ip:9200/</a><br>出现一串包含版本信息的json即为安装成功</p>
+<h4 id="logstash部署"><a href="#logstash部署" class="headerlink" title="logstash部署"></a>logstash部署</h4><p>解压，在config目录建：logstash.conf，输入以下内容<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vi logstash.conf</div></pre></td></tr></table></figure></p>
+<p>配置包含input ，filter，output三大块<br>其中input是吸取logs文件下的所有log后缀的日志文件<br>filter是一个过滤函数，配置则可进行个性化过滤<br>output配置了导入到hosts为127.0.0.1:9200的elasticsearch中，每天一个索引<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">input &#123;</div><div class="line">     file &#123;</div><div class="line">        type =&gt; &quot;log&quot;</div><div class="line">        path =&gt;  &quot;/logs/*.log&quot;</div><div class="line">        start_position =&gt; &quot;beginning&quot;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">output &#123;</div><div class="line">  stdout &#123;</div><div class="line">   codec =&gt; rubydebug &#123; &#125;</div><div class="line">  &#125;</div><div class="line">  elasticsearch &#123;</div><div class="line">    hosts =&gt; &quot;127.0.0.1&quot;</div><div class="line">    index =&gt; &quot;log-%&#123;+YYYY.MM.dd&#125;&quot;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>start_position：<br>是监听的位置，默认是end，即一个文件如果没有记录它的读取信息，则从文件的末尾开始读取，也就是说，仅仅读取新添加的内容。对于一些更新的日志类型的监听，通常直接使用end就可以了；相反，beginning就会从一个文件的头开始读取。但是如果记录过文件的读取信息，则不会从最开始读取。重启读取信息不会丢失  </p>
+<p>bin目录下启动logstash了，配置文件设置为config/logstash.conf<br>启动命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./logstash -f ../config/logstash.conf</div></pre></td></tr></table></figure></p>
+<p>配置不同的logpath<br>在config目录下建立多个.conf文件，每个文件指定不同path<br>指定启动目录:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./logstash -f ../config</div></pre></td></tr></table></figure></p>
+<h4 id="kibana部署"><a href="#kibana部署" class="headerlink" title="kibana部署"></a>kibana部署</h4><p>这个安装比较简单，解压后在kibana.yml文件中指定一下你需要读取的elasticSearch地址和可供外网访问的bind地址就可以了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vi kibana-5.2.0-linux-x86_64/config/kibana.yml</div></pre></td></tr></table></figure></p>
+<p>修改内容如下:<br><figure class="highlight yml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="string">server.host:</span> <span class="string">"0.0.0.0"</span></div><div class="line"><span class="comment"># 如果是集群则配置master节点</span></div><div class="line"><span class="string">elasticsearch.url:</span> <span class="attr">http://localhost:9200</span></div></pre></td></tr></table></figure></p>
+<p>启动<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./bin/kibana</div></pre></td></tr></table></figure></p>
+<p>开放端口<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">vi  /etc/sysconfig/iptables</div><div class="line"># 在打开的文件中加入如下内容</div><div class="line">-A INPUT -p tcp -m state --state NEW -m tcp --dport 5601 -j ACCEPT</div><div class="line"># 重启防火墙</div><div class="line">service iptables restart</div></pre></td></tr></table></figure></p>
+<p>浏览器访问测试:<br><a href="http://kibana所在机器ip:5601/" target="_blank" rel="external">http://kibana所在机器ip:5601/</a>  </p>
+<p>创建索引:  </p>
+<p>进入之后，在左侧栏菜单最后一项，创建索引，进入时没有创建按钮<br>我们在本机的/logs文件夹下创建一个简单的1.log文件，内容为“hello world”，然后在kibana上将logstash-<em>  改成 log</em> ，Create按钮就会自动出来</p>
+<p><img src="http://p0zwh057c.bkt.clouddn.com/blog/180710/d0C30G7jLc.png?imageslim" alt="mark"></p>
+<h3 id="插件安装"><a href="#插件安装" class="headerlink" title="插件安装"></a>插件安装</h3><h4 id="elastic-head插件"><a href="#elastic-head插件" class="headerlink" title="elastic-head插件"></a>elastic-head插件</h4><p>下载<br><a href="https://github.com/mobz/elasticsearch-head/archive/master.zip" target="_blank" rel="external">https://github.com/mobz/elasticsearch-head/archive/master.zip</a>  </p>
+<p>解压<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">unzip elasticsearch-head-master.zip</div><div class="line">#没有zip命令的可以安装一下</div><div class="line">#yum install -y unzip zip</div></pre></td></tr></table></figure></p>
+<p>执行命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">curl --silent --location https://rpm.nodesource.com/setup | bash -</div></pre></td></tr></table></figure></p>
+<p>如果没安装nodejs的话需要安装<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum install -y nodejs</div></pre></td></tr></table></figure></p>
+<p>如果node.js版本过低，则需要升级<br>升级node.js<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"># 第一步：首先安装 n 模块：</div><div class="line">npm install -g n</div><div class="line"># 第二步：升级node.js到最新稳定版</div><div class="line">n stable</div></pre></td></tr></table></figure></p>
+<p>修改配置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">cd elasticsearch-head-master  </div><div class="line">npm install grunt --save-dev  </div><div class="line"># 如果失败升级下node</div><div class="line">npm install</div><div class="line">vi Gruntfile.js</div></pre></td></tr></table></figure></p>
+<p>在connect节点下 增加hostname属性，设置为* 注意加,号  </p>
+<p><img src="http://p0zwh057c.bkt.clouddn.com/blog/180710/CCh0E7kmKH.png?imageslim" alt="mark"></p>
+<p>修改head链接<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vi elasticsearch-head-master/_site/app.js</div></pre></td></tr></table></figure></p>
+<p>将<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">this</span>.base_uri = <span class="keyword">this</span>.config.base_uri || <span class="keyword">this</span>.prefs.get(<span class="string">"app-base_uri"</span>) || <span class="string">"http://localhost:9200"</span>;</div></pre></td></tr></table></figure></p>
+<p>把localhost修改成自己es的服务器地址<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">this.base_uri = this.config.base_uri || this.prefs.get(&quot;app-base_uri&quot;) || &quot;http://192.168.x.x:9200&quot;;</div></pre></td></tr></table></figure></p>
+<p>如果之前没在es的配置文件中配置以下内容的话，配置下（我上面es已经配置）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">http.cors.enabled: true</div><div class="line">http.cors.allow-origin: &quot;*&quot;</div></pre></td></tr></table></figure></p>
+<p>运行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd elasticsearch-head-master/node_modules/grunt/bin</div><div class="line">./grunt server &amp;</div></pre></td></tr></table></figure></p>
+<p>开放端口<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">vi  /etc/sysconfig/iptables</div><div class="line"># 在打开的文件中加入如下内容</div><div class="line">-A INPUT -p tcp -m state --state NEW -m tcp --dport 9100 -j ACCEPT</div><div class="line"># 重启防火墙</div><div class="line">service iptables restart</div></pre></td></tr></table></figure></p>
+<p>浏览器访问测试:<br><a href="http://插件所在服务器ip:9100" target="_blank" rel="external">http://插件所在服务器ip:9100</a></p>
+<h4 id="elasticSearch集群部署"><a href="#elasticSearch集群部署" class="headerlink" title="elasticSearch集群部署"></a>elasticSearch集群部署</h4><p>以上配置完成后，elk已经可以正常使用，这里在记录下es集群的部署，这里在一台机器上部署集群，上面已经部署好的es为主节点，其 <code>elasticsearch.yml</code> 的配置内容如下:<br><figure class="highlight yml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#-----------------cluster集群新加配置------------------</span></div><div class="line"><span class="comment"># 集群名称 注意一个集群里面的机器一定要保持一致</span></div><div class="line"><span class="string">cluster.name:</span> <span class="string">"my-es-cluster"</span></div><div class="line"><span class="comment"># 尽量配置机器差作为主节点 注意只有两个节点的话第二个请配置为false</span></div><div class="line"><span class="string">node.master:</span> <span class="literal">true</span></div><div class="line"><span class="string">node.data:</span> <span class="literal">true</span></div><div class="line"><span class="string">http.enabled:</span> <span class="literal">true</span></div><div class="line"><span class="string">transport.tcp.port:</span> <span class="number">9300</span></div><div class="line"><span class="comment"># 单播(unicast)协议，指定要发现的节点信息了，可以不指定端口[默认9300]</span></div><div class="line"><span class="string">discovery.zen.ping.unicast.hosts:</span> <span class="string">["192.168.112.50","192.168.112.50:8300"]</span></div><div class="line"><span class="comment">#默认是1看到的具有master节点资格的最小数量，然后才能在集群中做操作。官方的推荐值是(N/2)+1，如果只有2个节点设为1</span></div><div class="line"><span class="string">discovery.zen.minimum_master_nodes:</span> <span class="number">1</span></div><div class="line"><span class="comment"># ping的超时时间，如果网络差则延长</span></div><div class="line"><span class="comment"># discovery.zen.ping.timeout: 60s</span></div><div class="line"><span class="comment"># 设置集群中自动发现其他节点时ping连接的超时时间</span></div><div class="line"><span class="comment"># discovery.zen.ping.timeout: 180s</span></div><div class="line"></div><div class="line"><span class="comment">#-------------cluster集群在单机基础上可能要修改配置------------------</span></div><div class="line"><span class="comment"># 这个节点的名称 同一个集群里面的名字不能相同</span></div><div class="line"><span class="string">node.name:</span> <span class="string">node-1</span></div><div class="line"><span class="comment"># 数据存放目录-注意启动elasticsearch的用户必须有该目录的权限</span></div><div class="line"><span class="string">path.data:</span> <span class="string">/tmp/elasticsearch/data</span></div><div class="line"><span class="comment"># 日志存放目录-注意启动elasticsearch的用户必须有该目录的权限</span></div><div class="line"><span class="string">path.logs:</span> <span class="string">/tmp/elasticsearch/logs</span></div><div class="line"><span class="comment"># 允许外部访问的端口</span></div><div class="line"><span class="string">http.port:</span> <span class="number">9200</span></div><div class="line"></div><div class="line"><span class="comment">#-----------------单机和集群不变的配置------------------</span></div><div class="line"><span class="string">bootstrap.memory_lock:</span> <span class="literal">false</span></div><div class="line"><span class="comment"># 解决启动异常：ERROR: bootstrap checks failed</span></div><div class="line"><span class="string">bootstrap.system_call_filter:</span> <span class="literal">false</span></div><div class="line"><span class="comment"># 允许访问的ip 0.0.0.0表示允许所有</span></div><div class="line"><span class="string">network.host:</span> <span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span></div><div class="line"><span class="comment"># head插件跨域</span></div><div class="line"><span class="string">http.cors.enabled:</span> <span class="literal">true</span></div><div class="line"><span class="string">http.cors.allow-origin:</span> <span class="string">"*"</span></div></pre></td></tr></table></figure></p>
+<p>复制一份主节点的es或重新解压一份es，修改其 <code>elasticsearch.yml</code> 的配置内容如下:<br><figure class="highlight yml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#-----------------cluster集群新加配置------------------</span></div><div class="line"><span class="comment"># 集群名称 注意一个集群里面的机器一定要保持一致</span></div><div class="line"><span class="string">cluster.name:</span> <span class="string">"my-es-cluster"</span></div><div class="line"><span class="comment"># 尽量配置机器差作为主节点 注意只有两个节点的话第二个请配置为false</span></div><div class="line"><span class="string">node.master:</span> <span class="literal">false</span></div><div class="line"><span class="string">node.data:</span> <span class="literal">true</span></div><div class="line"><span class="string">http.enabled:</span> <span class="literal">true</span></div><div class="line"><span class="string">transport.tcp.port:</span> <span class="number">8300</span></div><div class="line"><span class="comment"># 单播(unicast)协议，指定要发现的节点信息了，可以不指定端口[默认9300]</span></div><div class="line"><span class="string">discovery.zen.ping.unicast.hosts:</span> <span class="string">["192.168.112.50","192.168.112.50:8300"]</span></div><div class="line"><span class="comment">#默认是1看到的具有master节点资格的最小数量，然后才能在集群中做操作。官方的推荐值是(N/2)+1，如果只有2个节点设为1</span></div><div class="line"><span class="string">discovery.zen.minimum_master_nodes:</span> <span class="number">1</span></div><div class="line"><span class="comment"># ping的超时时间，如果网络差则延长</span></div><div class="line"><span class="comment"># discovery.zen.ping.timeout: 60s</span></div><div class="line"><span class="comment"># 设置集群中自动发现其他节点时ping连接的超时时间</span></div><div class="line"><span class="comment"># discovery.zen.ping.timeout: 180s</span></div><div class="line"></div><div class="line"><span class="comment">#-------------cluster集群在单机基础上可能要修改配置------------------</span></div><div class="line"><span class="comment"># 这个节点的名称 同一个集群里面的名字不能相同</span></div><div class="line"><span class="string">node.name:</span> <span class="string">node-2</span></div><div class="line"><span class="comment"># 数据存放目录-注意启动elasticsearch的用户必须有该目录的权限</span></div><div class="line"><span class="string">path.data:</span> <span class="string">/tmp/elasticsearch/data-node2</span></div><div class="line"><span class="comment"># 日志存放目录-注意启动elasticsearch的用户必须有该目录的权限</span></div><div class="line"><span class="string">path.logs:</span> <span class="string">/tmp/elasticsearch/logs-node2</span></div><div class="line"><span class="comment"># 允许外部访问的端口</span></div><div class="line"><span class="string">http.port:</span> <span class="number">8200</span></div><div class="line"></div><div class="line"><span class="comment">#-----------------单机和集群不变的配置------------------</span></div><div class="line"><span class="string">bootstrap.memory_lock:</span> <span class="literal">false</span></div><div class="line"><span class="comment"># 解决启动异常：ERROR: bootstrap checks failed</span></div><div class="line"><span class="string">bootstrap.system_call_filter:</span> <span class="literal">false</span></div><div class="line"><span class="comment"># 允许访问的ip 0.0.0.0表示允许所有</span></div><div class="line"><span class="string">network.host:</span> <span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span></div><div class="line"><span class="comment"># head插件跨域</span></div><div class="line"><span class="string">http.cors.enabled:</span> <span class="literal">true</span></div><div class="line"><span class="string">http.cors.allow-origin:</span> <span class="string">"*"</span></div></pre></td></tr></table></figure></p>
+<p>如果一台机器内存不够，可以修改es的内存配置，例如这里可以将master内存改小一点<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd config</div><div class="line">vi jvm.options</div></pre></td></tr></table></figure></p>
+<p>将2G改为1G<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">-Xms1g</div><div class="line">-Xmx1g</div></pre></td></tr></table></figure></p>
+<p>为了方便查看我将上面es的文件夹做了重命名，因此给elasticsearch重新授权<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">chown elasticsearch:elasticsearch -R /app/elasticsearch-node1</div><div class="line">chown elasticsearch:elasticsearch -R /app/elasticsearch-node2</div></pre></td></tr></table></figure></p>
+<p>添加公作节点使用的外部端口<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">vi  /etc/sysconfig/iptables</div><div class="line"># 在打开的文件中加入如下内容</div><div class="line">-A INPUT -p tcp -m state --state NEW -m tcp --dport 8200 -j ACCEPT</div><div class="line"># 重启防火墙</div><div class="line">service iptables restart</div></pre></td></tr></table></figure></p>
+<p>启动工作节点，在启动master节点<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">su elasticsearch</div><div class="line"># 分别切换到两个es的安装目录，启动</div><div class="line">./bin/elasticsearch</div></pre></td></tr></table></figure></p>
+<p>成功启动后控制台打印</p>
+<p><img src="http://p0zwh057c.bkt.clouddn.com/blog/180711/IEG14bC7k9.png?imageslim" alt="mark"></p>
+<p>启动head插件，在浏览器访问</p>
+<p><img src="http://p0zwh057c.bkt.clouddn.com/blog/180711/20Jh52JmjJ.png?imageslim" alt="mark"></p>
+
+      
+    </div>
+    
+    
+    
+
+	<div>
+    
+    ﻿<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+    
+   </div>
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    yangshaoxiang
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://yangshaoxiang.github.io/2018/07/12/elk与es集群部署/" title="ELK与Elasticsearch集群部署">https://yangshaoxiang.github.io/2018/07/12/elk与es集群部署/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ELK/" rel="tag"><i class="fa fa-tag"></i> ELK</a>
+          
+            <a href="/tags/Elasticsearch/" rel="tag"><i class="fa fa-tag"></i> Elasticsearch</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/04/03/eclipse非maven的web项目导入myeclipse并添加项目依赖/" rel="next" title="eclipse非maven_web项目导入myeclipse">
+                <i class="fa fa-chevron-left"></i> eclipse非maven_web项目导入myeclipse
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="http://s1.wailian.download/2017/12/10/xun.jpg"
+                alt="yangshaoxiang" />
+            
+              <p class="site-author-name" itemprop="name">yangshaoxiang</p>
+              <p class="site-description motion-element" itemprop="description">欢迎来到我的博客</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#elk简述"><span class="nav-number">1.</span> <span class="nav-text">elk简述</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#传统日志管理问题"><span class="nav-number">1.1.</span> <span class="nav-text">传统日志管理问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#elk简介"><span class="nav-number">1.2.</span> <span class="nav-text">elk简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#elk作用"><span class="nav-number">1.3.</span> <span class="nav-text">elk作用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#elk架构选择"><span class="nav-number">1.4.</span> <span class="nav-text">elk架构选择</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#普通架构"><span class="nav-number">1.4.1.</span> <span class="nav-text">普通架构</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#高级架构"><span class="nav-number">1.4.2.</span> <span class="nav-text">高级架构</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#elk部署"><span class="nav-number">2.</span> <span class="nav-text">elk部署</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#elasticSearch部署"><span class="nav-number">2.1.</span> <span class="nav-text">elasticSearch部署</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#修改es的配置"><span class="nav-number">2.1.1.</span> <span class="nav-text">修改es的配置</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#修改linux配置"><span class="nav-number">2.1.2.</span> <span class="nav-text">修改linux配置</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#启动测试"><span class="nav-number">2.1.3.</span> <span class="nav-text">启动测试</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#logstash部署"><span class="nav-number">2.2.</span> <span class="nav-text">logstash部署</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#kibana部署"><span class="nav-number">2.3.</span> <span class="nav-text">kibana部署</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#插件安装"><span class="nav-number">3.</span> <span class="nav-text">插件安装</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#elastic-head插件"><span class="nav-number">3.1.</span> <span class="nav-text">elastic-head插件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#elasticSearch集群部署"><span class="nav-number">3.2.</span> <span class="nav-text">elasticSearch集群部署</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        ﻿<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yangshaoxiang</span>
+
+  
+</div>
+
+
+	<div class="powered-by">
+	<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+	  访问用户:<span id="busuanzi_value_site_uv"></span>
+	</span>
+	</div>
+
+	<span class="post-meta-divider">|</span>
+	
+	<div class="powered-by">
+	<i class="fa fa-eye"></i> 
+	<span id="busuanzi_container_site_pv">
+    总访问量:<span id="busuanzi_value_site_pv"></span>次
+  </span>
+	</div>
+	
+
+ <!-- <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+-->
+
+  <span class="post-meta-divider">|</span>
+
+ <!--
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.3</div>
+-->
+
+
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <i class="fa fa-pencil"></i>
+  <span class="post-count">博客全站共25.1k字</span>
+</div>
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: window.location.pathname, 
+            owner: 'yangshaoxiang',
+            repo: 'bolgIssues',
+            
+            lang: "zh-Hans" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: '4c22edbe03d5d36279e24db40a3e04c7376cba72',
+            
+                client_id: '5d18dd5dd5c7420967d9'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+<div id="hexo-helper-live2d">
+  <canvas id="live2dcanvas" width="150" height="300"></canvas>
+</div>
+<style>
+  #live2dcanvas{
+    position: fixed;
+    width: 150px;
+    height: 300px;
+    opacity:0.7;
+    right: 0px;
+    z-index: 999;
+    pointer-events: none;
+    bottom: -20px;
+  }
+</style>
+<script type="text/javascript" src="/live2d/device.min.js"></script>
+<script type="text/javascript">
+const loadScript = function loadScript(c,b){var a=document.createElement("script");a.type="text/javascript";"undefined"!=typeof b&&(a.readyState?a.onreadystatechange=function(){if("loaded"==a.readyState||"complete"==a.readyState)a.onreadystatechange=null,b()}:a.onload=function(){b()});a.src=c;document.body.appendChild(a)};
+(function(){
+  if((typeof(device) != 'undefined') && (device.mobile())){
+    document.getElementById("live2dcanvas").style.width = '75px';
+    document.getElementById("live2dcanvas").style.height = '150px';
+  }else
+    if (typeof(device) === 'undefined') console.error('Cannot find current-device script.');
+  loadScript("/live2d/script.js", function(){loadlive2d("live2dcanvas", "/live2d/assets/wanko.model.json", 0.5);});
+})();
+</script>
+
+</body>
+</html>
