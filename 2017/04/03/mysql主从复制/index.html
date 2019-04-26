@@ -89,15 +89,15 @@
 <meta property="og:site_name" content="shaoxiang博客">
 <meta property="og:description" content="mysql主从复制一般网站的业务都是读多写少，而一般并发系统的瓶颈在数据库，因此这种情况下一般会采用读写分离的方式降低主库的读压力，从而提升系统的并发量，现在先不说读写分离相关技术，就说要实现读写分离对数据库有一个基本要求，即主库和从库数据一致性的问题，即使不能绝对的强一致性，至少也要达到相对的一致性，这里依赖于mysql数据库自带的一些功能和配置">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://p0zwh057c.bkt.clouddn.com/blog/180402/iKLah5G0ak.png?imageslim">
-<meta property="og:image" content="http://p0zwh057c.bkt.clouddn.com/blog/180403/5GGbffAmdh.png?imageslim">
-<meta property="og:image" content="http://p0zwh057c.bkt.clouddn.com/blog/180403/aL9bJ1D0k2.png?imageslim">
-<meta property="og:image" content="http://p0zwh057c.bkt.clouddn.com/blog/180403/ge65jagK6e.png?imageslim">
-<meta property="og:updated_time" content="2018-04-11T13:12:39.091Z">
+<meta property="og:image" content="https://shaoxia-img-1256191696.cos.ap-chengdu.myqcloud.com/blog/180402/iKLah5G0ak.png?imageslim">
+<meta property="og:image" content="https://shaoxia-img-1256191696.cos.ap-chengdu.myqcloud.com/blog/180403/5GGbffAmdh.png?imageslim">
+<meta property="og:image" content="https://shaoxia-img-1256191696.cos.ap-chengdu.myqcloud.com/blog/180403/aL9bJ1D0k2.png?imageslim">
+<meta property="og:image" content="https://shaoxia-img-1256191696.cos.ap-chengdu.myqcloud.com/blog/180403/ge65jagK6e.png?imageslim">
+<meta property="og:updated_time" content="2019-04-26T06:31:44.271Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mysql复制">
 <meta name="twitter:description" content="mysql主从复制一般网站的业务都是读多写少，而一般并发系统的瓶颈在数据库，因此这种情况下一般会采用读写分离的方式降低主库的读压力，从而提升系统的并发量，现在先不说读写分离相关技术，就说要实现读写分离对数据库有一个基本要求，即主库和从库数据一致性的问题，即使不能绝对的强一致性，至少也要达到相对的一致性，这里依赖于mysql数据库自带的一些功能和配置">
-<meta name="twitter:image" content="http://p0zwh057c.bkt.clouddn.com/blog/180402/iKLah5G0ak.png?imageslim">
+<meta name="twitter:image" content="https://shaoxia-img-1256191696.cos.ap-chengdu.myqcloud.com/blog/180402/iKLah5G0ak.png?imageslim">
 
 
 
@@ -436,7 +436,7 @@
       
         <h2 id="mysql主从复制"><a href="#mysql主从复制" class="headerlink" title="mysql主从复制"></a>mysql主从复制</h2><p>一般网站的业务都是读多写少，而一般并发系统的瓶颈在数据库，因此这种情况下一般会采用读写分离的方式降低主库的读压力，从而提升系统的并发量，现在先不说读写分离相关技术，就说要实现读写分离对数据库有一个基本要求，即主库和从库数据一致性的问题，即使不能绝对的强一致性，至少也要达到相对的一致性，这里依赖于mysql数据库自带的一些功能和配置<br><a id="more"></a></p>
 <h3 id="原理图"><a href="#原理图" class="headerlink" title="原理图"></a>原理图</h3><p>图片是从网上找的一个较为形象的图片:</p>
-<p><img src="http://p0zwh057c.bkt.clouddn.com/blog/180402/iKLah5G0ak.png?imageslim" alt="mark"></p>
+<p><img src="https://shaoxia-img-1256191696.cos.ap-chengdu.myqcloud.com/blog/180402/iKLah5G0ak.png?imageslim" alt="mark"></p>
 <h3 id="原理解释"><a href="#原理解释" class="headerlink" title="原理解释"></a>原理解释</h3><p>原理是使用binlog进行同步，binlog会记录数据库的写操作，将改变记录到binlog中，从库基本实时读取主库的binlog，然后在自身的数据库中执行这种改变。  </p>
 <p>详细过程:  </p>
 <ol>
@@ -481,7 +481,7 @@
 <p>环形多主：极不推荐，除非是实在解决不了写并发</p>
 <h3 id="一主多从搭建"><a href="#一主多从搭建" class="headerlink" title="一主多从搭建"></a>一主多从搭建</h3><p>配置主从复制很简单，我这里linux环境是CentOS6.6,mysql5.6,按照如下步骤操作即可，代理节点先不管他，在使用atlas做读写分离时会配置使用</p>
 <h4 id="环境安排"><a href="#环境安排" class="headerlink" title="环境安排"></a>环境安排</h4><p>首先要保证网络环境能相互ping通，对应的防火墙端口(3306)开放</p>
-<p><img src="http://p0zwh057c.bkt.clouddn.com/blog/180403/5GGbffAmdh.png?imageslim" alt="mark"></p>
+<p><img src="https://shaoxia-img-1256191696.cos.ap-chengdu.myqcloud.com/blog/180403/5GGbffAmdh.png?imageslim" alt="mark"></p>
 <h4 id="安装mysql数据库"><a href="#安装mysql数据库" class="headerlink" title="安装mysql数据库"></a>安装mysql数据库</h4><p>首先要在两台服务器上安装好mysql数据库，我这里分别在192.168.16.10(主)，和192,168.16.20(从)上安装的mysql5.6的数据库，安装步骤可以参考我之前关于基本环境搭建的博客<a href="(https://yangshaoxiang.github.io/2017/12/24/linux%E4%B8%8BJavaWeb%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/#more">web常用环境搭建</a>)</p>
 <h4 id="配置主库"><a href="#配置主库" class="headerlink" title="配置主库"></a>配置主库</h4><p>编辑要设置为主库的数据库配置文件，添加如下内容即可，对应配置含义有注释<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vi /etc/my.cnf</div></pre></td></tr></table></figure></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">#mysql主从复制-master配置</div><div class="line">#需要同步的二进制数据库名；</div><div class="line">binlog-do-db=syndb</div><div class="line">#不同步的二进制数据库名,如果不设置可以将其注释掉;</div><div class="line">binlog-ignore-db=information_schema</div><div class="line">binlog-ignore-db=mysql</div><div class="line">binlog-ignore-db=personalsite</div><div class="line">binlog-ignore-db=test</div><div class="line">#以下参数可选----------</div><div class="line">#binlog 格式</div><div class="line">binlog-format=ROW</div><div class="line">log-bin=mysql-master-bin</div><div class="line">#slave更新时是否记录到日志中；</div><div class="line">log-slave-updates=true</div></pre></td></tr></table></figure>
@@ -558,9 +558,9 @@
 </li>
 </ol>
 <h5 id="半同步测试"><a href="#半同步测试" class="headerlink" title="半同步测试"></a>半同步测试</h5><p>完成以上配置后在主库同步的数据库中删除一条数据，可以看到执行时间很短，只有0.009s，执行完毕后从库该条数据也已删除，说明主从复制模式没有问题</p>
-<p><img src="http://p0zwh057c.bkt.clouddn.com/blog/180403/aL9bJ1D0k2.png?imageslim" alt="mark"></p>
+<p><img src="https://shaoxia-img-1256191696.cos.ap-chengdu.myqcloud.com/blog/180403/aL9bJ1D0k2.png?imageslim" alt="mark"></p>
 <p>关闭从库，在从库上执行  <code>stop slave;</code> ,然后再在主库删除一条数据，会发现执行时间为5.002s，这是主库在等待从库响应写入relay-log，等待了5s(我们配置的)，转为异步复制执行</p>
-<p><img src="http://p0zwh057c.bkt.clouddn.com/blog/180403/ge65jagK6e.png?imageslim" alt="mark"></p>
+<p><img src="https://shaoxia-img-1256191696.cos.ap-chengdu.myqcloud.com/blog/180403/ge65jagK6e.png?imageslim" alt="mark"></p>
 <p>由此实验基本证明半同步开启成功</p>
 <h4 id="半同步问题"><a href="#半同步问题" class="headerlink" title="半同步问题"></a>半同步问题</h4><p>客户端事务在存储引擎层提交后，在得到从库确认的过程中，主库宕机了，此时，可能的情况有两种</p>
 <p>1.事务还没发送到从库上</p>
@@ -732,7 +732,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -817,7 +817,7 @@
     <footer id="footer" class="footer">
       <div class="footer-inner">
         ﻿<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -860,7 +860,7 @@
 <div class="theme-info">
   <div class="powered-by"></div>
   <i class="fa fa-pencil"></i>
-  <span class="post-count">博客全站共25.1k字</span>
+  <span class="post-count">博客全站共24.5k字</span>
 </div>
 
         

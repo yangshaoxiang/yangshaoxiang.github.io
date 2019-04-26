@@ -89,12 +89,12 @@
 <meta property="og:site_name" content="shaoxiang博客">
 <meta property="og:description" content="ThreadLocal含义首先明确ThreadLocal并不是解决多线程下共享对象的并发访问而产生的，他也做不到这一点，因为他内部保存的仍然是对象的引用，而不是真的存储的是对象本身，通常使用ThreadLocal保存的对象，是当前线程单独创建(new)的对象，然后通过ThreadLocal.set()放入到当前当前线程中，这样对该对象的操作肯定不会影响到其他线程，其他线程也不需要对该对象进行操作(">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://p0zwh057c.bkt.clouddn.com/blog/180129/51HJb2Klkf.png?imageslim">
-<meta property="og:updated_time" content="2018-04-03T11:55:20.540Z">
+<meta property="og:image" content="https://shaoxia-img-1256191696.cos.ap-chengdu.myqcloud.com/blog/180129/51HJb2Klkf.png?imageslim">
+<meta property="og:updated_time" content="2019-04-26T06:31:44.757Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ThreadLocal解析">
 <meta name="twitter:description" content="ThreadLocal含义首先明确ThreadLocal并不是解决多线程下共享对象的并发访问而产生的，他也做不到这一点，因为他内部保存的仍然是对象的引用，而不是真的存储的是对象本身，通常使用ThreadLocal保存的对象，是当前线程单独创建(new)的对象，然后通过ThreadLocal.set()放入到当前当前线程中，这样对该对象的操作肯定不会影响到其他线程，其他线程也不需要对该对象进行操作(">
-<meta name="twitter:image" content="http://p0zwh057c.bkt.clouddn.com/blog/180129/51HJb2Klkf.png?imageslim">
+<meta name="twitter:image" content="https://shaoxia-img-1256191696.cos.ap-chengdu.myqcloud.com/blog/180129/51HJb2Klkf.png?imageslim">
 
 
 
@@ -440,7 +440,7 @@
 <li>如果当前线程有ThreadLocalMap，将ThreadLocal对象本身作为键，要存的值作为值存放到ThreadLocalMap中，没有就创建一个ThreadLocalMap然后存放键及值</li>
 </ol>
 <h4 id="ThreadLocalMap结构及深入set-get-方法"><a href="#ThreadLocalMap结构及深入set-get-方法" class="headerlink" title="ThreadLocalMap结构及深入set()/get()方法"></a>ThreadLocalMap结构及深入set()/get()方法</h4><p>ThreadLocalMap的结构和HashMap类似，如下图所示:  </p>
-<p><img src="http://p0zwh057c.bkt.clouddn.com/blog/180129/51HJb2Klkf.png?imageslim" alt="mark"></p>
+<p><img src="https://shaoxia-img-1256191696.cos.ap-chengdu.myqcloud.com/blog/180129/51HJb2Klkf.png?imageslim" alt="mark"></p>
 <p>ThreadLocalMap内部同样有一个初始大小为16的Entry数组，他和HashMap中的Entry区别是</p>
 <ol>
 <li>Entry类继承WeakReference<threadlocal>，他对键的引用是弱引用</threadlocal></li>
@@ -621,7 +621,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -706,7 +706,7 @@
     <footer id="footer" class="footer">
       <div class="footer-inner">
         ﻿<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -749,7 +749,7 @@
 <div class="theme-info">
   <div class="powered-by"></div>
   <i class="fa fa-pencil"></i>
-  <span class="post-count">博客全站共25.1k字</span>
+  <span class="post-count">博客全站共24.5k字</span>
 </div>
 
         

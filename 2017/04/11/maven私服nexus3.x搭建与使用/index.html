@@ -89,17 +89,17 @@
 <meta property="og:site_name" content="shaoxiang博客">
 <meta property="og:description" content="搭建maven私服主要是为了方便在一个团队中使用maven中央仓库没有的jar包，这些非中央仓库的jar包可能是自己团队开发的公共依赖jar包，可能是第三方私有的认证相关jar包，特殊的还有oracle的驱动jar包，下面是使用Nexus搭建maven私服及私服使用">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://p0zwh057c.bkt.clouddn.com/blog/180409/JchA2DjJ8k.png?imageslim">
-<meta property="og:image" content="http://p0zwh057c.bkt.clouddn.com/blog/180409/9c9JLIjDEA.png?imageslim">
-<meta property="og:image" content="http://p0zwh057c.bkt.clouddn.com/blog/180409/227fm3K96F.png?imageslim">
-<meta property="og:image" content="http://p0zwh057c.bkt.clouddn.com/blog/180409/75G941HeaG.png?imageslim">
-<meta property="og:image" content="http://p0zwh057c.bkt.clouddn.com/blog/180409/Ha9Ka34ima.png?imageslim">
-<meta property="og:image" content="http://p0zwh057c.bkt.clouddn.com/blog/180409/07kGHci8JG.png?imageslim">
-<meta property="og:updated_time" content="2018-04-11T13:15:04.112Z">
+<meta property="og:image" content="https://shaoxia-img-1256191696.cos.ap-chengdu.myqcloud.com/blog/180409/JchA2DjJ8k.png?imageslim">
+<meta property="og:image" content="https://shaoxia-img-1256191696.cos.ap-chengdu.myqcloud.com/blog/180409/9c9JLIjDEA.png?imageslim">
+<meta property="og:image" content="https://shaoxia-img-1256191696.cos.ap-chengdu.myqcloud.com/blog/180409/227fm3K96F.png?imageslim">
+<meta property="og:image" content="https://shaoxia-img-1256191696.cos.ap-chengdu.myqcloud.com/blog/180409/75G941HeaG.png?imageslim">
+<meta property="og:image" content="https://shaoxia-img-1256191696.cos.ap-chengdu.myqcloud.com/blog/180409/Ha9Ka34ima.png?imageslim">
+<meta property="og:image" content="https://shaoxia-img-1256191696.cos.ap-chengdu.myqcloud.com/blog/180409/07kGHci8JG.png?imageslim">
+<meta property="og:updated_time" content="2019-04-26T06:31:44.607Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="maven私服nexus3.x搭建与使用">
 <meta name="twitter:description" content="搭建maven私服主要是为了方便在一个团队中使用maven中央仓库没有的jar包，这些非中央仓库的jar包可能是自己团队开发的公共依赖jar包，可能是第三方私有的认证相关jar包，特殊的还有oracle的驱动jar包，下面是使用Nexus搭建maven私服及私服使用">
-<meta name="twitter:image" content="http://p0zwh057c.bkt.clouddn.com/blog/180409/JchA2DjJ8k.png?imageslim">
+<meta name="twitter:image" content="https://shaoxia-img-1256191696.cos.ap-chengdu.myqcloud.com/blog/180409/JchA2DjJ8k.png?imageslim">
 
 
 
@@ -463,7 +463,7 @@
 </li>
 <li><p>配置Releases版本可重复上传  </p>
 <p>  点击图片画框部分配置Releases: Deployment pollcy –&gt; Allow redeploy</p>
-<p> <img src="http://p0zwh057c.bkt.clouddn.com/blog/180409/JchA2DjJ8k.png?imageslim" alt="mark"></p>
+<p> <img src="https://shaoxia-img-1256191696.cos.ap-chengdu.myqcloud.com/blog/180409/JchA2DjJ8k.png?imageslim" alt="mark"></p>
 </li>
 </ol>
 <h3 id="使用nenus本地maven配置"><a href="#使用nenus本地maven配置" class="headerlink" title="使用nenus本地maven配置"></a>使用nenus本地maven配置</h3><h4 id="全局配置下载依赖-即项目pom无需配置"><a href="#全局配置下载依赖-即项目pom无需配置" class="headerlink" title="全局配置下载依赖(即项目pom无需配置)"></a>全局配置下载依赖(即项目pom无需配置)</h4><p>在maven的setting.xml文件中配置私服配置，这种方式配置后所有本地使用该配置的maven项目的pom文件都无需配置私服下载相关配置</p>
@@ -472,7 +472,7 @@
 <p>指定镜像代理为我们的私服<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;mirror&gt;</div><div class="line">  &lt;id&gt;nexus-myself&lt;/id&gt;</div><div class="line">  &lt;!--*指的是访问任何仓库都使用我们的私服--&gt;</div><div class="line">  &lt;mirrorOf&gt;*&lt;/mirrorOf&gt;</div><div class="line">  &lt;name&gt;Nexus myself&lt;/name&gt;</div><div class="line">  &lt;url&gt;http://192.168.16.30:8081/repository/maven-public/&lt;/url&gt;</div><div class="line">&lt;/mirror&gt;</div></pre></td></tr></table></figure></p>
 <h4 id="单独项目下载依赖-即项目pom文件中配置"><a href="#单独项目下载依赖-即项目pom文件中配置" class="headerlink" title="单独项目下载依赖(即项目pom文件中配置)"></a>单独项目下载依赖(即项目pom文件中配置)</h4><p>这种配置是修改单个项目的pom文件，无需修改maven的setting配置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">&lt;repositories&gt;</div><div class="line">  &lt;repository&gt;</div><div class="line">    &lt;id&gt;nexus&lt;/id&gt;</div><div class="line">    &lt;url&gt;http://192.168.16.30:8081/repository/maven-public/&lt;/url&gt;</div><div class="line">    &lt;releases&gt;</div><div class="line">      &lt;enabled&gt;true&lt;/enabled&gt;</div><div class="line">    &lt;/releases&gt;</div><div class="line">    &lt;snapshots&gt;</div><div class="line">    &lt;enabled&gt;true&lt;/enabled&gt;</div><div class="line">    &lt;/snapshots&gt;</div><div class="line">  &lt;/repository&gt;</div><div class="line">&lt;/repositories&gt;</div></pre></td></tr></table></figure></p>
 <p>建议使用全局的setting配置，一个项目组共用一个maven的setting配置，项目中就无需配置下载相关的私服仓库配置</p>
-<h5 id="使用私服后仓库访问顺序"><a href="#使用私服后仓库访问顺序" class="headerlink" title="使用私服后仓库访问顺序"></a>使用私服后仓库访问顺序</h5><p><img src="http://p0zwh057c.bkt.clouddn.com/blog/180409/9c9JLIjDEA.png?imageslim" alt="mark"></p>
+<h5 id="使用私服后仓库访问顺序"><a href="#使用私服后仓库访问顺序" class="headerlink" title="使用私服后仓库访问顺序"></a>使用私服后仓库访问顺序</h5><p><img src="https://shaoxia-img-1256191696.cos.ap-chengdu.myqcloud.com/blog/180409/9c9JLIjDEA.png?imageslim" alt="mark"></p>
 <h4 id="上传jar包配置"><a href="#上传jar包配置" class="headerlink" title="上传jar包配置"></a>上传jar包配置</h4><p>对于中央仓库没有的jar包，需要我们自己将jar包发布到私服中去，其中jar包主要分为两类，一类是本地自己开发供给项目组其余同事使用，这种直接配置项目的pom文件和maven的setting文件，之后deploy发布即可发布到，另一类是第三方jar包，可以直接使用web页面上传并设置对应GAV即可</p>
 <h5 id="本地maaven开发的项目上传配置"><a href="#本地maaven开发的项目上传配置" class="headerlink" title="本地maaven开发的项目上传配置"></a>本地maaven开发的项目上传配置</h5><ol>
 <li><p>maven的setting文件配置<br>这里要配置配置上传用户及仓库信息，我这里直接使用了admin用户，在nenus2.x中还内置了一个deployment/deployment123用户，在3.x该用户被移除了，这里可以自己配置角色和用户，我就直接使用admin用户了</p>
@@ -483,11 +483,11 @@
 </li>
 <li><p>执行maven的deploy命令  </p>
 <p> 这是myeclipse中上传本地项目jar到私服，IDEA中更为简单直接点击maven周期中的deploy即可</p>
-<p> <img src="http://p0zwh057c.bkt.clouddn.com/blog/180409/227fm3K96F.png?imageslim" alt="mark"></p>
+<p> <img src="https://shaoxia-img-1256191696.cos.ap-chengdu.myqcloud.com/blog/180409/227fm3K96F.png?imageslim" alt="mark"></p>
 <p> 出现uploading信息并且没报错说明上传成功</p>
-<p> <img src="http://p0zwh057c.bkt.clouddn.com/blog/180409/75G941HeaG.png?imageslim" alt="mark"></p>
+<p> <img src="https://shaoxia-img-1256191696.cos.ap-chengdu.myqcloud.com/blog/180409/75G941HeaG.png?imageslim" alt="mark"></p>
 <p> 到对应仓库查看  </p>
-<p> <img src="http://p0zwh057c.bkt.clouddn.com/blog/180409/Ha9Ka34ima.png?imageslim" alt="mark"></p>
+<p> <img src="https://shaoxia-img-1256191696.cos.ap-chengdu.myqcloud.com/blog/180409/Ha9Ka34ima.png?imageslim" alt="mark"></p>
 </li>
 </ol>
 <p>注意:</p>
@@ -500,7 +500,7 @@
 </li>
 </ol>
 <h5 id="第三方jar包上传"><a href="#第三方jar包上传" class="headerlink" title="第三方jar包上传"></a>第三方jar包上传</h5><p>对于第三方jar包的上传采用nenus提供的web界面上传，上传成功后需要使用该jar包的话，依赖中填写自定义的GAV即可  </p>
-<p><img src="http://p0zwh057c.bkt.clouddn.com/blog/180409/07kGHci8JG.png?imageslim" alt="mark"></p>
+<p><img src="https://shaoxia-img-1256191696.cos.ap-chengdu.myqcloud.com/blog/180409/07kGHci8JG.png?imageslim" alt="mark"></p>
 
       
     </div>
@@ -661,7 +661,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -746,7 +746,7 @@
     <footer id="footer" class="footer">
       <div class="footer-inner">
         ﻿<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -789,7 +789,7 @@
 <div class="theme-info">
   <div class="powered-by"></div>
   <i class="fa fa-pencil"></i>
-  <span class="post-count">博客全站共25.1k字</span>
+  <span class="post-count">博客全站共24.5k字</span>
 </div>
 
         

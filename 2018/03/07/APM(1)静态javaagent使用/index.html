@@ -89,15 +89,15 @@
 <meta property="og:site_name" content="shaoxiang博客">
 <meta property="og:description" content="javaagent是java5的新特性，依赖他我们可以构建一个独立于应用程序的代理程序（Agent），用来监测和协助运行在 JVM 上的程序，甚至能够替换和修改某些类的定义，过程上简单来说就是编写一个特殊的类将其打成jar包，要监控(拦截)的项目在启动时jvm参数加上特殊的启动命令，即可监控该项目">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://p0zwh057c.bkt.clouddn.com/blog/180308/9bjHD4LDiJ.png?imageslim">
-<meta property="og:image" content="http://p0zwh057c.bkt.clouddn.com/blog/180308/H5De9120bI.png?imageslim">
-<meta property="og:image" content="http://p0zwh057c.bkt.clouddn.com/blog/180308/L39b2Eiegf.png?imageslim">
-<meta property="og:image" content="http://p0zwh057c.bkt.clouddn.com/blog/180308/DG84aabfmD.png?imageslim">
-<meta property="og:updated_time" content="2018-03-13T12:33:12.389Z">
+<meta property="og:image" content="https://shaoxia-img-1256191696.cos.ap-chengdu.myqcloud.com/blog/180308/9bjHD4LDiJ.png?imageslim">
+<meta property="og:image" content="https://shaoxia-img-1256191696.cos.ap-chengdu.myqcloud.com/blog/180308/H5De9120bI.png?imageslim">
+<meta property="og:image" content="https://shaoxia-img-1256191696.cos.ap-chengdu.myqcloud.com/blog/180308/L39b2Eiegf.png?imageslim">
+<meta property="og:image" content="https://shaoxia-img-1256191696.cos.ap-chengdu.myqcloud.com/blog/180308/DG84aabfmD.png?imageslim">
+<meta property="og:updated_time" content="2019-04-26T06:31:44.038Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="APM(1)静态javaagent使用">
 <meta name="twitter:description" content="javaagent是java5的新特性，依赖他我们可以构建一个独立于应用程序的代理程序（Agent），用来监测和协助运行在 JVM 上的程序，甚至能够替换和修改某些类的定义，过程上简单来说就是编写一个特殊的类将其打成jar包，要监控(拦截)的项目在启动时jvm参数加上特殊的启动命令，即可监控该项目">
-<meta name="twitter:image" content="http://p0zwh057c.bkt.clouddn.com/blog/180308/9bjHD4LDiJ.png?imageslim">
+<meta name="twitter:image" content="https://shaoxia-img-1256191696.cos.ap-chengdu.myqcloud.com/blog/180308/9bjHD4LDiJ.png?imageslim">
 
 
 
@@ -446,18 +446,18 @@
 <p> 在<premain-class>标签下加上Agent类的全路径，完成后将该类所在的项目打成jar包<br> 参数含义:  </premain-class></p>
  <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">#动态agent 类</div><div class="line">Agent-Class: com.agenttest.DynamicAgent</div><div class="line">#agent 依懒包逗号分割</div><div class="line">Boot-Class-Path: javassist-<span class="number">3.18</span>.1-GA.jar</div><div class="line">#是否允许重复装载</div><div class="line">Can-Redefine-Classes: <span class="keyword">true</span></div><div class="line">#静agent 类</div><div class="line">Premain-Class: com.agenttest.FirstAgent</div></pre></td></tr></table></figure>
 </li>
-<li><p>在运行要被”拦截”的项目时，添加一个jvm的启动参数<br><code>-javaagent:xxx.jar(=parama=aaa)</code>：xxx是jar包的路径,后面可以接着跟参数<br><img src="http://p0zwh057c.bkt.clouddn.com/blog/180308/9bjHD4LDiJ.png?imageslim" alt="mark">测试类中示例代码:</p>
+<li><p>在运行要被”拦截”的项目时，添加一个jvm的启动参数<br><code>-javaagent:xxx.jar(=parama=aaa)</code>：xxx是jar包的路径,后面可以接着跟参数<br><img src="https://shaoxia-img-1256191696.cos.ap-chengdu.myqcloud.com/blog/180308/9bjHD4LDiJ.png?imageslim" alt="mark">测试类中示例代码:</p>
  <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FirstAgentTest</span> </span>&#123;</div><div class="line">    	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">            System.out.println(<span class="string">"main方法中的输出"</span>);</div><div class="line">        &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 </li>
 <li><p>运行结果<br> 会先执行premain中的方法，在执行main方法</p>
  <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">这里执行了premain()方法，进行了装载</div><div class="line">main方法中的输出</div></pre></td></tr></table></figure>
 </li>
 </ol>
-<h4 id="javaagent的jar和普通jar区别"><a href="#javaagent的jar和普通jar区别" class="headerlink" title="javaagent的jar和普通jar区别"></a>javaagent的jar和普通jar区别</h4><p> <img src="http://p0zwh057c.bkt.clouddn.com/blog/180308/H5De9120bI.png?imageslim" alt="mark"></p>
+<h4 id="javaagent的jar和普通jar区别"><a href="#javaagent的jar和普通jar区别" class="headerlink" title="javaagent的jar和普通jar区别"></a>javaagent的jar和普通jar区别</h4><p> <img src="https://shaoxia-img-1256191696.cos.ap-chengdu.myqcloud.com/blog/180308/H5De9120bI.png?imageslim" alt="mark"></p>
 <h4 id="javaagent-底层流程"><a href="#javaagent-底层流程" class="headerlink" title="javaagent 底层流程"></a>javaagent 底层流程</h4><p>javaagent 装载时序图（premain）：</p>
-<p><img src="http://p0zwh057c.bkt.clouddn.com/blog/180308/L39b2Eiegf.png?imageslim" alt="mark"></p>
+<p><img src="https://shaoxia-img-1256191696.cos.ap-chengdu.myqcloud.com/blog/180308/L39b2Eiegf.png?imageslim" alt="mark"></p>
 <p>Class 装载时序图</p>
-<p><img src="http://p0zwh057c.bkt.clouddn.com/blog/180308/DG84aabfmD.png?imageslim" alt="mark"></p>
+<p><img src="https://shaoxia-img-1256191696.cos.ap-chengdu.myqcloud.com/blog/180308/DG84aabfmD.png?imageslim" alt="mark"></p>
 
       
     </div>
@@ -618,7 +618,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -703,7 +703,7 @@
     <footer id="footer" class="footer">
       <div class="footer-inner">
         ﻿<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -746,7 +746,7 @@
 <div class="theme-info">
   <div class="powered-by"></div>
   <i class="fa fa-pencil"></i>
-  <span class="post-count">博客全站共25.1k字</span>
+  <span class="post-count">博客全站共24.5k字</span>
 </div>
 
         

@@ -89,15 +89,15 @@
 <meta property="og:site_name" content="shaoxiang博客">
 <meta property="og:description" content="elk简述传统日志管理问题在项目初期的时候，大家都是赶着上线，一般来说对日志没有过多的考虑，当然日志量也不大，所以用log4j就够了，随着应用的越来越多，日志散落在各个服务器的logs文件夹下，确实有点不大方便   当我们需要日志分析的时候你大概会这么做：直接在日志文件中 grep、awk 就可以获得自己想要的信息">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://p0zwh057c.bkt.clouddn.com/blog/180710/d0C30G7jLc.png?imageslim">
-<meta property="og:image" content="http://p0zwh057c.bkt.clouddn.com/blog/180710/CCh0E7kmKH.png?imageslim">
-<meta property="og:image" content="http://p0zwh057c.bkt.clouddn.com/blog/180711/IEG14bC7k9.png?imageslim">
-<meta property="og:image" content="http://p0zwh057c.bkt.clouddn.com/blog/180711/20Jh52JmjJ.png?imageslim">
-<meta property="og:updated_time" content="2018-07-11T16:31:20.515Z">
+<meta property="og:image" content="https://shaoxia-img-1256191696.cos.ap-chengdu.myqcloud.com/blog/180710/d0C30G7jLc.png?imageslim">
+<meta property="og:image" content="https://shaoxia-img-1256191696.cos.ap-chengdu.myqcloud.com/blog/180710/CCh0E7kmKH.png?imageslim">
+<meta property="og:image" content="https://shaoxia-img-1256191696.cos.ap-chengdu.myqcloud.com/blog/180711/IEG14bC7k9.png?imageslim">
+<meta property="og:image" content="https://shaoxia-img-1256191696.cos.ap-chengdu.myqcloud.com/blog/180711/20Jh52JmjJ.png?imageslim">
+<meta property="og:updated_time" content="2019-04-26T06:31:44.520Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ELK与Elasticsearch集群部署">
 <meta name="twitter:description" content="elk简述传统日志管理问题在项目初期的时候，大家都是赶着上线，一般来说对日志没有过多的考虑，当然日志量也不大，所以用log4j就够了，随着应用的越来越多，日志散落在各个服务器的logs文件夹下，确实有点不大方便   当我们需要日志分析的时候你大概会这么做：直接在日志文件中 grep、awk 就可以获得自己想要的信息">
-<meta name="twitter:image" content="http://p0zwh057c.bkt.clouddn.com/blog/180710/d0C30G7jLc.png?imageslim">
+<meta name="twitter:image" content="https://shaoxia-img-1256191696.cos.ap-chengdu.myqcloud.com/blog/180710/d0C30G7jLc.png?imageslim">
 
 
 
@@ -513,7 +513,7 @@
 <p>浏览器访问测试:<br><a href="http://kibana所在机器ip:5601/" target="_blank" rel="external">http://kibana所在机器ip:5601/</a>  </p>
 <p>创建索引:  </p>
 <p>进入之后，在左侧栏菜单最后一项，创建索引，进入时没有创建按钮<br>我们在本机的/logs文件夹下创建一个简单的1.log文件，内容为“hello world”，然后在kibana上将logstash-<em>  改成 log</em> ，Create按钮就会自动出来</p>
-<p><img src="http://p0zwh057c.bkt.clouddn.com/blog/180710/d0C30G7jLc.png?imageslim" alt="mark"></p>
+<p><img src="https://shaoxia-img-1256191696.cos.ap-chengdu.myqcloud.com/blog/180710/d0C30G7jLc.png?imageslim" alt="mark"></p>
 <h3 id="插件安装"><a href="#插件安装" class="headerlink" title="插件安装"></a>插件安装</h3><h4 id="elastic-head插件"><a href="#elastic-head插件" class="headerlink" title="elastic-head插件"></a>elastic-head插件</h4><p>下载<br><a href="https://github.com/mobz/elasticsearch-head/archive/master.zip" target="_blank" rel="external">https://github.com/mobz/elasticsearch-head/archive/master.zip</a>  </p>
 <p>解压<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">unzip elasticsearch-head-master.zip</div><div class="line">#没有zip命令的可以安装一下</div><div class="line">#yum install -y unzip zip</div></pre></td></tr></table></figure></p>
 <p>执行命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">curl --silent --location https://rpm.nodesource.com/setup | bash -</div></pre></td></tr></table></figure></p>
@@ -521,7 +521,7 @@
 <p>如果node.js版本过低，则需要升级<br>升级node.js<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"># 第一步：首先安装 n 模块：</div><div class="line">npm install -g n</div><div class="line"># 第二步：升级node.js到最新稳定版</div><div class="line">n stable</div></pre></td></tr></table></figure></p>
 <p>修改配置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">cd elasticsearch-head-master  </div><div class="line">npm install grunt --save-dev  </div><div class="line"># 如果失败升级下node</div><div class="line">npm install</div><div class="line">vi Gruntfile.js</div></pre></td></tr></table></figure></p>
 <p>在connect节点下 增加hostname属性，设置为* 注意加,号  </p>
-<p><img src="http://p0zwh057c.bkt.clouddn.com/blog/180710/CCh0E7kmKH.png?imageslim" alt="mark"></p>
+<p><img src="https://shaoxia-img-1256191696.cos.ap-chengdu.myqcloud.com/blog/180710/CCh0E7kmKH.png?imageslim" alt="mark"></p>
 <p>修改head链接<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vi elasticsearch-head-master/_site/app.js</div></pre></td></tr></table></figure></p>
 <p>将<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">this</span>.base_uri = <span class="keyword">this</span>.config.base_uri || <span class="keyword">this</span>.prefs.get(<span class="string">"app-base_uri"</span>) || <span class="string">"http://localhost:9200"</span>;</div></pre></td></tr></table></figure></p>
 <p>把localhost修改成自己es的服务器地址<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">this.base_uri = this.config.base_uri || this.prefs.get(&quot;app-base_uri&quot;) || &quot;http://192.168.x.x:9200&quot;;</div></pre></td></tr></table></figure></p>
@@ -537,9 +537,9 @@
 <p>添加公作节点使用的外部端口<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">vi  /etc/sysconfig/iptables</div><div class="line"># 在打开的文件中加入如下内容</div><div class="line">-A INPUT -p tcp -m state --state NEW -m tcp --dport 8200 -j ACCEPT</div><div class="line"># 重启防火墙</div><div class="line">service iptables restart</div></pre></td></tr></table></figure></p>
 <p>启动工作节点，在启动master节点<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">su elasticsearch</div><div class="line"># 分别切换到两个es的安装目录，启动</div><div class="line">./bin/elasticsearch</div></pre></td></tr></table></figure></p>
 <p>成功启动后控制台打印</p>
-<p><img src="http://p0zwh057c.bkt.clouddn.com/blog/180711/IEG14bC7k9.png?imageslim" alt="mark"></p>
+<p><img src="https://shaoxia-img-1256191696.cos.ap-chengdu.myqcloud.com/blog/180711/IEG14bC7k9.png?imageslim" alt="mark"></p>
 <p>启动head插件，在浏览器访问</p>
-<p><img src="http://p0zwh057c.bkt.clouddn.com/blog/180711/20Jh52JmjJ.png?imageslim" alt="mark"></p>
+<p><img src="https://shaoxia-img-1256191696.cos.ap-chengdu.myqcloud.com/blog/180711/20Jh52JmjJ.png?imageslim" alt="mark"></p>
 
       
     </div>
@@ -600,8 +600,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/04/03/eclipse非maven的web项目导入myeclipse并添加项目依赖/" rel="next" title="eclipse非maven_web项目导入myeclipse">
-                <i class="fa fa-chevron-left"></i> eclipse非maven_web项目导入myeclipse
+              <a href="/2018/03/15/APM(4)javassist结合javaagent使用/" rel="next" title="APM(4)javassist结合javaagent使用">
+                <i class="fa fa-chevron-left"></i> APM(4)javassist结合javaagent使用
               </a>
             
           </div>
@@ -696,7 +696,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -781,7 +781,7 @@
     <footer id="footer" class="footer">
       <div class="footer-inner">
         ﻿<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -824,7 +824,7 @@
 <div class="theme-info">
   <div class="powered-by"></div>
   <i class="fa fa-pencil"></i>
-  <span class="post-count">博客全站共25.1k字</span>
+  <span class="post-count">博客全站共24.5k字</span>
 </div>
 
         

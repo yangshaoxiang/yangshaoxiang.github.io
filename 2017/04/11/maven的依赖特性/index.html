@@ -89,17 +89,17 @@
 <meta property="og:site_name" content="shaoxiang博客">
 <meta property="og:description" content="maven的依赖特性很多很杂，这里大概总结一下，maven的依赖特性主要是依赖范围和传递依赖，前者会影响后者，这篇文章会介绍传递依赖的传递原则，出现冲突传递依赖默认如何处理，我们自己可以怎么处理等内容">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://p0zwh057c.bkt.clouddn.com/blog/180410/FGA05Li7fk.png?imageslim">
-<meta property="og:image" content="http://p0zwh057c.bkt.clouddn.com/blog/180410/d9Bicab8KG.png?imageslim">
-<meta property="og:image" content="http://p0zwh057c.bkt.clouddn.com/blog/180410/JDKb625jg1.png?imageslim">
-<meta property="og:image" content="http://p0zwh057c.bkt.clouddn.com/blog/180410/LA63FaJHAB.png?imageslim">
-<meta property="og:image" content="http://p0zwh057c.bkt.clouddn.com/blog/180410/B5dKlIKlDj.png?imageslim">
-<meta property="og:image" content="http://p0zwh057c.bkt.clouddn.com/blog/180410/lDl5gF4eAg.png?imageslim">
-<meta property="og:updated_time" content="2018-04-11T13:16:40.853Z">
+<meta property="og:image" content="https://shaoxia-img-1256191696.cos.ap-chengdu.myqcloud.com/blog/180410/FGA05Li7fk.png?imageslim">
+<meta property="og:image" content="https://shaoxia-img-1256191696.cos.ap-chengdu.myqcloud.com/blog/180410/d9Bicab8KG.png?imageslim">
+<meta property="og:image" content="https://shaoxia-img-1256191696.cos.ap-chengdu.myqcloud.com/blog/180410/JDKb625jg1.png?imageslim">
+<meta property="og:image" content="https://shaoxia-img-1256191696.cos.ap-chengdu.myqcloud.com/blog/180410/LA63FaJHAB.png?imageslim">
+<meta property="og:image" content="https://shaoxia-img-1256191696.cos.ap-chengdu.myqcloud.com/blog/180410/B5dKlIKlDj.png?imageslim">
+<meta property="og:image" content="https://shaoxia-img-1256191696.cos.ap-chengdu.myqcloud.com/blog/180410/lDl5gF4eAg.png?imageslim">
+<meta property="og:updated_time" content="2019-04-26T06:31:44.347Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="maven的依赖特性">
 <meta name="twitter:description" content="maven的依赖特性很多很杂，这里大概总结一下，maven的依赖特性主要是依赖范围和传递依赖，前者会影响后者，这篇文章会介绍传递依赖的传递原则，出现冲突传递依赖默认如何处理，我们自己可以怎么处理等内容">
-<meta name="twitter:image" content="http://p0zwh057c.bkt.clouddn.com/blog/180410/FGA05Li7fk.png?imageslim">
+<meta name="twitter:image" content="https://shaoxia-img-1256191696.cos.ap-chengdu.myqcloud.com/blog/180410/FGA05Li7fk.png?imageslim">
 
 
 
@@ -442,22 +442,22 @@
 <blockquote>
 <p>compile<br>这是默认范围。如果没有指定，就会使用该依赖范围。编译依赖对项目所有的classpath都可用。此外，编译依赖会传递到依赖的项目。<br>provided<br>和compile范围很类似，但provided范围表明你希望由JDK或者某个容器提供运行时依赖。例如，当使用Java EE构建一个web应用时，你会设置对Servlet API和相关的Java EE APIs的依赖范围为provided，因为web容器提供了运行时的依赖。provided依赖只对编译和测试classpath有效，并且不能传递。<br>runtime<br>runtime范围表明编译时不需要依赖，而只在运行时依赖。此依赖范围对运行和测试classpath有效，对编译classpath无效。<br>test<br>test范围表明使用此依赖范围的依赖，只在编译测试代码和运行测试的时候需要，应用的正常运行不需要此类依赖。<br>system<br>系统范围与provided类似，不过你必须显式指定一个本地系统路径的JAR，此类依赖应该一直有效，Maven也不会去仓库中寻找它。</p>
 </blockquote>
-<p><img src="http://p0zwh057c.bkt.clouddn.com/blog/180410/FGA05Li7fk.png?imageslim" alt="mark"></p>
+<p><img src="https://shaoxia-img-1256191696.cos.ap-chengdu.myqcloud.com/blog/180410/FGA05Li7fk.png?imageslim" alt="mark"></p>
 <h3 id="传递依赖"><a href="#传递依赖" class="headerlink" title="传递依赖"></a>传递依赖</h3><p>传递依赖基于要传递的依赖scope为compile,runtime，system的依赖范围，scope为test和provided不会传递依赖 ，此外传递性依赖的嵌套深度没有任何限制，只是在出现循环依赖时会报错。下图是传递依赖时的scope变化，第一列表示直接依赖，第一行表示间接依赖的Scope</p>
 <blockquote>
 <p>举例说明:<br>A–&gt;B–&gt;C。当前项目为A，A依赖于B，B依赖于C。知道B在A项目中的scope，那么怎么知道C在A中的scope呢？<br>答案是：<br>当C是test或者provided时，C直接被丢弃，A不依赖C；<br>否则A依赖C，C的scope继承于B的scope。</p>
 </blockquote>
-<p><img src="http://p0zwh057c.bkt.clouddn.com/blog/180410/d9Bicab8KG.png?imageslim" alt="mark"></p>
+<p><img src="https://shaoxia-img-1256191696.cos.ap-chengdu.myqcloud.com/blog/180410/d9Bicab8KG.png?imageslim" alt="mark"></p>
 <h4 id="基本传递依赖"><a href="#基本传递依赖" class="headerlink" title="基本传递依赖"></a>基本传递依赖</h4><p>传递依赖指的是A依赖B，B依赖C，D，F等，那么A也同时依赖C,D,F</p>
-<p><img src="http://p0zwh057c.bkt.clouddn.com/blog/180410/JDKb625jg1.png?imageslim" alt="mark"></p>
+<p><img src="https://shaoxia-img-1256191696.cos.ap-chengdu.myqcloud.com/blog/180410/JDKb625jg1.png?imageslim" alt="mark"></p>
 <h4 id="传递依赖冲突-依赖调解"><a href="#传递依赖冲突-依赖调解" class="headerlink" title="传递依赖冲突-依赖调解"></a>传递依赖冲突-依赖调解</h4><p> 当项目中出现多个版本构件依赖的情形，依赖调解决定最终应该使用哪个版本，主要依赖于两个原则(注意优先第一个原则，两个原则有优先级之分)，这是maven自动进行的</p>
 <ol>
 <li><p>短路径优先原则<br>A依赖B工程，B工程依赖C-1.jar,A工程依赖C-2.jar,那么A工程最终依赖的是C-2.jar，因为这条依赖链最短</p>
-<p><img src="http://p0zwh057c.bkt.clouddn.com/blog/180410/LA63FaJHAB.png?imageslim" alt="mark"></p>
+<p><img src="https://shaoxia-img-1256191696.cos.ap-chengdu.myqcloud.com/blog/180410/LA63FaJHAB.png?imageslim" alt="mark"></p>
 </li>
 <li><p>第一声明原则<br>A依赖B工程，B工程依赖S-1.jar,A工程依赖C工程，C工程依赖S-2.jar,那么A工程最终依赖的是S-1.jar，因为在依赖链长度相同时，A工程在pom文件中先声明依赖B工程，先声明指的是在A工程pom文件中的dependencies标签下，B工程的dependency写在C工程前面</p>
-<p><img src="http://p0zwh057c.bkt.clouddn.com/blog/180410/B5dKlIKlDj.png?imageslim" alt="mark"></p>
-<p><img src="http://p0zwh057c.bkt.clouddn.com/blog/180410/lDl5gF4eAg.png?imageslim" alt="mark"></p>
+<p><img src="https://shaoxia-img-1256191696.cos.ap-chengdu.myqcloud.com/blog/180410/B5dKlIKlDj.png?imageslim" alt="mark"></p>
+<p><img src="https://shaoxia-img-1256191696.cos.ap-chengdu.myqcloud.com/blog/180410/lDl5gF4eAg.png?imageslim" alt="mark"></p>
 </li>
 </ol>
 <h4 id="exclusions元素排除依赖"><a href="#exclusions元素排除依赖" class="headerlink" title="exclusions元素排除依赖"></a>exclusions元素排除依赖</h4><p>当项目中某个传递依赖我们不需要时可以使用<exclusion>标签进行排除<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">     <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">     <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>dubbo<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">     <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.5.3<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line">     <span class="tag">&lt;<span class="name">exclusions</span>&gt;</span></div><div class="line">         <span class="tag">&lt;<span class="name">exclusion</span>&gt;</span></div><div class="line">             <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">             <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">         <span class="tag">&lt;/<span class="name">exclusion</span>&gt;</span></div><div class="line">     <span class="tag">&lt;/<span class="name">exclusions</span>&gt;</span></div><div class="line"> <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div></pre></td></tr></table></figure></exclusion></p>
@@ -622,7 +622,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -707,7 +707,7 @@
     <footer id="footer" class="footer">
       <div class="footer-inner">
         ﻿<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -750,7 +750,7 @@
 <div class="theme-info">
   <div class="powered-by"></div>
   <i class="fa fa-pencil"></i>
-  <span class="post-count">博客全站共25.1k字</span>
+  <span class="post-count">博客全站共24.5k字</span>
 </div>
 
         
